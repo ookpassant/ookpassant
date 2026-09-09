@@ -1,0 +1,28 @@
+# chelsea hopkins
+
+> chartered pr practitioner and developer in gloucestershire, uk. comms lead at fasthosts (ionos group) by day. builds mobile apps and websites by night, and for clients through hopkins action.
+
+## what i do
+
+- communications: pr, social, crisis comms, ghostwriting. chartered pr practitioner (cipr), mcim.
+- app development: mobile apps in expo and react native, shipped to the app store and google play. web apps in next.js and supabase.
+- web development: wordpress and woocommerce sites that businesses run on. bookings, memberships, stock control, dealer maps. building on wordpress since 2008.
+- product analytics: posthog wired in from day one.
+
+## availability
+
+available for app and web development work through hopkins action: https://hopkinsaction.com/
+email: hello@chelseahopkins.co.uk
+
+## things i've built
+
+- whimsee: a location-based app for hiding small notes where you stand. live on ios and android. https://whimsee.co.uk/
+- jackdaw: ai social drafting with a human veto. closed beta. https://heyjackdaw.com/
+- pressed-hog: a wordpress plugin that wires posthog into wordpress. https://github.com/ookpassant/pressed-hog
+- courser-calculator, marshpoint, minimum-viable-exercise and more: https://github.com/ookpassant
+
+## elsewhere
+
+- site: https://chelseahopkins.co.uk/
+- github: https://github.com/ookpassant
+- linkedin: https://www.linkedin.com/in/chelsea-hopkins-50822811a/
