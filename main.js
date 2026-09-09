@@ -35,7 +35,7 @@
   });
 
   if (!reduce && 'IntersectionObserver' in window) {
-    var targets = document.querySelectorAll('.chapter-head, .about-photo, .about-text, .hire-text, .hire .diet, .plate, .bleed, .sightings > li, .history > li, .sub, .seen, .creds, .prose, .range, .lesser');
+    var targets = document.querySelectorAll('.chapter-head, .about-photo, .about-text, .hire-text, .hire .diet, .plate, .bleed, .sightings > li, .history > li, .notes > li, .sub, .seen, .creds, .prose, .range, .lesser');
     targets.forEach(function (el, i) {
       el.classList.add('observe');
       el.style.transitionDelay = (i % 6) * 60 + 'ms';
