@@ -311,6 +311,45 @@ dd:last-child { margin-bottom: 0; }
 .behaviour li { padding: .6rem 0; border-bottom: 1px dashed var(--line); }
 .behaviour li::before { content: "◆"; color: var(--amber); font-size: .5em; vertical-align: .35em; margin-right: .8em; }
 
+/* ---------- life history ---------- */
+
+.history {
+  list-style: none; margin: 0; padding: 0;
+  border-top: 1px solid var(--line);
+}
+.history li {
+  display: grid; grid-template-columns: 9rem 1fr; gap: 1.5rem;
+  padding: 1.5rem 0; border-bottom: 1px solid var(--line);
+}
+.history .when { font-family: var(--mono); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--amber); padding-top: .55rem; white-space: nowrap; }
+.history h3 {
+  font-family: var(--display); font-weight: 500; font-variation-settings: "opsz" 72;
+  font-size: 1.5rem; line-height: 1.15; letter-spacing: -.015em; margin: 0 0 .5rem;
+}
+.history h3 span { display: block; font-family: var(--body); font-weight: 400; font-size: 1rem; color: var(--muted); letter-spacing: 0; margin-top: .15rem; }
+.history p { margin: 0; color: var(--ink-2); max-width: var(--measure); text-wrap: pretty; }
+@media (max-width: 40rem) {
+  .history li { grid-template-columns: 1fr; gap: .4rem; }
+  .history .when { padding-top: 0; }
+}
+
+.sub {
+  font-family: var(--mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted); font-weight: 500;
+  margin: 3rem 0 1rem;
+}
+.sub::before { content: "◆ "; color: var(--amber); }
+@media (min-width: 48rem) { .sub, .seen, .creds { margin-left: 5rem; } }
+
+.seen { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+@media (min-width: 48rem) { .seen { grid-template-columns: 1fr 1fr; } }
+.seen li { background: var(--paper); padding: 1.1rem 1.2rem; color: var(--ink-2); text-wrap: pretty; }
+.seen li b { display: block; font-family: var(--display); font-weight: 500; font-size: 1.15rem; color: var(--ink); letter-spacing: -.01em; margin-bottom: .25rem; }
+
+.creds { list-style: none; margin: 0; padding: 0; columns: 2; column-gap: 2rem; color: var(--ink-2); }
+.creds li { break-inside: avoid; padding: .35rem 0; border-bottom: 1px dashed var(--line); }
+@media (max-width: 40rem) { .creds { columns: 1; } }
+
 .range { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
 @media (min-width: 48rem) { .range { margin-left: 5rem; } }
 .range li { border-bottom: 1px solid var(--line); }

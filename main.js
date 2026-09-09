@@ -3,7 +3,7 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (!reduce && 'IntersectionObserver' in window) {
-    var targets = document.querySelectorAll('.chapter-head, .plate, .bleed, .sightings > li, .prose, .diet, .behaviour, .range, .lesser');
+    var targets = document.querySelectorAll('.chapter-head, .plate, .bleed, .sightings > li, .history > li, .sub, .seen, .creds, .prose, .diet, .behaviour, .range, .lesser');
     targets.forEach(function (el, i) {
       el.classList.add('observe');
       el.style.transitionDelay = (i % 6) * 60 + 'ms';
