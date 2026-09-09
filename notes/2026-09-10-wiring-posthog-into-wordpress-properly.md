@@ -3,7 +3,7 @@ title: wiring posthog into wordpress properly
 summary: consent that actually gates, woocommerce events that don't double-count, a first-party proxy that can't be abused, and analytics inside wp-admin.
 ---
 
-i put posthog on everything i make. for years the wordpress half of that was a snippet pasted into a theme, which works until someone changes the theme, or asks about cookies, or wants to know what the site did last week without logging into a second dashboard. [pressed-hog](https://github.com/ookpassant/pressed-hog) is the plugin i wrote so i'd stop doing it badly.
+i found posthog this year, building [whimsee](https://whimsee.co.uk), and liked it enough that i wanted it on the wordpress sites i look after too. the existing options were a snippet pasted into a theme, which works until someone changes the theme, or asks about cookies, or wants to know what the site did last week without logging into a second dashboard. so i wrote [pressed-hog](https://github.com/ookpassant/pressed-hog).
 
 it's a hedgehog with a wordpress plugin in it. here is what it turned out to need.
 
