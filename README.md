@@ -60,7 +60,6 @@ things i've left out in the open.
 | specimen | field notes |
 |---|---|
 | [**pressed-hog**](https://github.com/ookpassant/pressed-hog) | a hedgehog with a wordpress plugin in it. wires posthog into wordpress properly: session replay, surveys, woocommerce events, consent modes, a reverse proxy that ad blockers don't clock, and analytics inside wp-admin. |
-| [**hogfork**](https://github.com/ookpassant/hogfork) | not a fork. i wanted the posthog forum to feel like a community rather than a support desk, so i redesigned it and sent the code upstream as [an open pr](https://github.com/PostHog/posthog.com/pull/18683). |
 | [**courser-calculator**](https://github.com/ookpassant/courser-calculator) | horse genetics for a horse rpg i play. rolls four foals from two parents, then lists every foal the pairing could ever produce. runs entirely in your browser. [have a go](https://ook.monster/courser-calc). |
 | [**marshpoint**](https://github.com/ookpassant/marshpoint) | marshal signups for motorsport events, self-hosted. invite links, licence uploads, team rosters, and a dashboard for whoever's holding the clipboard. |
 | [**minimum-viable-exercise**](https://github.com/ookpassant/minimum-viable-exercise) | a claude code skill. while claude works, it sets me a quick desk workout and checks afterwards whether i did it. |
