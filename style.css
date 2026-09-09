@@ -462,7 +462,7 @@ dd:last-child { margin-bottom: 0; }
 .note-body blockquote { margin: 1.5em 0; padding: .2em 0 .2em 1.2em; border-left: 2px solid var(--amber); color: var(--ink-2); font-style: italic; }
 .note-body code { font-family: var(--mono); font-size: .86em; background: var(--paper-2); padding: .1em .35em; border: 1px solid var(--line); }
 .note-body pre { background: var(--paper-2); border: 1px solid var(--line); padding: 1rem 1.2rem; overflow-x: auto; font-size: .9em; line-height: 1.5; }
-.note-body pre code { background: none; border: 0; padding: 0; font-size: 1em; }
+.note-body pre code { background: none; border: 0; padding: 0; font-size: 1em; white-space: pre-wrap; overflow-wrap: anywhere; }
 .note-body img { border: 1px solid var(--line); padding: .4rem; background: var(--paper-2); }
 .note-body hr { border: 0; border-top: 1px dashed var(--line); margin: 2.5em 0; }
 .note-body a { text-decoration-thickness: 1.5px; }
