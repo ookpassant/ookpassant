@@ -138,8 +138,22 @@ h1 {
 h1::after { content: "."; color: var(--amber); }
 
 .lede { font-size: clamp(1.05rem, 1rem + .5vw, 1.35rem); max-width: 42ch; margin: 0 0 .6rem; line-height: 1.4; text-wrap: pretty; }
-.also { font-style: italic; color: var(--ink-2); margin: 0; }
-.also em { font-style: normal; color: var(--amber); }
+.cta { margin: 1.1rem 0 0; }
+.cta a {
+  display: inline-block;
+  font-family: var(--mono); font-size: .74rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--paper); background: var(--ink);
+  padding: .8rem 1.1rem; text-decoration: none;
+  border: 1px solid transparent;
+  transition: background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease);
+}
+.cta a::after { content: " →"; color: var(--amber-2); }
+.cta a:hover { background: var(--amber); color: var(--ink); }
+.cta a:hover::after { color: var(--ink); }
+@media (prefers-color-scheme: dark) {
+  .cta a { color: #16140f; background: #f1eadb; }
+  .cta a::after { color: var(--amber); }
+}
 br.wide { display: none; }
 @media (min-width: 60rem) { br.wide { display: inline; } .lede { max-width: none; } }
 
@@ -203,6 +217,41 @@ main { position: relative; z-index: 1; }
   margin: 0;
 }
 .chapter-head .note { grid-column: 2; color: var(--muted); font-style: italic; margin: .75rem 0 0; max-width: var(--measure); }
+
+/* ---------- about ---------- */
+
+.about { display: grid; gap: 2rem; align-items: start; }
+@media (min-width: 60rem) { .about { grid-template-columns: 5fr 7fr; gap: 3.5rem; } }
+.about-photo { margin: 0; border: 1px solid var(--line); padding: .5rem; background: var(--paper-2); color: var(--muted); }
+.about-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 30%; }
+.about-photo figcaption { padding: .8rem .25rem .3rem; }
+@media (min-width: 60rem) { .about-photo { position: sticky; top: 2rem; } }
+
+.lead {
+  font-family: var(--display); font-weight: 400; font-variation-settings: "opsz" 48;
+  font-size: clamp(1.35rem, 1.1rem + 1vw, 1.85rem); line-height: 1.3; letter-spacing: -.01em;
+  margin: 0 0 1.25rem; text-wrap: pretty;
+}
+.about-text p { max-width: var(--measure); text-wrap: pretty; }
+.about-text p:not(.lead) { margin: 0 0 1rem; color: var(--ink-2); }
+
+.habits { list-style: none; margin: 2rem 0 0; padding: 0; border-top: 1px solid var(--line); }
+.habits li { padding: .55rem 0; border-bottom: 1px dashed var(--line); font-family: var(--display); font-size: 1.15rem; }
+.habits li::before { content: "◆"; color: var(--amber); font-size: .5em; vertical-align: .35em; margin-right: .8em; }
+
+/* ---------- for hire ---------- */
+
+.hire { display: grid; gap: 2.5rem; }
+@media (min-width: 60rem) { .hire { grid-template-columns: 7fr 5fr; gap: 3.5rem; } }
+.hire-text dl { margin: 1.5rem 0 0; }
+.hire-text dd { max-width: var(--measure); color: var(--ink-2); }
+.contact {
+  margin: 2rem 0 0; padding: 1.25rem 1.4rem;
+  border: 1px solid var(--amber); background: color-mix(in oklab, var(--amber) 8%, var(--paper));
+  font-family: var(--display); font-size: 1.2rem; line-height: 1.4; max-width: var(--measure);
+}
+.contact a { text-decoration-thickness: 2px; }
+.hire .diet { align-content: start; margin-left: 0; }
 
 /* ---------- plates ---------- */
 

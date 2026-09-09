@@ -13,6 +13,7 @@ chartered PR person who'd rather ship the thing than write the deck about it.
 
 <p align="center">
   <a href="https://chelseahopkins.co.uk">chelseahopkins.co.uk</a> ·
+  <a href="https://hopkinsaction.com">hopkins action</a> ·
   <a href="https://linkedin.com/in/chelsea-hopkins-50822811a">linkedin</a> ·
   <a href="https://whimsee.co.uk">whimsee</a> ·
   <a href="https://heyjackdaw.com">jackdaw</a>

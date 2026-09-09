@@ -2,8 +2,12 @@
 (function () {
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  document.querySelectorAll('a.mail').forEach(function (a) {
+    a.href = 'mailto:' + a.getAttribute('data-u') + '@' + a.getAttribute('data-d');
+  });
+
   if (!reduce && 'IntersectionObserver' in window) {
-    var targets = document.querySelectorAll('.chapter-head, .plate, .bleed, .sightings > li, .history > li, .sub, .seen, .creds, .prose, .diet, .behaviour, .range, .lesser');
+    var targets = document.querySelectorAll('.chapter-head, .about-photo, .about-text, .hire-text, .hire .diet, .plate, .bleed, .sightings > li, .history > li, .sub, .seen, .creds, .prose, .range, .lesser');
     targets.forEach(function (el, i) {
       el.classList.add('observe');
       el.style.transitionDelay = (i % 6) * 60 + 'ms';
