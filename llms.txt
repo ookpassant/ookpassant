@@ -1,6 +1,6 @@
 # chelsea hopkins
 
-> chartered pr practitioner and developer in gloucestershire, uk. comms lead at fasthosts (ionos group) by day. builds mobile apps and websites by night, and for clients through hopkins action.
+> communications lead and chartered pr practitioner in gloucestershire, uk. runs social and pr at fasthosts (ionos group). builds communities, video, a newsletter, and the occasional app.
 
 ## what i do
 
@@ -9,9 +9,9 @@
 - web development: wordpress and woocommerce sites that businesses run on. bookings, memberships, stock control, dealer maps. building on wordpress since 2008.
 - product analytics: posthog wired in from day one.
 
-## availability
+## on the side
 
-available for app and web development work through hopkins action: https://hopkinsaction.com/
+app and web development for other people, evenings and weekends, through hopkins action: https://hopkinsaction.com/
 
 ## things i've built
 
