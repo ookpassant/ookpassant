@@ -1,6 +1,7 @@
 ---
 title: how whimsee knows you're there
 summary: a postgis distance check inside one database function, and a table that nobody is allowed to write to.
+category: build
 ---
 
 [whimsee](https://whimsee.co.uk) is an app for hiding a small note where you stand. someone else can only read it by walking to the same spot. that's the whole product, and it lives or dies on one question. how does the server know you're actually there?

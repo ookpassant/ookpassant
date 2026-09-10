@@ -11,7 +11,9 @@
 //   summary: one line, shown in lists.
 //   ---
 //
-// optional front matter: date (overrides the filename), slug, draft: true.
+// optional front matter: date (overrides the filename), slug, draft: true,
+// category (shown instead of the date; default "note"), order (lower sorts
+// first; notes without one come after, newest first).
 
 const fs = require('fs');
 const path = require('path');
@@ -48,8 +50,9 @@ const notes = fs.existsSync(notesDir)
       const date = data.date || (m ? m[1] : null);
       const slug = data.slug || (m ? m[2] : f.replace(/\.md$/, ''));
       if (!date) throw new Error(`note ${f} needs a date in its filename (YYYY-MM-DD-slug.md) or front matter`);
-      return { file: f, slug, date, title: data.title || slug.replace(/-/g, ' '), summary: data.summary || '', html: md.render(body), url: `/notes/${slug}/` };
-    }).filter(Boolean).sort((a, b) => b.date.localeCompare(a.date))
+      const order = data.order !== undefined ? Number(data.order) : Infinity;
+      return { file: f, slug, date, order, category: data.category || 'note', title: data.title || slug.replace(/-/g, ' '), summary: data.summary || '', html: md.render(body), url: `/notes/${slug}/` };
+    }).filter(Boolean).sort((a, b) => (a.order - b.order) || b.date.localeCompare(a.date) || a.file.localeCompare(b.file))
   : [];
 
 // ---------- copy static files ----------
@@ -73,13 +76,13 @@ copy(ROOT, OUT);
 const noteTpl = fs.readFileSync(path.join(ROOT, 'templates', 'note.html'), 'utf8');
 const listTpl = fs.readFileSync(path.join(ROOT, 'templates', 'notes-index.html'), 'utf8');
 
-const item = (n) => `<li><a href="${n.url}"><span class="when">${nice(n.date)}</span><b>${esc(n.title)}</b>${n.summary ? `<p>${esc(n.summary)}</p>` : ''}</a></li>`;
+const item = (n) => `<li><a href="${n.url}"><span class="when">${esc(n.category)}</span><b>${esc(n.title)}</b>${n.summary ? `<p>${esc(n.summary)}</p>` : ''}</a></li>`;
 
 for (const n of notes) {
   const dir = path.join(OUT, 'notes', n.slug);
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, 'index.html'), fill(noteTpl, {
-    title: esc(n.title), summary: esc(n.summary), date: nice(n.date), iso: n.date,
+    title: esc(n.title), summary: esc(n.summary), date: nice(n.date), iso: n.date, category: esc(n.category),
     url: SITE + n.url, content: n.html,
   }));
 }
@@ -92,7 +95,7 @@ fs.writeFileSync(path.join(OUT, 'notes', 'index.html'), fill(listTpl, {
 // ---------- homepage list ----------
 const indexPath = path.join(OUT, 'index.html');
 let index = fs.readFileSync(indexPath, 'utf8');
-const latest = notes.slice(0, 5);
+const latest = notes;
 index = index.replace(/<!-- notes:start -->[\s\S]*?<!-- notes:end -->/,
   latest.length
     ? `<ol class="notes">${latest.map(item).join('\n')}</ol>${notes.length > latest.length ? `<p class="prose small"><a href="/notes/">all ${notes.length} notes</a></p>` : ''}`

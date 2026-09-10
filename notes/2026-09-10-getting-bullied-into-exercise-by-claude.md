@@ -1,6 +1,7 @@
 ---
 title: getting bullied into exercise by claude
 summary: a claude code skill is a markdown file. this one makes claude set you a desk workout while it works, then check up on you.
+category: build
 ---
 
 i sit down to write code and stand up several hours later. [minimum-viable-exercise](https://github.com/ookpassant/minimum-viable-exercise) is a claude code skill that makes the tool i'm sitting in front of do something about that.

@@ -1,6 +1,7 @@
 ---
 title: how this site is put together
 summary: one html file on github pages, fonts served from the site itself, analytics with no cookies, and a short script that turns markdown into these notes.
+category: build
 ---
 
 this site used to be wordpress. one page, a theme, a page builder, a hosting bill, and a plugin update every time i looked at it. all that for a page whose job is to say who i am and how to reach me.

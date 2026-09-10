@@ -1,6 +1,7 @@
 ---
 title: a human veto on ai social posts
 summary: how jackdaw drafts in your voice, waits for you, and publishes to ten platforms without a single platform adapter.
+category: build
 ---
 
 [jackdaw](https://heyjackdaw.com) drafts social posts, shows them to you, and does nothing until you say so. nobody's coming to run your socials, so it does the writing and you keep the veto. this is how that's built, including the two places where the neat version of the story isn't quite true.

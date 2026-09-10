@@ -1,6 +1,7 @@
 ---
 title: wiring posthog into wordpress properly
 summary: consent that really gates, an order event that doesn't double-count, a proxy that can't be turned against you, and analytics inside wp-admin.
+category: build
 ---
 
 i found posthog this year, building [whimsee](https://whimsee.co.uk), and liked it enough that i wanted it on the wordpress sites i look after too. the existing options amounted to a snippet pasted into a theme. that works right up until someone changes the theme, or asks about cookies, or wants to know what the site did last week without logging into a second dashboard. so i wrote [pressed-hog](https://github.com/ookpassant/pressed-hog).

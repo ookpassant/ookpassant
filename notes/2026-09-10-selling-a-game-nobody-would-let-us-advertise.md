@@ -3,6 +3,8 @@ title: selling a game nobody would let us advertise
 date: 2026-09-10
 summary: polyarmory launched free, with no budget, a predecessor restricted on steam, and a release date that kept moving because of real events. 20,000 downloads in ten days and a pc gamer feature anyway.
 slug: selling-a-game-nobody-would-let-us-advertise
+category: campaign
+order: 1
 ---
 
 polyarmory: high calibre love is a free fps and dating sim about a prepper who takes a pill and starts flirting with his guns. underneath the premise it's a satire about gun culture, isolated men and the pipelines that find them. it started as a seven-day game jam entry and turned into fourteen months of work from a team scattered across several time zones.
