@@ -7,19 +7,13 @@ horse goes to the glue factory (greyed out on the page — nothing is deleted).
 board offers, in order. `horses/` is written by the workflow and shouldn't be
 edited by hand.
 
-## the bases
+## the base
 
-The three files in `bases/` are **placeholders** — grey boxes at roughly the
-right proportions. Replace them with the charcoal horses, same filenames:
+`bases/horse.png` is a **placeholder** — a grey box at roughly the right
+proportions. Replace it with the charcoal horse, same filename.
 
-```
-bases/grazing.png     head down, grazing
-bases/bucking.png     kicking up
-bases/charging.png    coming at you
-```
-
-Sizes needn't match each other. The board reads each file's dimensions and
-shapes the canvas to suit.
+Any size, any shape. The board reads the file's own dimensions and shapes the
+canvas to suit, so a tall drawing stays tall.
 
 ## preparing a scan
 
@@ -28,7 +22,7 @@ the "white" sits over the colour underneath like a film. Run each one through:
 
 ```sh
 npm i --no-save sharp
-node paddock/prepare.js ~/scans/grazing.jpg paddock/bases/grazing.png
+node paddock/prepare.js ~/scans/horse.jpg paddock/bases/horse.png
 ```
 
 Paper to pure white, marks deepened, margin trimmed, size capped. Soft brush
@@ -38,7 +32,7 @@ clip art.
 If a grey film survives, raise `PAPER` in that script. If faint brushwork
 disappears, lower it.
 
-## adding a fourth horse
+## adding a second horse
 
 Drop the png in `bases/` and add a line to `bases.json`:
 
@@ -46,8 +40,9 @@ Drop the png in `bases/` and add a line to `bases.json`:
 { "id": "rearing", "file": "rearing.png", "name": "up on its back legs" }
 ```
 
-`id` is recorded against every submission, so keep it stable once it's live.
-`name` shows under the thumbnail.
+A chooser appears on the board as soon as there's more than one; with a single
+base it stays hidden. `id` is recorded against every submission, so keep it
+stable once it's live. `name` shows under the thumbnail.
 
 ## the clock
 

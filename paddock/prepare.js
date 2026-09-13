@@ -1,7 +1,7 @@
 // Turns a scan into a base the colouring board can use.
 //
 //   npm i --no-save sharp
-//   node paddock/prepare.js ~/scans/grazing.jpg paddock/bases/grazing.png
+//   node paddock/prepare.js ~/scans/horse.jpg paddock/bases/horse.png
 //
 // A scan comes in grey and slightly grubby: the paper is never quite white and
 // there's grain in the flat areas. That matters here because the board

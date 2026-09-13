@@ -1,5 +1,3 @@
 [
-  { "id": "grazing", "file": "grazing.png", "name": "head down, grazing" },
-  { "id": "bucking", "file": "bucking.png", "name": "kicking up" },
-  { "id": "charging", "file": "charging.png", "name": "coming at you" }
+  { "id": "horse", "file": "horse.png", "name": "the horse" }
 ]

@@ -8,6 +8,14 @@
 .colour-page .note-main > h1,
 .colour-page .note-main > .prose { max-width: 46rem; }
 
+.colour-page .lede {
+  font-family: var(--display);
+  font-size: clamp(1.3rem, 1.1rem + 1vw, 1.75rem);
+  font-weight: 500;
+  line-height: 1.25;
+  margin: 0 0 1.25rem;
+}
+
 .desk {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 19rem;
@@ -90,6 +98,10 @@
   gap: 1rem;
 }
 
+/* A class rule with display:flex beats the [hidden] attribute's display:none
+   from the UA sheet, so hiding one of these needs saying twice. */
+.tools[hidden] { display: none; }
+
 .tools {
   border: 1px solid var(--line);
   padding: .85rem 1rem 1rem;
@@ -167,7 +179,7 @@
 
 .bases {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(4.5rem, 1fr));
   gap: .5rem;
 }
 

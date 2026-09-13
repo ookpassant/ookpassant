@@ -414,6 +414,9 @@ async function boot() {
   }
   if (!Array.isArray(bases) || !bases.length) return say('no horses in here yet.', 'bad');
 
+  // One base doesn't need a chooser.
+  if (bases.length < 2) $('pick-a-horse').hidden = true;
+
   const picker = $('bases');
   bases.forEach((entry, i) => {
     const b = document.createElement('button');
