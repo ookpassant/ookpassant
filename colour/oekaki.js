@@ -2,15 +2,21 @@
 //
 // Two layers. The paint layer is a plain canvas you draw on. The lineart sits
 // on top of it, composited with multiply, so white in the base goes transparent
-// and only the black lines survive — which means the base can be any png with a
-// white background and the lines always stay on top of the colour.
+// and only the drawn marks survive. That means brushwork can be as rough as you
+// like — the lines always stay on top of the colour, and you can scribble past
+// an edge without burying it.
+//
+// The bases are brush drawings, so the lines are open in places and the bucket
+// will run out through a gap. That's expected; the brush is the main tool here.
 //
 // Set these two after deploying the worker (see worker/README.md).
-const WORKER = 'https://pound.ookpassant.workers.dev';
+const WORKER = 'https://paddock.ookpassant.workers.dev';
 const TURNSTILE_SITE_KEY = '';
 
-const BASE = '/pound/base.png';
-const SIZE = 800;
+// Keeps the undo stack affordable on a phone: a tall base gets scaled down so
+// no canvas is more than this many pixels.
+const MAX_PIXELS = 800_000;
+const UNDO_DEPTH = 10;
 
 // A palette that suits the guide: paper and inks, then coats, then a few brights.
 const SWATCHES = [
@@ -27,9 +33,10 @@ const lines = $('lines');
 const pctx = paint.getContext('2d', { willReadFrequently: true });
 const lctx = lines.getContext('2d', { willReadFrequently: true });
 
-paint.width = paint.height = lines.width = lines.height = SIZE;
-
 const state = {
+  base: null,
+  w: 0,
+  h: 0,
   tool: 'brush',
   colour: '#c9962e',
   size: 18,
@@ -42,10 +49,8 @@ const state = {
 
 // ---------- history ----------
 
-const UNDO_DEPTH = 12;
-
 function snapshot() {
-  state.undo.push(pctx.getImageData(0, 0, SIZE, SIZE));
+  state.undo.push(pctx.getImageData(0, 0, state.w, state.h));
   if (state.undo.length > UNDO_DEPTH) state.undo.shift();
   state.redo.length = 0;
   refreshHistory();
@@ -59,7 +64,7 @@ function refreshHistory() {
 function undo() {
   const prev = state.undo.pop();
   if (!prev) return;
-  state.redo.push(pctx.getImageData(0, 0, SIZE, SIZE));
+  state.redo.push(pctx.getImageData(0, 0, state.w, state.h));
   pctx.putImageData(prev, 0, 0);
   refreshHistory();
 }
@@ -67,7 +72,7 @@ function undo() {
 function redo() {
   const next = state.redo.pop();
   if (!next) return;
-  state.undo.push(pctx.getImageData(0, 0, SIZE, SIZE));
+  state.undo.push(pctx.getImageData(0, 0, state.w, state.h));
   pctx.putImageData(next, 0, 0);
   refreshHistory();
 }
@@ -77,8 +82,8 @@ function redo() {
 function at(event) {
   const box = paint.getBoundingClientRect();
   return {
-    x: Math.round(((event.clientX - box.left) / box.width) * SIZE),
-    y: Math.round(((event.clientY - box.top) / box.height) * SIZE),
+    x: Math.round(((event.clientX - box.left) / box.width) * state.w),
+    y: Math.round(((event.clientY - box.top) / box.height) * state.h),
   };
 }
 
@@ -100,32 +105,38 @@ function stroke(from, to) {
 
 // ---------- bucket ----------
 
+function hexToRgb(hex) {
+  const n = parseInt(hex.slice(1), 16);
+  return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
+}
+
 /**
  * Fills against what you can actually see, not against the paint layer alone —
  * otherwise every fill would spill straight through the lineart, which is
  * transparent as far as the paint layer is concerned.
  */
 function bucket(start) {
-  if (start.x < 0 || start.y < 0 || start.x >= SIZE || start.y >= SIZE) return;
+  const { w, h } = state;
+  if (start.x < 0 || start.y < 0 || start.x >= w || start.y >= h) return;
 
   const flat = document.createElement('canvas');
-  flat.width = flat.height = SIZE;
+  flat.width = w;
+  flat.height = h;
   const fctx = flat.getContext('2d', { willReadFrequently: true });
   fctx.fillStyle = '#ffffff';
-  fctx.fillRect(0, 0, SIZE, SIZE);
+  fctx.fillRect(0, 0, w, h);
   fctx.drawImage(paint, 0, 0);
   fctx.globalCompositeOperation = 'multiply';
   fctx.drawImage(lines, 0, 0);
 
-  const seen = fctx.getImageData(0, 0, SIZE, SIZE).data;
-  const out = pctx.getImageData(0, 0, SIZE, SIZE);
+  const seen = fctx.getImageData(0, 0, w, h).data;
+  const out = pctx.getImageData(0, 0, w, h);
   const px = out.data;
 
-  const head = (start.y * SIZE + start.x) * 4;
+  const head = (start.y * w + start.x) * 4;
   const target = [seen[head], seen[head + 1], seen[head + 2]];
-
   const fill = hexToRgb(state.colour);
-  const tolerance = 42 * 42 * 3;
+  const tolerance = 48 * 48 * 3;
 
   const matches = (i) => {
     const dr = seen[i] - target[0];
@@ -134,35 +145,56 @@ function bucket(start) {
     return dr * dr + dg * dg + db * db <= tolerance;
   };
 
-  const done = new Uint8Array(SIZE * SIZE);
-  const stack = [start.y * SIZE + start.x];
+  const done = new Uint8Array(w * h);
+  const stack = [start.y * w + start.x];
 
   while (stack.length) {
-    let cell = stack.pop();
+    const cell = stack.pop();
     if (done[cell]) continue;
+    const row = Math.floor(cell / w);
 
-    // walk left and right along this row, then push the rows above and below
-    const row = Math.floor(cell / SIZE);
     let left = cell;
-    while (left % SIZE > 0 && !done[left - 1] && matches((left - 1) * 4)) left--;
+    while (left % w > 0 && !done[left - 1] && matches((left - 1) * 4)) left--;
     let right = cell;
-    while (right % SIZE < SIZE - 1 && !done[right + 1] && matches((right + 1) * 4)) right++;
+    while (right % w < w - 1 && !done[right + 1] && matches((right + 1) * 4)) right++;
 
     for (let i = left; i <= right; i++) {
       done[i] = 1;
       const p = i * 4;
       px[p] = fill.r; px[p + 1] = fill.g; px[p + 2] = fill.b; px[p + 3] = 255;
-      if (row > 0) { const up = i - SIZE; if (!done[up] && matches(up * 4)) stack.push(up); }
-      if (row < SIZE - 1) { const down = i + SIZE; if (!done[down] && matches(down * 4)) stack.push(down); }
+      if (row > 0) { const up = i - w; if (!done[up] && matches(up * 4)) stack.push(up); }
+      if (row < h - 1) { const down = i + w; if (!done[down] && matches(down * 4)) stack.push(down); }
     }
   }
 
+  creep(done, px, fill, w, h);
   pctx.putImageData(out, 0, 0);
 }
 
-function hexToRgb(hex) {
-  const n = parseInt(hex.slice(1), 16);
-  return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
+/**
+ * Charcoal edges fade out over several pixels, so a fill that stops at the
+ * first dark pixel leaves a pale rind around every shape. This pushes the
+ * colour a couple of pixels further, under the line, where it doesn't show.
+ */
+function creep(done, px, fill, w, h) {
+  for (let pass = 0; pass < 2; pass++) {
+    const edge = [];
+    for (let i = 0; i < done.length; i++) {
+      if (done[i]) continue;
+      const x = i % w;
+      const y = (i / w) | 0;
+      if ((x > 0 && done[i - 1] === 1) || (x < w - 1 && done[i + 1] === 1) ||
+          (y > 0 && done[i - w] === 1) || (y < h - 1 && done[i + w] === 1)) {
+        edge.push(i);
+      }
+    }
+    for (const i of edge) {
+      done[i] = 2;
+      const p = i * 4;
+      px[p] = fill.r; px[p + 1] = fill.g; px[p + 2] = fill.b; px[p + 3] = 255;
+    }
+    for (const i of edge) done[i] = 1;
+  }
 }
 
 // ---------- events ----------
@@ -193,7 +225,6 @@ for (const type of ['pointerup', 'pointercancel', 'pointerleave']) {
   paint.addEventListener(type, () => { state.drawing = false; state.last = null; });
 }
 
-// tools
 for (const button of document.querySelectorAll('[data-tool]')) {
   button.addEventListener('click', () => {
     state.tool = button.dataset.tool;
@@ -204,9 +235,8 @@ for (const button of document.querySelectorAll('[data-tool]')) {
   });
 }
 
-// swatches
 const swatchBox = $('swatches');
-SWATCHES.forEach((hex, i) => {
+for (const hex of SWATCHES) {
   const b = document.createElement('button');
   b.type = 'button';
   b.className = 'swatch';
@@ -220,7 +250,7 @@ SWATCHES.forEach((hex, i) => {
     for (const s of swatchBox.children) s.setAttribute('aria-pressed', String(s === b));
   });
   swatchBox.append(b);
-});
+}
 
 $('custom').addEventListener('input', (event) => {
   state.colour = event.target.value;
@@ -236,16 +266,16 @@ $('undo').addEventListener('click', undo);
 $('redo').addEventListener('click', redo);
 
 $('clear').addEventListener('click', () => {
-  if (!confirm('Clear the whole thing and start again?')) return;
+  if (painted() && !confirm('Clear the whole thing and start again?')) return;
   snapshot();
-  pctx.clearRect(0, 0, SIZE, SIZE);
+  pctx.clearRect(0, 0, state.w, state.h);
 });
 
 document.addEventListener('keydown', (event) => {
   if (event.target.matches('input, textarea')) return;
   if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'z') {
     event.preventDefault();
-    event.shiftKey ? redo() : undo();
+    if (event.shiftKey) redo(); else undo();
   }
 });
 
@@ -253,10 +283,11 @@ document.addEventListener('keydown', (event) => {
 
 function flatten() {
   const out = document.createElement('canvas');
-  out.width = out.height = SIZE;
+  out.width = state.w;
+  out.height = state.h;
   const ctx = out.getContext('2d');
   ctx.fillStyle = '#fdf9f1';
-  ctx.fillRect(0, 0, SIZE, SIZE);
+  ctx.fillRect(0, 0, state.w, state.h);
   ctx.drawImage(paint, 0, 0);
   ctx.globalCompositeOperation = 'multiply';
   ctx.drawImage(lines, 0, 0);
@@ -265,7 +296,7 @@ function flatten() {
 
 $('download').addEventListener('click', () => {
   const a = document.createElement('a');
-  a.download = 'my-dog.png';
+  a.download = `${state.base ? state.base.id : 'horse'}.png`;
   a.href = flatten().toDataURL('image/png');
   a.click();
 });
@@ -280,32 +311,32 @@ function say(message, kind) {
   status.dataset.kind = kind || '';
 }
 
-function hasPaint() {
-  const { data } = pctx.getImageData(0, 0, SIZE, SIZE);
+function painted() {
+  if (!state.ready) return false;
+  const { data } = pctx.getImageData(0, 0, state.w, state.h);
   for (let i = 3; i < data.length; i += 4 * 97) if (data[i] > 8) return true;
   return false;
 }
 
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
-  if (!hasPaint()) return say("there's no colour on him yet.", 'bad');
+  if (!painted()) return say("there's no colour on them yet.", 'bad');
 
   const button = $('submit');
   button.disabled = true;
   say('sending…');
 
-  const turnstile = TURNSTILE_SITE_KEY && window.turnstile
-    ? window.turnstile.getResponse()
-    : '';
+  const turnstile = TURNSTILE_SITE_KEY && window.turnstile ? window.turnstile.getResponse() : '';
 
   try {
     const res = await fetch(`${WORKER}/submit`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
-        name: $('dog-name').value,
+        name: $('horse-name').value,
         artist: $('artist').value,
         link: $('link').value,
+        base: state.base ? state.base.id : '',
         turnstile,
         png: flatten().toDataURL('image/png'),
       }),
@@ -313,31 +344,90 @@ form.addEventListener('submit', async (event) => {
     const data = await res.json().catch(() => ({}));
     if (!res.ok || !data.ok) throw new Error(data.error || 'that did not go through');
     form.hidden = true;
-    say(`${$('dog-name').value} is on chelsea's desk. she looks through them by hand, so give her a day or two.`, 'good');
+    say(`${$('horse-name').value} is on chelsea's desk. she goes through them by hand, so give her a day or two.`, 'good');
   } catch (err) {
     // A failed fetch reads as "Failed to fetch", which tells nobody anything.
     const offline = err instanceof TypeError;
     say(offline
-      ? "couldn't reach the pound just now. your drawing is still here — check your connection and try again, or save it and send it another way."
+      ? "couldn't reach the paddock just now. your drawing is still here — check your connection and try again, or save it and send it another way."
       : String(err.message), 'bad');
     button.disabled = false;
     if (TURNSTILE_SITE_KEY && window.turnstile) window.turnstile.reset();
   }
 });
 
-// ---------- boot ----------
+// ---------- the bases ----------
 
-const base = new Image();
-base.crossOrigin = 'anonymous';
-base.onload = () => {
-  lctx.clearRect(0, 0, SIZE, SIZE);
-  lctx.drawImage(base, 0, 0, SIZE, SIZE);
+function loadBase(entry) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = () => reject(new Error(`${entry.file} would not load`));
+    img.src = `/paddock/bases/${entry.file}`;
+  });
+}
+
+async function choose(entry, button) {
+  if (state.base && state.base.id === entry.id) return;
+  if (painted() && !confirm('Switching horse clears what you have done. Carry on?')) return;
+
+  $('board').dataset.ready = 'false';
+  say('');
+
+  let img;
+  try { img = await loadBase(entry); }
+  catch (err) { return say(String(err.message), 'bad'); }
+
+  // Scale so the undo stack stays affordable, and keep the drawing's own shape.
+  const scale = Math.min(1, Math.sqrt(MAX_PIXELS / (img.naturalWidth * img.naturalHeight)));
+  state.w = Math.max(1, Math.round(img.naturalWidth * scale));
+  state.h = Math.max(1, Math.round(img.naturalHeight * scale));
+
+  for (const canvas of [paint, lines]) {
+    canvas.width = state.w;
+    canvas.height = state.h;
+  }
+  $('stack').style.setProperty('--ratio', String(state.w / state.h));
+
+  lctx.clearRect(0, 0, state.w, state.h);
+  lctx.drawImage(img, 0, 0, state.w, state.h);
+  pctx.clearRect(0, 0, state.w, state.h);
+
+  state.base = entry;
+  state.undo.length = 0;
+  state.redo.length = 0;
+  refreshHistory();
   state.ready = true;
   $('board').dataset.ready = 'true';
-  refreshHistory();
-};
-base.onerror = () => say('the dog would not load. try refreshing.', 'bad');
-base.src = BASE;
+
+  for (const b of $('bases').children) b.setAttribute('aria-pressed', String(b === button));
+  paint.setAttribute('aria-label', `Colouring canvas: ${entry.name}. Draw with a pointer, or use the tools.`);
+}
+
+async function boot() {
+  let bases;
+  try {
+    const res = await fetch('/paddock/bases.json');
+    bases = await res.json();
+  } catch {
+    return say('could not fetch the horses. try refreshing.', 'bad');
+  }
+  if (!Array.isArray(bases) || !bases.length) return say('there are no horses in the paddock yet.', 'bad');
+
+  const picker = $('bases');
+  bases.forEach((entry, i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'base';
+    b.setAttribute('aria-pressed', 'false');
+    b.innerHTML = `<img src="/paddock/bases/${entry.file}" alt="" loading="lazy"><span>${entry.name}</span>`;
+    b.addEventListener('click', () => choose(entry, b));
+    picker.append(b);
+    if (i === 0) choose(entry, b);
+  });
+}
+
+boot();
 
 if (TURNSTILE_SITE_KEY) {
   const holder = $('turnstile');

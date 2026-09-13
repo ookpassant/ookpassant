@@ -1,4 +1,4 @@
-// The pound's letterbox.
+// The paddock's letterbox.
 //
 // The site is static, so it has nowhere to POST a drawing. This worker is that
 // somewhere. It takes a finished colouring from /colour/, parks the png in KV,
@@ -6,10 +6,10 @@
 // through submissions and label the ones she wants.
 //
 // Nothing here publishes anything. The issue still needs the "approved" label
-// before the Action puts a dog on the profile.
+// before the Action puts a horse on the profile.
 //
 // Bindings (see wrangler.toml):
-//   POUND          KV namespace, holds the pngs and the rate-limit counters
+//   PADDOCK          KV namespace, holds the pngs and the rate-limit counters
 //   GITHUB_TOKEN   secret, fine-grained PAT with issues:write on the repo
 //   TURNSTILE_SECRET  secret, optional. Without it the turnstile check is skipped.
 
@@ -81,9 +81,9 @@ async function underRateLimit(env, ip) {
   if (!ip) return true;
   const hour = Math.floor(Date.now() / 3_600_000);
   const key = `rl:${hour}:${ip}`;
-  const seen = Number((await env.POUND.get(key)) || 0);
+  const seen = Number((await env.PADDOCK.get(key)) || 0);
   if (seen >= RATE_LIMIT) return false;
-  await env.POUND.put(key, String(seen + 1), { expirationTtl: 3600 });
+  await env.PADDOCK.put(key, String(seen + 1), { expirationTtl: 3600 });
   return true;
 }
 
@@ -118,10 +118,11 @@ async function submit(request, env) {
   }
 
   const name = clean(payload.name, 40);
-  if (!name) return json({ error: 'your dog needs a name' }, 400, origin);
+  if (!name) return json({ error: 'your horse needs a name' }, 400, origin);
   const artist = clean(payload.artist, 40);
   if (!artist) return json({ error: 'put something in the "who shall i credit" box' }, 400, origin);
   const link = safeLink(payload.link);
+  const base = clean(payload.base, 24);
 
   const b64 = String(payload.png || '').replace(/^data:image\/png;base64,/, '');
   if (!b64 || b64.length > MAX_PNG * 1.4) return json({ error: 'that drawing is too big to send' }, 413, origin);
@@ -136,16 +137,17 @@ async function submit(request, env) {
   if (size.width > 2000 || size.height > 2000) return json({ error: 'that drawing is too big to send' }, 413, origin);
 
   const id = crypto.randomUUID().replace(/-/g, '').slice(0, 20);
-  await env.POUND.put(`img:${id}`, bytes, { expirationTtl: KEEP_DAYS * 86400 });
+  await env.PADDOCK.put(`img:${id}`, bytes, { expirationTtl: KEEP_DAYS * 86400 });
 
   const imageUrl = `${new URL(request.url).origin}/i/${id}.png`;
   const body = [
-    '### dog name', '', name, '',
+    '### horse name', '', name, '',
+    '### which base', '', base || 'unknown', '',
     '### coloured by', '', artist, '',
-    '### your coloured-in dog', '', `![${name}](${imageUrl})`, '',
+    '### the colouring', '', `![${name}](${imageUrl})`, '',
     '### link back to you', '', link || '_No response_', '',
     '---', '',
-    `<sub>Coloured in at chelseahopkins.co.uk/colour and sent through the pound worker. The image is held for ${KEEP_DAYS} days; approving it copies a re-encoded png into the repo.</sub>`,
+    `<sub>Coloured in at chelseahopkins.co.uk/colour and sent through the paddock worker. The image is held for ${KEEP_DAYS} days; approving it copies a re-encoded png into the repo.</sub>`,
   ].join('\n');
 
   const res = await fetch(`https://api.github.com/repos/${REPO}/issues`, {
@@ -154,14 +156,14 @@ async function submit(request, env) {
       authorization: `Bearer ${env.GITHUB_TOKEN}`,
       accept: 'application/vnd.github+json',
       'content-type': 'application/json',
-      'user-agent': 'pound-worker',
+      'user-agent': 'paddock-worker',
     },
-    body: JSON.stringify({ title: `[pound] ${name}`, body, labels: ['pound'] }),
+    body: JSON.stringify({ title: `[paddock] ${name}`, body, labels: ['paddock'] }),
   });
 
   if (!res.ok) {
     console.log('github rejected the issue', res.status, (await res.text()).slice(0, 300));
-    await env.POUND.delete(`img:${id}`);
+    await env.PADDOCK.delete(`img:${id}`);
     return json({ error: "i couldn't file that one. try again in a minute." }, 502, origin);
   }
 
@@ -170,7 +172,7 @@ async function submit(request, env) {
 }
 
 async function image(id, env) {
-  const bytes = await env.POUND.get(`img:${id}`, { type: 'arrayBuffer' });
+  const bytes = await env.PADDOCK.get(`img:${id}`, { type: 'arrayBuffer' });
   if (!bytes) return new Response('gone', { status: 404 });
   return new Response(bytes, {
     headers: {
@@ -194,7 +196,7 @@ export default {
     const img = url.pathname.match(/^\/i\/([a-f0-9]{20})\.png$/);
     if (request.method === 'GET' && img) return image(img[1], env);
 
-    return new Response('the pound letterbox. nothing to see.', {
+    return new Response('the paddock letterbox. nothing to see.', {
       status: 404,
       headers: { 'content-type': 'text/plain' },
     });

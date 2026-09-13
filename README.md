@@ -120,26 +120,31 @@ wordpress and woocommerce that real businesses run on. a bookings and membership
 
 <br>
 
-## vi · the pound
+## vi · the paddock
 
 <table>
   <tr>
-    <td width="34%" valign="top" align="center">
-      <img src="pound/base.png" alt="a blank lineart dog, waiting to be coloured in" width="200">
-      <p><sub>plate v · one (1) undecorated dog.</sub></p>
+    <td width="20%" valign="top" align="center">
+      <img src="paddock/bases/grazing.png" alt="a charcoal horse, head down and grazing, uncoloured" width="150">
     </td>
-    <td width="66%" valign="top">
-      <p>i drew a dog and left him blank on purpose. he is yours to fill in.</p>
-      <p><b>how it works.</b> there is a colouring board at <a href="https://chelseahopkins.co.uk/colour/">chelseahopkins.co.uk/colour</a> with him already loaded. brush, bucket, whatever you like. name him, send him over, and no account is needed anywhere.</p>
-      <p><b>the fine print.</b> i go through them by hand and put up the ones i fall for, so give me a day or two. your colouring stays yours and comes down the moment you ask.</p>
-      <p align="center"><a href="https://chelseahopkins.co.uk/colour/"><img src="https://img.shields.io/badge/colour%20a%20dog-2a251d?style=for-the-badge&logoColor=d4a84b" alt="colour a dog"></a></p>
+    <td width="20%" valign="top" align="center">
+      <img src="paddock/bases/bucking.png" alt="a charcoal horse kicking up, uncoloured" width="150">
+    </td>
+    <td width="20%" valign="top" align="center">
+      <img src="paddock/bases/charging.png" alt="a charcoal horse coming straight at you, uncoloured" width="150">
+    </td>
+    <td width="40%" valign="top">
+      <p>three horses, drawn in charcoal and left uncoloured on purpose.</p>
+      <p><b>how it works.</b> pick one at <a href="https://chelseahopkins.co.uk/colour/">chelseahopkins.co.uk/colour</a> and fill it in there — brush, bucket, whatever suits. name it, send it over, no account needed anywhere.</p>
+      <p><b>the fine print.</b> the drawings are mine, the colouring is yours. i go through them by hand and put up the ones i fall for, so give me a day or two. anything comes down the moment you ask.</p>
+      <p align="center"><a href="https://chelseahopkins.co.uk/colour/"><img src="https://img.shields.io/badge/colour%20a%20horse-2a251d?style=for-the-badge&logoColor=d4a84b" alt="colour a horse"></a></p>
     </td>
   </tr>
 </table>
 
-<!-- pound:start -->
-<p><em>the pound is empty. be the first.</em></p>
-<!-- pound:end -->
+<!-- paddock:start -->
+<p><em>the paddock is empty. be the first.</em></p>
+<!-- paddock:end -->
 
 <br>
 

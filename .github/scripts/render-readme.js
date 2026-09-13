@@ -1,4 +1,4 @@
-// Rewrites the pound and log book blocks in README.md from data/*.json.
+// Rewrites the paddock and log book blocks in README.md from data/*.json.
 //   node .github/scripts/render-readme.js
 // Safe to run any time; it only touches text between the marker comments.
 
@@ -24,14 +24,14 @@ function replaceBlock(src, name, inner) {
   return src.replace(re, `$1\n${inner}\n$2`);
 }
 
-// ---------- the pound ----------
-function renderPound(dogs) {
-  if (!dogs.length) {
-    return '<p><em>the pound is empty. be the first.</em></p>';
+// ---------- the paddock ----------
+function renderPaddock(horses) {
+  if (!horses.length) {
+    return '<p><em>the paddock is empty. be the first.</em></p>';
   }
-  const cell = (d) => [
+  const cell = (h) => [
     '<td align="center" width="25%" valign="top">',
-    `<img src="pound/dogs/${d.slug}.png" alt="${esc(d.name)}, coloured in" width="150"><br>`,
+    `<img src="paddock/horses/${d.slug}.png" alt="${esc(d.name)}, coloured in" width="150"><br>`,
     `<b>${esc(d.name)}</b><br>`,
     // The artist names themselves in the colouring form, so they aren't
     // necessarily a GitHub account. Only link where they gave us somewhere.
@@ -42,13 +42,13 @@ function renderPound(dogs) {
   ].join('\n');
 
   const rows = [];
-  for (let i = 0; i < dogs.length; i += PER_ROW) {
-    const group = dogs.slice(i, i + PER_ROW);
+  for (let i = 0; i < horses.length; i += PER_ROW) {
+    const group = horses.slice(i, i + PER_ROW);
     const pad = Array(PER_ROW - group.length).fill('<td width="25%"></td>');
     rows.push('<tr>\n' + group.map(cell).concat(pad).join('\n') + '\n</tr>');
   }
-  const count = dogs.length === 1 ? 'one dog' : `${dogs.length} dogs`;
-  return `<table>\n${rows.join('\n')}\n</table>\n\n<sub>${count} in the pound, and <a href="https://chelseahopkins.co.uk/pound/">a few more on the site</a>. all colouring by the person named under it, shown with permission.</sub>`;
+  const count = horses.length === 1 ? 'one horse' : `${horses.length} horses`;
+  return `<table>\n${rows.join('\n')}\n</table>\n\n<sub>${count} in the paddock, and <a href="https://chelseahopkins.co.uk/paddock/">a few more on the site</a>. all colouring by the person named under it, shown with permission.</sub>`;
 }
 
 // ---------- the log book ----------
@@ -72,7 +72,7 @@ function renderLog(entries) {
 // ---------- write ----------
 const readmePath = path.join(ROOT, 'README.md');
 let readme = fs.readFileSync(readmePath, 'utf8');
-readme = replaceBlock(readme, 'pound', renderPound(read('data/pound.json')));
+readme = replaceBlock(readme, 'paddock', renderPaddock(read('data/paddock.json')));
 readme = replaceBlock(readme, 'logbook', renderLog(read('data/logbook.json')));
 fs.writeFileSync(readmePath, readme);
 console.log('README rendered');

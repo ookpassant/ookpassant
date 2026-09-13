@@ -102,42 +102,49 @@ index = index.replace(/<!-- notes:start -->[\s\S]*?<!-- notes:end -->/,
     : '<p class="prose">nothing written up yet.</p>');
 fs.writeFileSync(indexPath, index);
 
-// ---------- the pound ----------
-// data/pound.json is written by .github/scripts/process-issue.js when Chelsea
-// approves a submission. Here it becomes the gallery at /pound/.
-const dogs = (() => {
-  try { return JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'pound.json'), 'utf8')); }
+// ---------- the paddock ----------
+// data/paddock.json is written by .github/scripts/process-issue.js when Chelsea
+// approves a submission. Here it becomes the gallery at /paddock/.
+const horses = (() => {
+  try { return JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'paddock.json'), 'utf8')); }
   catch { return []; }
 })();
 
-const poundTpl = fs.readFileSync(path.join(ROOT, 'templates', 'pound.html'), 'utf8');
-const credit = (d) => (d.link
-  ? `<a href="${esc(d.link)}">${esc(d.artist)}</a>`
-  : esc(d.artist));
-const grid = dogs.length
-  ? `  <ul class="pound-grid">\n${dogs.map((d) => `    <li>
-      <img src="/pound/dogs/${esc(d.slug)}.png" alt="${esc(d.name)}, coloured in by ${esc(d.artist)}" width="400" height="400" loading="lazy">
-      <b>${esc(d.name)}</b>
-      <span class="by">coloured by ${credit(d)}</span>
+const bases = (() => {
+  try { return JSON.parse(fs.readFileSync(path.join(ROOT, 'paddock', 'bases.json'), 'utf8')); }
+  catch { return []; }
+})();
+
+const paddockTpl = fs.readFileSync(path.join(ROOT, 'templates', 'paddock.html'), 'utf8');
+const credit = (h) => (h.link
+  ? `<a href="${esc(h.link)}">${esc(h.artist)}</a>`
+  : esc(h.artist));
+const grid = horses.length
+  ? `  <ul class="paddock-grid">\n${horses.map((h) => `    <li>
+      <img src="/paddock/horses/${esc(h.slug)}.png" alt="${esc(h.name)}, coloured in by ${esc(h.artist)}" width="400" height="400" loading="lazy">
+      <b>${esc(h.name)}</b>
+      <span class="by">coloured by ${credit(h)}</span>
     </li>`).join('\n')}\n  </ul>`
   : `  <div class="empty">
-    <img src="/pound/base.png" alt="a blank lineart dog, waiting to be coloured in" width="800" height="800">
-    <p>Nobody has been through yet. The first dog in here could be yours.</p>
+${bases.map((b) => `    <img src="/paddock/bases/${esc(b.file)}" alt="${esc(b.name)}, uncoloured" loading="lazy">`).join('\n')}
+    <p>Nobody has been through yet. The first horse in here could be yours.</p>
   </div>`;
 
-fs.mkdirSync(path.join(OUT, 'pound'), { recursive: true });
-fs.writeFileSync(path.join(OUT, 'pound', 'index.html'), fill(poundTpl, {
+fs.mkdirSync(path.join(OUT, 'paddock'), { recursive: true });
+fs.writeFileSync(path.join(OUT, 'paddock', 'index.html'), fill(paddockTpl, {
   grid,
-  count: dogs.length === 1 ? 'one dog' : `${dogs.length} dogs`,
+  count: horses.length === 1 ? 'one horse' : `${horses.length} horses`,
 }));
-fs.rmSync(path.join(OUT, 'pound', 'README.md'), { force: true });
+for (const junk of ['README.md', 'prepare.js']) {
+  fs.rmSync(path.join(OUT, 'paddock', junk), { force: true });
+}
 
 // ---------- sitemap ----------
 const today = new Date().toISOString().slice(0, 10);
 const urls = [
   { loc: `${SITE}/`, lastmod: notes[0] ? notes[0].date : today, freq: 'monthly' },
   { loc: `${SITE}/colour/`, lastmod: today, freq: 'monthly' },
-  { loc: `${SITE}/pound/`, lastmod: today, freq: 'weekly' },
+  { loc: `${SITE}/paddock/`, lastmod: today, freq: 'weekly' },
   ...(notes.length ? [{ loc: `${SITE}/notes/`, lastmod: notes[0].date, freq: 'weekly' }] : []),
   ...notes.map((n) => ({ loc: SITE + n.url, lastmod: n.date, freq: 'yearly' })),
 ];
@@ -165,4 +172,4 @@ if (fs.existsSync(llmsPath) && notes.length) {
   fs.writeFileSync(llmsPath, llms);
 }
 
-console.log(`built ${notes.length} note${notes.length === 1 ? '' : 's'} and ${dogs.length} dog${dogs.length === 1 ? '' : 's'} into ${path.relative(ROOT, OUT)}/`);
+console.log(`built ${notes.length} note${notes.length === 1 ? '' : 's'} and ${horses.length} horse${horses.length === 1 ? '' : 's'} into ${path.relative(ROOT, OUT)}/`);

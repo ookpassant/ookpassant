@@ -1,8 +1,16 @@
 /* the colouring desk at /colour/ — leans on style.css for tokens and type */
 
+/* .note-main is measured for prose at 46rem. A drawing board needs the room,
+   so this page widens it — but the prose above and below keeps the old
+   measure, so the reading line doesn't stretch with it. */
+.colour-page .note-main { max-width: 72rem; }
+.colour-page .note-main > .eyebrow,
+.colour-page .note-main > h1,
+.colour-page .note-main > .prose { max-width: 46rem; }
+
 .desk {
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(16rem, 1fr);
+  grid-template-columns: minmax(0, 1fr) 19rem;
   gap: clamp(1rem, 3vw, 2rem);
   align-items: start;
   margin: 2rem 0;
@@ -20,9 +28,15 @@
   padding: .75rem;
 }
 
+/* --ratio is set from the loaded base. Capping the WIDTH off the ratio keeps a
+   tall horse inside the viewport without squashing it, which a max-height
+   would do — the canvases stretch to fill this box. */
 .board .stack {
   position: relative;
-  aspect-ratio: 1;
+  aspect-ratio: var(--ratio, 1);
+  width: 100%;
+  max-width: calc(76vh * var(--ratio, 1));
+  margin-inline: auto;
   background: #fdf9f1;
   opacity: 0;
   transition: opacity .3s var(--ease);
@@ -147,6 +161,52 @@
   border: 1px solid var(--line);
   background: none;
   cursor: pointer;
+}
+
+/* ---------- which horse ---------- */
+
+.bases {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .5rem;
+}
+
+.bases .base {
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+  align-items: center;
+  padding: .4rem .3rem .45rem;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  cursor: pointer;
+  transition: border-color .15s var(--ease);
+}
+.bases .base img {
+  width: 100%;
+  height: 4.5rem;
+  object-fit: contain;
+  background: #fdf9f1;
+}
+.bases .base span {
+  font-family: var(--mono);
+  font-size: .6rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.25;
+}
+.bases .base:hover { border-color: var(--amber); }
+.bases .base:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+.bases .base[aria-pressed="true"] { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.bases .base[aria-pressed="true"] span { color: var(--ink); }
+
+.hint {
+  margin: 0;
+  font-size: .8rem;
+  line-height: 1.45;
+  color: var(--muted);
 }
 
 /* ---------- palette ---------- */

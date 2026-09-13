@@ -3,7 +3,7 @@
 // nothing is committed, until that label is on.
 //
 // Reads from env: ISSUE_BODY, ISSUE_TITLE, ISSUE_NUMBER, ISSUE_USER
-// Writes: data/*.json, pound/dogs/<slug>.png, a reply at OUTCOME_PATH,
+// Writes: data/*.json, paddock/horses/<slug>.png, a reply at OUTCOME_PATH,
 //         and ok=true|false to GITHUB_OUTPUT.
 //
 // Everything that arrives in the issue body is untrusted. Text is stripped to
@@ -21,7 +21,7 @@ const SPRITE = 400;
 const PAPER = { r: 253, g: 249, b: 241, alpha: 1 };
 // Set this to the deployed worker's origin (see worker/README.md). Drawings
 // from /colour/ are parked there for sixty days and fetched once on approval.
-const WORKER_ORIGIN = 'https://pound.ookpassant.workers.dev';
+const WORKER_ORIGIN = 'https://paddock.ookpassant.workers.dev';
 
 // The image arrives as markdown — "![name](https://...)" — so this searches
 // rather than anchors. The host and path prefix are still literal, so the only
@@ -81,7 +81,7 @@ function safeLink(value) {
 function slugify(name, seed) {
   const base = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40);
   const tag = crypto.createHash('sha1').update(String(seed)).digest('hex').slice(0, 4);
-  return `${base || 'dog'}-${tag}`;
+  return `${base || 'horse'}-${tag}`;
 }
 
 function readJson(rel) {
@@ -103,14 +103,14 @@ function finish(ok, message) {
   process.exit(0);
 }
 
-// ---------- the pound ----------
+// ---------- the paddock ----------
 
-async function handleDog(fields) {
-  const name = clean(fields['dog name'], 40);
-  if (!name) return finish(false, 'i could not read a name for this dog, so nothing was added. reopen with a name and i will take another look.');
+async function handleHorse(fields) {
+  const name = clean(fields['horse name'], 40);
+  if (!name) return finish(false, 'i could not read a name for this horse, so nothing was added.');
 
-  const found = (fields['your coloured-in dog'] || '').match(ALLOWED_IMAGE_HOST);
-  if (!found) return finish(false, 'i could not find an image attached to this one. drag the file straight into the issue rather than linking to it somewhere else, and i will take another look.');
+  const found = (fields['the colouring'] || '').match(ALLOWED_IMAGE_HOST);
+  if (!found) return finish(false, 'i could not find the drawing on this one, so nothing was added.');
 
   const res = await fetch(found[0]);
   if (!res.ok) return finish(false, 'the image link would not load, so nothing was added.');
@@ -132,33 +132,34 @@ async function handleDog(fields) {
   if (!artist) return finish(false, 'i could not tell who coloured this one, so nothing was added.');
 
   const slug = slugify(name, number);
-  const rel = `pound/dogs/${slug}.png`;
+  const rel = `paddock/horses/${slug}.png`;
   await sharp(buf)
     .resize(SPRITE, SPRITE, { fit: 'contain', background: PAPER })
     .flatten({ background: PAPER })
     .png({ compressionLevel: 9 })
     .toFile(path.join(ROOT, rel));
 
-  const dogs = readJson('data/pound.json').filter((d) => d.issue !== number);
-  dogs.push({
+  const horses = readJson('data/paddock.json').filter((h) => h.issue !== number);
+  horses.push({
     slug,
     name,
     artist,
+    base: clean(fields['which base'], 24),
     link: safeLink(fields['link back to you']),
     issue: number,
     added: new Date().toISOString().slice(0, 10),
   });
-  writeJson('data/pound.json', dogs);
+  writeJson('data/paddock.json', horses);
 
   const url = `https://raw.githubusercontent.com/ookpassant/ookpassant/main/${rel}`;
   finish(true, [
-    `${name} is in the pound, coloured by ${artist}. he is on the profile and at`,
-    'https://chelseahopkins.co.uk/pound/ now.',
+    `${name} is in the paddock, coloured by ${artist} — on the profile and at`,
+    'https://chelseahopkins.co.uk/paddock/ now.',
     '',
-    'markdown, if you want to show him anywhere else:',
+    'markdown, if you want to show them anywhere else:',
     '',
     '```markdown',
-    `[![${name}](${url})](https://chelseahopkins.co.uk/pound/)`,
+    `[![${name}](${url})](https://chelseahopkins.co.uk/paddock/)`,
     '```',
   ].join('\n'));
 }
@@ -186,7 +187,7 @@ function handleSighting(fields) {
 (async () => {
   try {
     const fields = parseForm(body);
-    if (/^\[pound\]/i.test(title)) return await handleDog(fields);
+    if (/^\[paddock\]/i.test(title)) return await handleHorse(fields);
     if (/^\[log\]/i.test(title)) return handleSighting(fields);
     finish(false, 'this issue was not opened from one of the forms, so i left it alone.');
   } catch (err) {

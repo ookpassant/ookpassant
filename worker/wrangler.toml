@@ -1,14 +1,14 @@
-name = "pound"
+name = "paddock"
 main = "src/index.js"
 compatibility_date = "2026-09-01"
 
-# Replace the id after running:  npx wrangler kv namespace create POUND
+# Replace the id after running:  npx wrangler kv namespace create PADDOCK
 [[kv_namespaces]]
-binding = "POUND"
+binding = "PADDOCK"
 id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
 
 # Optional. Without a custom domain the worker answers on
-# https://pound.<your-subdomain>.workers.dev, which works fine.
+# https://paddock.<your-subdomain>.workers.dev, which works fine.
 # [[routes]]
-# pattern = "pound.chelseahopkins.co.uk"
+# pattern = "paddock.chelseahopkins.co.uk"
 # custom_domain = true

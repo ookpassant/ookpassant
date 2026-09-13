@@ -1,24 +1,24 @@
-# pound worker
+# paddock worker
 
 The site is static, so it has nowhere to send a finished drawing. This is that
 somewhere: it takes the png from `/colour/`, parks it in KV, and opens a GitHub
 issue with the image showing inline.
 
 It publishes nothing. The issue still needs the `approved` label before
-`.github/workflows/community.yml` puts a dog on the profile.
+`.github/workflows/community.yml` puts a horse on the profile.
 
 ## Deploying it
 
 ```sh
 cd worker
-npx wrangler kv namespace create POUND     # paste the id into wrangler.toml
+npx wrangler kv namespace create PADDOCK     # paste the id into wrangler.toml
 npx wrangler secret put GITHUB_TOKEN       # see below
 npx wrangler deploy
 ```
 
 `wrangler deploy` prints the worker's URL. Put that URL in two places:
 
-- `oekaki/oekaki.js` — the `WORKER` constant at the top.
+- `colour/oekaki.js` — the `WORKER` constant at the top.
 - `.github/scripts/process-issue.js` — the `WORKER_ORIGIN` constant at the top.
 
 Then rebuild and push.
@@ -39,7 +39,7 @@ To add the check:
 
 1. Cloudflare dashboard → Turnstile → add a widget for `chelseahopkins.co.uk`.
 2. `npx wrangler secret put TURNSTILE_SECRET` with the secret key.
-3. Put the **site** key in `oekaki/oekaki.js` as `TURNSTILE_SITE_KEY`.
+3. Put the **site** key in `colour/oekaki.js` as `TURNSTILE_SITE_KEY`.
 
 The worker skips verification while `TURNSTILE_SECRET` is unset, so the order
 doesn't matter — set the secret last and it starts enforcing.

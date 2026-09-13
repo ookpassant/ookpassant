@@ -3,50 +3,56 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>colour a dog · chelsea hopkins</title>
-<meta name="description" content="Colour in the pound dog in your browser and send him to me. The ones I like go up for adoption on my GitHub profile.">
+<title>colour a horse · chelsea hopkins</title>
+<meta name="description" content="Colour in one of my three horses in your browser and send it over. The ones I fall for go up for adoption on my GitHub profile.">
 <link rel="canonical" href="https://chelseahopkins.co.uk/colour/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="colour a dog">
-<meta property="og:description" content="Colour in the pound dog in your browser and send him to me.">
+<meta property="og:title" content="colour a horse">
+<meta property="og:description" content="Colour in one of my three horses in your browser and send it over.">
 <meta property="og:url" content="https://chelseahopkins.co.uk/colour/">
-<meta property="og:image" content="https://chelseahopkins.co.uk/pound/base.png">
+<meta property="og:image" content="https://chelseahopkins.co.uk/paddock/bases/charging.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-40 -40 80 80'%3E%3Cpath d='M0,-34 C3,-12 12,-3 34,0 C12,3 3,12 0,34 C-3,12 -12,3 -34,0 C-12,-3 -3,-12 0,-34 Z' fill='%23c9962e'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="/fonts.css">
 <link rel="stylesheet" href="/style.css">
 <link rel="stylesheet" href="/colour/oekaki.css">
 </head>
-<body class="note-page">
+<body class="note-page colour-page">
 
-<a class="skip" href="#board">skip to the dog</a>
+<a class="skip" href="#board">skip to the drawing</a>
 
 <header class="note-head">
   <a class="crumb" href="/">← chelsea hopkins</a>
-  <a class="crumb" href="/pound/">the pound</a>
+  <a class="crumb" href="/paddock/">the paddock</a>
 </header>
 
 <main class="note-main">
-  <p class="eyebrow">the pound · colouring desk</p>
-  <h1>colour a dog</h1>
+  <p class="eyebrow">the paddock · colouring desk</p>
+  <h1>colour a horse</h1>
   <p class="prose">
-    He came out of the drawing blank. Fill him in however you like, give him a name,
-    and send him over. I go through them by hand and the ones I fall for go up for
-    adoption on <a href="https://github.com/ookpassant">my GitHub profile</a> and in
-    <a href="/pound/">the pound</a>, credited to you.
+    Three horses, drawn in charcoal and left uncoloured. Pick one, fill it in
+    however you like, give it a name and send it over. I go through them by hand
+    and the ones I fall for go up for adoption on
+    <a href="https://github.com/ookpassant">my GitHub profile</a> and in
+    <a href="/paddock/">the paddock</a>, credited to you.
   </p>
 
   <div class="desk">
 
     <div class="board" id="board">
-      <div class="stack">
-        <canvas id="paint" data-tool="brush" width="800" height="800" aria-label="Colouring canvas. Draw with a pointer or use the tools above."></canvas>
-        <canvas id="lines" width="800" height="800" aria-hidden="true"></canvas>
+      <div class="stack" id="stack">
+        <canvas id="paint" data-tool="brush" aria-label="Colouring canvas. Draw with a pointer, or use the tools."></canvas>
+        <canvas id="lines" aria-hidden="true"></canvas>
       </div>
-      <p class="loading">fetching the dog…</p>
+      <p class="loading">fetching the horses…</p>
     </div>
 
     <div class="kit">
+
+      <fieldset class="tools">
+        <legend>which horse</legend>
+        <div class="bases" id="bases" role="group" aria-label="Choose a horse"></div>
+      </fieldset>
 
       <fieldset class="tools">
         <legend>tool</legend>
@@ -57,9 +63,15 @@
         </div>
         <label class="slider" for="size">
           <span>brush size</span>
-          <input type="range" id="size" min="2" max="90" value="18">
+          <input type="range" id="size" min="2" max="120" value="18">
           <output id="size-out">18</output>
         </label>
+        <p class="hint">
+          These are brush drawings, so the outlines have gaps in them and the
+          fill tool will run straight out through one. The brush is the honest
+          way round it — paint goes underneath the charcoal, so going over a
+          line does no harm.
+        </p>
       </fieldset>
 
       <fieldset class="tools">
@@ -81,9 +93,9 @@
       </fieldset>
 
       <form class="tools send" id="send">
-        <legend>send him over</legend>
-        <label for="dog-name">his name</label>
-        <input type="text" id="dog-name" name="dog-name" maxlength="40" required autocomplete="off" placeholder="Barnaby">
+        <legend>send it over</legend>
+        <label for="horse-name">its name</label>
+        <input type="text" id="horse-name" name="horse-name" maxlength="40" required autocomplete="off" placeholder="Bramble">
 
         <label for="artist">who shall i credit</label>
         <input type="text" id="artist" name="artist" maxlength="40" required autocomplete="nickname" placeholder="a name or a handle">
@@ -98,7 +110,7 @@
 
         <div class="cf-turnstile" id="turnstile" hidden></div>
 
-        <button type="submit" id="submit">send to the pound</button>
+        <button type="submit" id="submit">send to the paddock</button>
         <button type="button" id="download" class="quiet">just save it for me</button>
       </form>
 
@@ -108,13 +120,14 @@
   </div>
 
   <p class="prose small">
-    Nothing appears anywhere until I've looked at it. Your drawing is held for
-    sixty days while I decide, and comes down the moment you ask.
+    The drawings are mine; colour one and that colouring is yours. Nothing
+    appears anywhere until I've looked at it, your submission is held for sixty
+    days while I decide, and it comes down the moment you ask.
   </p>
 </main>
 
 <footer class="colophon">
-  <p><a href="/pound/">see who's been adopted</a> · <a href="/notes/">field notes</a></p>
+  <p><a href="/paddock/">see who's been adopted</a> · <a href="/notes/">field notes</a></p>
   <p><a href="/">back to the guide</a></p>
 </footer>
 

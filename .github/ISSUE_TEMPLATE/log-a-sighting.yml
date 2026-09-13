@@ -33,6 +33,6 @@ body:
     attributes:
       label: one line
       description: optional. how you got here, what you're building, what the weather's doing. 140 characters.
-      placeholder: found this looking for a posthog wordpress plugin. stayed for the dogs.
+      placeholder: found this looking for a posthog wordpress plugin. stayed for the horses.
     validations:
       required: false
