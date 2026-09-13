@@ -16,7 +16,9 @@
 const REPO = 'ookpassant/ookpassant';
 const MAX_PNG = 2 * 1024 * 1024;
 const KEEP_DAYS = 60;
-const RATE_LIMIT = 5; // submissions per ip per hour
+const RATE_LIMIT = 5;         // let-it-free submissions per ip per hour
+const ADOPT_LIMIT = 40;       // adoptions per ip per hour
+const ADOPT_REMEMBER = 400;   // days an "this ip already adopted that one" marker lives
 const ALLOWED_ORIGINS = new Set([
   'https://chelseahopkins.co.uk',
   'https://www.chelseahopkins.co.uk',
@@ -47,7 +49,7 @@ function cors(origin) {
   const allow = ALLOWED_ORIGINS.has(origin) ? origin : 'https://chelseahopkins.co.uk';
   return {
     'access-control-allow-origin': allow,
-    'access-control-allow-methods': 'POST, OPTIONS',
+    'access-control-allow-methods': 'GET, POST, OPTIONS',
     'access-control-allow-headers': 'content-type',
     'access-control-max-age': '86400',
     'vary': 'origin',
@@ -77,14 +79,22 @@ function pngSize(bytes) {
   return { width: view.getUint32(16), height: view.getUint32(20) };
 }
 
-async function underRateLimit(env, ip) {
+async function underRateLimit(env, ip, bucket = 'send', cap = RATE_LIMIT) {
   if (!ip) return true;
   const hour = Math.floor(Date.now() / 3_600_000);
-  const key = `rl:${hour}:${ip}`;
+  const key = `rl:${bucket}:${hour}:${ip}`;
   const seen = Number((await env.PADDOCK.get(key)) || 0);
-  if (seen >= RATE_LIMIT) return false;
+  if (seen >= cap) return false;
   await env.PADDOCK.put(key, String(seen + 1), { expirationTtl: 3600 });
   return true;
+}
+
+/** An address is never stored, only a hash of it against the one horse. */
+async function adopterKey(slug, ip) {
+  const bytes = new TextEncoder().encode(`${slug}:${ip}`);
+  const digest = await crypto.subtle.digest('SHA-256', bytes);
+  const hex = [...new Uint8Array(digest)].slice(0, 8).map((b) => b.toString(16).padStart(2, '0')).join('');
+  return `took:${slug}:${hex}`;
 }
 
 async function turnstileOk(env, token, ip) {
@@ -171,6 +181,67 @@ async function submit(request, env) {
   return json({ ok: true, issue: issue.number, url: issue.html_url }, 200, origin);
 }
 
+// ---------- adopting ----------
+
+/**
+ * One adoption per address per horse, and the address is only ever kept as a
+ * hash. A horse with one adoption is safe from the glue factory; the rest of
+ * the count is just bragging.
+ */
+async function adopt(request, env) {
+  const origin = request.headers.get('origin') || '';
+  if (!ALLOWED_ORIGINS.has(origin)) return json({ error: 'not from there.' }, 403, origin);
+
+  const ip = request.headers.get('cf-connecting-ip') || '';
+  if (!(await underRateLimit(env, ip, 'adopt', ADOPT_LIMIT))) {
+    return json({ error: 'steady on. try in an hour.' }, 429, origin);
+  }
+
+  let payload;
+  try { payload = await request.json(); }
+  catch { return json({ error: "couldn't read that." }, 400, origin); }
+
+  const slug = String(payload.slug || '');
+  if (!/^[a-z0-9-]{1,50}$/.test(slug)) return json({ error: 'no such horse.' }, 400, origin);
+
+  const mine = await adopterKey(slug, ip);
+  const already = await env.PADDOCK.get(mine);
+  const countKey = `adopt:${slug}`;
+  let count = Number((await env.PADDOCK.get(countKey)) || 0);
+
+  if (!already) {
+    count += 1;
+    await env.PADDOCK.put(countKey, String(count));
+    await env.PADDOCK.put(mine, '1', { expirationTtl: ADOPT_REMEMBER * 86400 });
+  }
+
+  return json({ ok: true, slug, count, already: Boolean(already) }, 200, origin);
+}
+
+/** Every horse's adoption count, for the gallery and the README render. */
+async function counts(request, env) {
+  const origin = request.headers.get('origin') || '';
+  const out = {};
+  let cursor;
+  do {
+    const page = await env.PADDOCK.list({ prefix: 'adopt:', cursor });
+    for (const key of page.keys) out[key.name.slice('adopt:'.length)] = 0;
+    cursor = page.list_complete ? null : page.cursor;
+  } while (cursor);
+
+  await Promise.all(Object.keys(out).map(async (slug) => {
+    out[slug] = Number((await env.PADDOCK.get(`adopt:${slug}`)) || 0);
+  }));
+
+  return new Response(JSON.stringify(out), {
+    headers: {
+      'content-type': 'application/json',
+      'cache-control': 'public, max-age=60',
+      ...cors(origin),
+    },
+  });
+}
+
 async function image(id, env) {
   const bytes = await env.PADDOCK.get(`img:${id}`, { type: 'arrayBuffer' });
   if (!bytes) return new Response('gone', { status: 404 });
@@ -192,11 +263,13 @@ export default {
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors(origin) });
 
     if (request.method === 'POST' && url.pathname === '/submit') return submit(request, env);
+    if (request.method === 'POST' && url.pathname === '/adopt') return adopt(request, env);
+    if (request.method === 'GET' && url.pathname === '/counts') return counts(request, env);
 
     const img = url.pathname.match(/^\/i\/([a-f0-9]{20})\.png$/);
     if (request.method === 'GET' && img) return image(img[1], env);
 
-    return new Response('the paddock letterbox. nothing to see.', {
+    return new Response('hold your horsies.', {
       status: 404,
       headers: { 'content-type': 'text/plain' },
     });

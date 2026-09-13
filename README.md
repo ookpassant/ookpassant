@@ -120,7 +120,7 @@ wordpress and woocommerce that real businesses run on. a bookings and membership
 
 <br>
 
-## vi · the paddock
+## vi · hold your horsies
 
 <table>
   <tr>
@@ -134,16 +134,16 @@ wordpress and woocommerce that real businesses run on. a bookings and membership
       <img src="paddock/bases/charging.png" alt="a charcoal horse coming straight at you, uncoloured" width="150">
     </td>
     <td width="40%" valign="top">
-      <p>three horses. i drew them, i left them blank.</p>
-      <p><b>how.</b> colour one at <a href="https://chelseahopkins.co.uk/colour/">chelseahopkins.co.uk/colour</a>. brush, bucket, name it, send it. no account, no sign-up.</p>
-      <p><b>terms.</b> drawings mine, colouring yours. i put up the ones i like. anything comes down if you ask.</p>
+      <p><b>colour it in. let it free. someone will adopt it.</b></p>
+      <p>three horses, drawn blank. colour one at <a href="https://chelseahopkins.co.uk/colour/">chelseahopkins.co.uk/colour</a> and turn it loose. anyone can adopt it and one adoption is enough. thirty days with nobody interested and it goes to the glue factory.</p>
+      <p><b>terms.</b> drawings mine, colouring yours. no account, no sign-up. anything comes down if you ask.</p>
       <p align="center"><a href="https://chelseahopkins.co.uk/colour/"><img src="https://img.shields.io/badge/colour%20a%20horse-2a251d?style=for-the-badge&logoColor=d4a84b" alt="colour a horse"></a></p>
     </td>
   </tr>
 </table>
 
 <!-- paddock:start -->
-<p><em>nothing in here yet.</em></p>
+<p><em>nothing loose yet.</em></p>
 <!-- paddock:end -->
 
 <br>

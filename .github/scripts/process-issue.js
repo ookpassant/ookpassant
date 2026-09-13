@@ -147,14 +147,14 @@ async function handleHorse(fields) {
     base: clean(fields['which base'], 24),
     link: safeLink(fields['link back to you']),
     issue: number,
-    added: new Date().toISOString().slice(0, 10),
+    freed: new Date().toISOString().slice(0, 10),
   });
   writeJson('data/paddock.json', horses);
 
   const url = `https://raw.githubusercontent.com/ookpassant/ookpassant/main/${rel}`;
   finish(true, [
-    `${name} is up, coloured by ${artist}. on the profile and at`,
-    'https://chelseahopkins.co.uk/paddock/.',
+    `${name} is loose, coloured by ${artist}. thirty days to find a home:`,
+    'https://chelseahopkins.co.uk/paddock/',
     '',
     'markdown if you want them elsewhere:',
     '',

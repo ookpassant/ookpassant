@@ -1,0 +1,126 @@
+/* the adoption board at /paddock/ */
+
+.paddock-page .note-main { max-width: 64rem; }
+.paddock-page .note-main > .eyebrow,
+.paddock-page .note-main > h1,
+.paddock-page .note-main > .prose { max-width: 46rem; }
+
+.herd {
+  list-style: none;
+  padding: 0;
+  margin: 2.5rem 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: clamp(1rem, 3vw, 1.75rem);
+}
+
+.horse {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+}
+
+.horse img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  background: #fdf9f1;
+  border: 1px solid var(--line);
+}
+
+.horse b {
+  font-family: var(--display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.horse .by,
+.horse .tally,
+.horse .clock {
+  font-family: var(--mono);
+  font-size: .66rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.horse .clock { font-weight: 500; }
+.horse.safe .clock { color: var(--olive); }
+.horse.urgent .clock { color: #b4553f; }
+@media (prefers-color-scheme: dark) {
+  .horse.urgent .clock { color: #e08a72; }
+}
+
+.horse .adopt {
+  margin-top: .2rem;
+  font-family: var(--mono);
+  font-size: .7rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: .5rem .8rem;
+  background: var(--ink);
+  color: var(--paper);
+  border: 1px solid var(--ink);
+  cursor: pointer;
+  transition: background .15s var(--ease), border-color .15s var(--ease);
+}
+.horse .adopt:hover:not(:disabled) { background: var(--amber); border-color: var(--amber); color: #201c14; }
+.horse .adopt:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+.horse .adopt:disabled {
+  background: none;
+  color: var(--muted);
+  border-color: var(--line);
+  cursor: default;
+}
+
+/* ---------- the glue factory ---------- */
+
+.glued img {
+  filter: grayscale(1);
+  opacity: .45;
+}
+.glued b { color: var(--muted); font-style: italic; }
+
+#glue {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+}
+#glue h2 {
+  font-family: var(--display);
+  font-size: 1.9rem;
+  font-weight: 500;
+  margin: 0 0 .5rem;
+}
+#glue .prose { max-width: 46rem; }
+
+.empty {
+  border: 1px dashed var(--line);
+  padding: clamp(1.5rem, 5vw, 3rem);
+  text-align: center;
+  margin: 2.5rem 0;
+}
+.empty p { margin: 0; color: var(--muted); }
+.empty .lineup {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.empty .lineup img { height: 9rem; width: auto; object-fit: contain; }
+
+.go {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: .74rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: .7rem 1.1rem;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  text-decoration: none;
+}
+.go:hover { background: var(--amber); border-color: var(--amber); color: #201c14; }

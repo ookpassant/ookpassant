@@ -1,4 +1,4 @@
-# paddock worker
+# hold your horsies worker
 
 The site is static and has nowhere to send a finished drawing. This is that
 somewhere: takes the png from `/colour/`, parks it in KV, opens a GitHub issue
@@ -43,10 +43,20 @@ To add the check:
 The worker skips verification while `TURNSTILE_SECRET` is unset. Set the secret
 last and it starts enforcing.
 
+## Adoptions
+
+`POST /adopt` takes a slug and bumps a counter. One per address per horse, and
+the address is only ever kept as a hash of itself against that one slug — 40
+adoptions per address per hour on top. `GET /counts` returns the lot, which is
+what the paddock page and the README render read.
+
+One adoption saves a horse. The rest of the count is bragging.
+
 ## What it stores
 
-The png under a random id for 60 days, and an hourly counter per IP. Nothing
-else. Approving copies a re-encoded 400×400 png into the repo, so the KV copy
+The png under a random id for 60 days, an hourly counter per IP, adoption
+totals per horse, and a hash marking that some address already adopted some
+horse. No addresses in the clear. Approving copies a re-encoded 400×400 png into the repo, so the KV copy
 expiring later doesn't matter.
 
 ## Local run

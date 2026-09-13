@@ -119,15 +119,39 @@ const paddockTpl = fs.readFileSync(path.join(ROOT, 'templates', 'paddock.html'),
 const credit = (h) => (h.link
   ? `<a href="${esc(h.link)}">${esc(h.artist)}</a>`
   : esc(h.artist));
+
+// Cards render with the freed date on them and no verdict. Whether a horse is
+// safe, running out of time, or already glue depends on today and on adoption
+// counts that live in the worker, so /paddock/adopt.js decides on load and
+// moves the doomed ones into the glue factory.
+const card = (h) => `      <li class="horse" data-slug="${esc(h.slug)}" data-freed="${esc(h.freed || '')}">
+        <img src="/paddock/horses/${esc(h.slug)}.png" alt="${esc(h.name)}, coloured in by ${esc(h.artist)}" width="400" height="400" loading="lazy">
+        <b>${esc(h.name)}</b>
+        <span class="by">coloured by ${credit(h)}</span>
+        <span class="tally">&nbsp;</span>
+        <span class="clock">&nbsp;</span>
+        <button type="button" class="adopt">adopt</button>
+      </li>`;
+
 const grid = horses.length
-  ? `  <ul class="paddock-grid">\n${horses.map((h) => `    <li>
-      <img src="/paddock/horses/${esc(h.slug)}.png" alt="${esc(h.name)}, coloured in by ${esc(h.artist)}" width="400" height="400" loading="lazy">
-      <b>${esc(h.name)}</b>
-      <span class="by">coloured by ${credit(h)}</span>
-    </li>`).join('\n')}\n  </ul>`
+  ? `  <ul class="herd" id="board">
+${horses.map(card).join('\n')}
+  </ul>
+
+  <div class="empty" id="nothing-looking" hidden>
+    <p>nobody left to adopt.</p>
+  </div>
+
+  <section id="glue" hidden>
+    <h2>the glue factory</h2>
+    <p class="prose">thirty days, nobody came.</p>
+    <ul class="herd" id="glue-list"></ul>
+  </section>`
   : `  <div class="empty">
-${bases.map((b) => `    <img src="/paddock/bases/${esc(b.file)}" alt="${esc(b.name)}, uncoloured" loading="lazy">`).join('\n')}
-    <p>nothing in here yet.</p>
+    <div class="lineup">
+${bases.map((b) => `      <img src="/paddock/bases/${esc(b.file)}" alt="${esc(b.name)}, uncoloured" loading="lazy">`).join('\n')}
+    </div>
+    <p>nothing loose yet.</p>
   </div>`;
 
 fs.mkdirSync(path.join(OUT, 'paddock'), { recursive: true });

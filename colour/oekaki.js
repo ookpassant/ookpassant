@@ -320,7 +320,7 @@ function painted() {
 
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
-  if (!painted()) return say('nothing coloured in yet.', 'bad');
+  if (!painted()) return say("you haven't coloured it in.", 'bad');
 
   const button = $('submit');
   button.disabled = true;
@@ -344,7 +344,7 @@ form.addEventListener('submit', async (event) => {
     const data = await res.json().catch(() => ({}));
     if (!res.ok || !data.ok) throw new Error(data.error || 'that did not go through');
     form.hidden = true;
-    say(`${$('horse-name').value} sent. i'll look.`, 'good');
+    say(`${$('horse-name').value} is away. thirty days to find a home.`, 'good');
   } catch (err) {
     // A failed fetch reads as "Failed to fetch", which tells nobody anything.
     const offline = err instanceof TypeError;
