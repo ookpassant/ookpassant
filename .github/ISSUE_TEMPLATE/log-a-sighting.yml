@@ -1,0 +1,38 @@
+name: "🔭 log a sighting"
+description: sign the log book. you saw me, i was here, it counts.
+title: "[log] "
+labels: ["sighting"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        the field guide has a log book at the back. put yourself in it.
+
+        i read every entry before it goes up, so give me a day or two.
+
+  - type: input
+    id: name
+    attributes:
+      label: what to call you
+      description: a name, a handle, whatever you answer to. leave it blank and i'll use your github username.
+      placeholder: sea
+    validations:
+      required: false
+
+  - type: input
+    id: where
+    attributes:
+      label: where are you writing from
+      description: optional. a town, a country, a room, a bus.
+      placeholder: south wales
+    validations:
+      required: false
+
+  - type: input
+    id: note
+    attributes:
+      label: one line
+      description: optional. how you got here, what you're building, what the weather's doing. 140 characters.
+      placeholder: found this looking for a posthog wordpress plugin. stayed for the dogs.
+    validations:
+      required: false

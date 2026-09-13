@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 🌐 chelseahopkins.co.uk
+    url: https://chelseahopkins.co.uk
+    about: field notes, projects, and how to get hold of me.
+  - name: 🐛 something wrong with one of my projects
+    url: https://github.com/ookpassant?tab=repositories
+    about: open the issue on that repository rather than here.

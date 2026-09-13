@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000">
+  <!-- PLACEHOLDER BASE. replace pound/base.png with your own lineart at 1000x1000. -->
+  <rect width="1000" height="1000" fill="#ffffff"/>
+  <g fill="#ffffff" stroke="#1a1a1a" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+
+    <!-- tail -->
+    <path d="M700 700 C 800 690, 860 620, 845 540 C 838 500, 800 486, 782 516 C 766 542, 792 566, 806 545"/>
+
+    <!-- body -->
+    <path d="M500 470
+             C 610 470, 672 560, 686 660
+             C 700 756, 686 812, 660 828
+             L 340 828
+             C 314 812, 300 756, 314 660
+             C 328 560, 390 470, 500 470 Z"/>
+
+    <!-- front legs -->
+    <path d="M406 700 C 396 760, 398 800, 404 828"/>
+    <path d="M594 700 C 604 760, 602 800, 596 828"/>
+    <!-- paws -->
+    <path d="M340 828 C 340 852, 356 866, 388 866 C 420 866, 436 852, 436 828"/>
+    <path d="M564 828 C 564 852, 580 866, 612 866 C 644 866, 660 852, 660 828"/>
+
+    <!-- collar -->
+    <path d="M382 496 C 440 528, 560 528, 618 496"/>
+    <circle cx="500" cy="546" r="26"/>
+
+    <!-- ears -->
+    <path d="M366 250 C 300 262, 262 340, 268 430 C 272 492, 306 520, 336 500 C 366 480, 372 420, 366 372"/>
+    <path d="M634 250 C 700 262, 738 340, 732 430 C 728 492, 694 520, 664 500 C 634 480, 628 420, 634 372"/>
+
+    <!-- head -->
+    <ellipse cx="500" cy="330" rx="182" ry="168"/>
+
+    <!-- muzzle -->
+    <path d="M500 300 C 578 300, 606 350, 606 392 C 606 436, 560 462, 500 462 C 440 462, 394 436, 394 392 C 394 350, 422 300, 500 300 Z"/>
+
+    <!-- nose -->
+    <path d="M500 336 C 528 336, 542 350, 542 364 C 542 380, 522 392, 500 392 C 478 392, 458 380, 458 364 C 458 350, 472 336, 500 336 Z" fill="#1a1a1a"/>
+
+    <!-- mouth -->
+    <path d="M500 392 L 500 414" fill="none"/>
+    <path d="M500 414 C 484 434, 456 434, 446 416" fill="none"/>
+    <path d="M500 414 C 516 434, 544 434, 554 416" fill="none"/>
+
+    <!-- eyes -->
+    <circle cx="424" cy="286" r="25" fill="#1a1a1a" stroke="none"/>
+    <circle cx="576" cy="286" r="25" fill="#1a1a1a" stroke="none"/>
+    <circle cx="433" cy="277" r="8" fill="#ffffff" stroke="none"/>
+    <circle cx="585" cy="277" r="8" fill="#ffffff" stroke="none"/>
+
+    <!-- brows -->
+    <path d="M392 234 C 408 222, 432 222, 446 230" fill="none" stroke-width="9"/>
+    <path d="M554 230 C 568 222, 592 222, 608 234" fill="none" stroke-width="9"/>
+
+  </g>
+</svg>

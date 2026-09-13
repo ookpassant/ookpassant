@@ -117,3 +117,36 @@ wordpress and woocommerce that real businesses run on. a bookings and membership
 - claude in the loop, me on the veto.
 - i write the docs first.
 - nocturnal, mostly.
+
+<br>
+
+## vi · the pound
+
+<table>
+  <tr>
+    <td width="34%" valign="top" align="center">
+      <img src="pound/base.png" alt="a blank lineart dog, waiting to be coloured in" width="200">
+      <p><sub>plate v · one (1) undecorated dog.</sub></p>
+    </td>
+    <td width="66%" valign="top">
+      <p>i drew a dog and left him blank on purpose. he is yours to fill in.</p>
+      <p><b>how it works.</b> <a href="https://raw.githubusercontent.com/ookpassant/ookpassant/main/pound/base.png">take the base</a>. colour it in however you like — procreate, ms paint, felt tips and a phone camera, i genuinely don't mind. give them a name. <a href="https://github.com/ookpassant/ookpassant/issues/new?template=adopt-a-dog.yml">bring them back here</a> and they go in the pound below, credited to you.</p>
+      <p><b>the fine print.</b> i look at every one before it goes up, so give me a day or two. your colouring stays yours and comes down the moment you ask.</p>
+      <p align="center"><a href="https://github.com/ookpassant/ookpassant/issues/new?template=adopt-a-dog.yml"><img src="https://img.shields.io/badge/adopt%20a%20dog-2a251d?style=for-the-badge&logoColor=d4a84b" alt="adopt a dog"></a></p>
+    </td>
+  </tr>
+</table>
+
+<!-- pound:start -->
+<p><em>the pound is empty. be the first.</em></p>
+<!-- pound:end -->
+
+<br>
+
+## vii · log book
+
+every field guide has a page at the back where you record what you saw and when. this is that page, except the thing you saw was me. <a href="https://github.com/ookpassant/ookpassant/issues/new?template=log-a-sighting.yml">sign it</a>.
+
+<!-- logbook:start -->
+<p><em>nobody has signed it yet.</em></p>
+<!-- logbook:end -->
