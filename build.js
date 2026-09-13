@@ -127,7 +127,7 @@ const grid = horses.length
     </li>`).join('\n')}\n  </ul>`
   : `  <div class="empty">
 ${bases.map((b) => `    <img src="/paddock/bases/${esc(b.file)}" alt="${esc(b.name)}, uncoloured" loading="lazy">`).join('\n')}
-    <p>Nobody has been through yet. The first horse in here could be yours.</p>
+    <p>nothing in here yet.</p>
   </div>`;
 
 fs.mkdirSync(path.join(OUT, 'paddock'), { recursive: true });

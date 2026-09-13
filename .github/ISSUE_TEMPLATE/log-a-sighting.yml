@@ -8,13 +8,13 @@ body:
       value: |
         the field guide has a log book at the back. put yourself in it.
 
-        i read every entry before it goes up, so give me a day or two.
+        i read every entry before it goes up.
 
   - type: input
     id: name
     attributes:
       label: what to call you
-      description: a name, a handle, whatever you answer to. leave it blank and i'll use your github username.
+      description: a name, a handle, whatever you answer to. blank and i'll use your github username.
       placeholder: sea
     validations:
       required: false
@@ -23,7 +23,7 @@ body:
     id: where
     attributes:
       label: where are you writing from
-      description: optional. a town, a country, a room, a bus.
+      description: a town, a country, a room, a bus.
       placeholder: south wales
     validations:
       required: false
@@ -32,7 +32,7 @@ body:
     id: note
     attributes:
       label: one line
-      description: optional. how you got here, what you're building, what the weather's doing. 140 characters.
+      description: how you got here, what you're building, what the weather's doing. 140 characters.
       placeholder: found this looking for a posthog wordpress plugin. stayed for the horses.
     validations:
       required: false

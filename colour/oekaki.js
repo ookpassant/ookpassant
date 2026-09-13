@@ -266,7 +266,7 @@ $('undo').addEventListener('click', undo);
 $('redo').addEventListener('click', redo);
 
 $('clear').addEventListener('click', () => {
-  if (painted() && !confirm('Clear the whole thing and start again?')) return;
+  if (painted() && !confirm('Wipe it and start again?')) return;
   snapshot();
   pctx.clearRect(0, 0, state.w, state.h);
 });
@@ -320,11 +320,11 @@ function painted() {
 
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
-  if (!painted()) return say("there's no colour on them yet.", 'bad');
+  if (!painted()) return say('nothing coloured in yet.', 'bad');
 
   const button = $('submit');
   button.disabled = true;
-  say('sending…');
+  say('sending');
 
   const turnstile = TURNSTILE_SITE_KEY && window.turnstile ? window.turnstile.getResponse() : '';
 
@@ -344,12 +344,12 @@ form.addEventListener('submit', async (event) => {
     const data = await res.json().catch(() => ({}));
     if (!res.ok || !data.ok) throw new Error(data.error || 'that did not go through');
     form.hidden = true;
-    say(`${$('horse-name').value} is on chelsea's desk. she goes through them by hand, so give her a day or two.`, 'good');
+    say(`${$('horse-name').value} sent. i'll look.`, 'good');
   } catch (err) {
     // A failed fetch reads as "Failed to fetch", which tells nobody anything.
     const offline = err instanceof TypeError;
     say(offline
-      ? "couldn't reach the paddock just now. your drawing is still here — check your connection and try again, or save it and send it another way."
+      ? "didn't send. your drawing is still here — try again, or save it."
       : String(err.message), 'bad');
     button.disabled = false;
     if (TURNSTILE_SITE_KEY && window.turnstile) window.turnstile.reset();
@@ -369,7 +369,7 @@ function loadBase(entry) {
 
 async function choose(entry, button) {
   if (state.base && state.base.id === entry.id) return;
-  if (painted() && !confirm('Switching horse clears what you have done. Carry on?')) return;
+  if (painted() && !confirm('Switching horse wipes this one. Carry on?')) return;
 
   $('board').dataset.ready = 'false';
   say('');
@@ -410,9 +410,9 @@ async function boot() {
     const res = await fetch('/paddock/bases.json');
     bases = await res.json();
   } catch {
-    return say('could not fetch the horses. try refreshing.', 'bad');
+    return say('the horses would not load. refresh.', 'bad');
   }
-  if (!Array.isArray(bases) || !bases.length) return say('there are no horses in the paddock yet.', 'bad');
+  if (!Array.isArray(bases) || !bases.length) return say('no horses in here yet.', 'bad');
 
   const picker = $('bases');
   bases.forEach((entry, i) => {

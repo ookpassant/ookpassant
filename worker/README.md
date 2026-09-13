@@ -1,8 +1,8 @@
 # paddock worker
 
-The site is static, so it has nowhere to send a finished drawing. This is that
-somewhere: it takes the png from `/colour/`, parks it in KV, and opens a GitHub
-issue with the image showing inline.
+The site is static and has nowhere to send a finished drawing. This is that
+somewhere: takes the png from `/colour/`, parks it in KV, opens a GitHub issue
+with the image inline.
 
 It publishes nothing. The issue still needs the `approved` label before
 `.github/workflows/community.yml` puts a horse on the profile.
@@ -25,12 +25,11 @@ Then rebuild and push.
 
 ## The GitHub token
 
-A fine-grained personal access token, scoped to `ookpassant/ookpassant` only,
-with one permission: **Issues → Read and write**. Nothing else. It cannot push
-code, so the worst a leak does is let someone open issues on one repository.
+Fine-grained, scoped to `ookpassant/ookpassant`, one permission: **Issues →
+Read and write**. It can't push code, so a leak means someone can open issues on
+one repo.
 
-Set an expiry you'll actually notice, and rotate it with
-`npx wrangler secret put GITHUB_TOKEN`.
+Set an expiry you'll notice. Rotate with `npx wrangler secret put GITHUB_TOKEN`.
 
 ## Turnstile (recommended, not required)
 
@@ -41,15 +40,14 @@ To add the check:
 2. `npx wrangler secret put TURNSTILE_SECRET` with the secret key.
 3. Put the **site** key in `colour/oekaki.js` as `TURNSTILE_SITE_KEY`.
 
-The worker skips verification while `TURNSTILE_SECRET` is unset, so the order
-doesn't matter — set the secret last and it starts enforcing.
+The worker skips verification while `TURNSTILE_SECRET` is unset. Set the secret
+last and it starts enforcing.
 
 ## What it stores
 
-Only the png, under a random id, for 60 days, plus an hourly counter per IP that
-expires after an hour. No addresses, no names, nothing that outlives the issue.
-Approving a submission copies a re-encoded 400×400 png into the repo, so the KV
-copy expiring later doesn't matter.
+The png under a random id for 60 days, and an hourly counter per IP. Nothing
+else. Approving copies a re-encoded 400×400 png into the repo, so the KV copy
+expiring later doesn't matter.
 
 ## Local run
 
@@ -57,5 +55,5 @@ copy expiring later doesn't matter.
 npx wrangler dev
 ```
 
-`http://localhost:8080` is already in the worker's allowed origins, so serving
-`_site/` there lets you test the whole round trip.
+`http://localhost:8080` is in the worker's allowed origins, so serving `_site/`
+there tests the whole round trip.

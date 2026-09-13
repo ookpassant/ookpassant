@@ -102,39 +102,39 @@ async function turnstileOk(env, token, ip) {
 
 async function submit(request, env) {
   const origin = request.headers.get('origin') || '';
-  if (!ALLOWED_ORIGINS.has(origin)) return json({ error: 'not allowed from there' }, 403, origin);
+  if (!ALLOWED_ORIGINS.has(origin)) return json({ error: 'not from there.' }, 403, origin);
 
   const ip = request.headers.get('cf-connecting-ip') || '';
   if (!(await underRateLimit(env, ip))) {
-    return json({ error: "that's a few too many in one go. try again in an hour." }, 429, origin);
+    return json({ error: 'too many. try in an hour.' }, 429, origin);
   }
 
   let payload;
   try { payload = await request.json(); }
-  catch { return json({ error: 'could not read that submission' }, 400, origin); }
+  catch { return json({ error: "couldn't read that." }, 400, origin); }
 
   if (!(await turnstileOk(env, payload.turnstile, ip))) {
-    return json({ error: "the are-you-a-robot check didn't pass. give it another go." }, 400, origin);
+    return json({ error: 'robot check failed. try again.' }, 400, origin);
   }
 
   const name = clean(payload.name, 40);
-  if (!name) return json({ error: 'your horse needs a name' }, 400, origin);
+  if (!name) return json({ error: 'it needs a name.' }, 400, origin);
   const artist = clean(payload.artist, 40);
-  if (!artist) return json({ error: 'put something in the "who shall i credit" box' }, 400, origin);
+  if (!artist) return json({ error: 'i need a name to credit.' }, 400, origin);
   const link = safeLink(payload.link);
   const base = clean(payload.base, 24);
 
   const b64 = String(payload.png || '').replace(/^data:image\/png;base64,/, '');
-  if (!b64 || b64.length > MAX_PNG * 1.4) return json({ error: 'that drawing is too big to send' }, 413, origin);
+  if (!b64 || b64.length > MAX_PNG * 1.4) return json({ error: 'too big.' }, 413, origin);
 
   let bytes;
   try { bytes = fromBase64(b64); }
-  catch { return json({ error: 'that drawing did not arrive in one piece' }, 400, origin); }
-  if (bytes.length > MAX_PNG) return json({ error: 'that drawing is too big to send' }, 413, origin);
+  catch { return json({ error: "that didn't arrive in one piece." }, 400, origin); }
+  if (bytes.length > MAX_PNG) return json({ error: 'too big.' }, 413, origin);
 
   const size = pngSize(bytes);
-  if (!size) return json({ error: 'that is not a png' }, 400, origin);
-  if (size.width > 2000 || size.height > 2000) return json({ error: 'that drawing is too big to send' }, 413, origin);
+  if (!size) return json({ error: "that's not a png." }, 400, origin);
+  if (size.width > 2000 || size.height > 2000) return json({ error: 'too big.' }, 413, origin);
 
   const id = crypto.randomUUID().replace(/-/g, '').slice(0, 20);
   await env.PADDOCK.put(`img:${id}`, bytes, { expirationTtl: KEEP_DAYS * 86400 });
@@ -147,7 +147,7 @@ async function submit(request, env) {
     '### the colouring', '', `![${name}](${imageUrl})`, '',
     '### link back to you', '', link || '_No response_', '',
     '---', '',
-    `<sub>Coloured in at chelseahopkins.co.uk/colour and sent through the paddock worker. The image is held for ${KEEP_DAYS} days; approving it copies a re-encoded png into the repo.</sub>`,
+    `<sub>From chelseahopkins.co.uk/colour. Image held ${KEEP_DAYS} days; approving copies a re-encoded png into the repo.</sub>`,
   ].join('\n');
 
   const res = await fetch(`https://api.github.com/repos/${REPO}/issues`, {
@@ -164,7 +164,7 @@ async function submit(request, env) {
   if (!res.ok) {
     console.log('github rejected the issue', res.status, (await res.text()).slice(0, 300));
     await env.PADDOCK.delete(`img:${id}`);
-    return json({ error: "i couldn't file that one. try again in a minute." }, 502, origin);
+    return json({ error: "didn't send. try again in a minute." }, 502, origin);
   }
 
   const issue = await res.json();

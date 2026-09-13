@@ -107,29 +107,29 @@ function finish(ok, message) {
 
 async function handleHorse(fields) {
   const name = clean(fields['horse name'], 40);
-  if (!name) return finish(false, 'i could not read a name for this horse, so nothing was added.');
+  if (!name) return finish(false, 'no name on this one. nothing added.');
 
   const found = (fields['the colouring'] || '').match(ALLOWED_IMAGE_HOST);
-  if (!found) return finish(false, 'i could not find the drawing on this one, so nothing was added.');
+  if (!found) return finish(false, 'no drawing on this one. nothing added.');
 
   const res = await fetch(found[0]);
-  if (!res.ok) return finish(false, 'the image link would not load, so nothing was added.');
+  if (!res.ok) return finish(false, 'the image would not load. nothing added.');
   const type = res.headers.get('content-type') || '';
-  if (!type.startsWith('image/')) return finish(false, 'that attachment is not an image, so nothing was added.');
+  if (!type.startsWith('image/')) return finish(false, 'that is not an image. nothing added.');
 
   const buf = Buffer.from(await res.arrayBuffer());
-  if (buf.length > MAX_BYTES) return finish(false, 'that image is bigger than 15mb. shrink it a bit and i will take another look.');
+  if (buf.length > MAX_BYTES) return finish(false, 'over 15mb. nothing added.');
 
   const sharp = require('sharp');
   const meta = await sharp(buf).metadata();
   if (!['png', 'jpeg', 'jpg', 'webp', 'gif'].includes(String(meta.format))) {
-    return finish(false, 'i can only take png, jpeg, webp or gif, so nothing was added.');
+    return finish(false, 'png, jpeg, webp or gif only. nothing added.');
   }
 
   // Drawings sent from /colour/ come in under Chelsea's own token, so the issue
   // author is her. The artist names themselves in the form instead.
   const artist = clean(fields['coloured by'], 40) || user;
-  if (!artist) return finish(false, 'i could not tell who coloured this one, so nothing was added.');
+  if (!artist) return finish(false, 'nobody to credit on this one. nothing added.');
 
   const slug = slugify(name, number);
   const rel = `paddock/horses/${slug}.png`;
@@ -153,10 +153,10 @@ async function handleHorse(fields) {
 
   const url = `https://raw.githubusercontent.com/ookpassant/ookpassant/main/${rel}`;
   finish(true, [
-    `${name} is in the paddock, coloured by ${artist} — on the profile and at`,
-    'https://chelseahopkins.co.uk/paddock/ now.',
+    `${name} is up, coloured by ${artist}. on the profile and at`,
+    'https://chelseahopkins.co.uk/paddock/.',
     '',
-    'markdown, if you want to show them anywhere else:',
+    'markdown if you want them elsewhere:',
     '',
     '```markdown',
     `[![${name}](${url})](https://chelseahopkins.co.uk/paddock/)`,
@@ -168,7 +168,7 @@ async function handleHorse(fields) {
 
 function handleSighting(fields) {
   const name = clean(fields['what to call you'], 40) || user;
-  if (!name) return finish(false, 'i could not read a name for this one, so nothing was added.');
+  if (!name) return finish(false, 'no name on this one. nothing added.');
   const entry = {
     name,
     where: clean(fields['where are you writing from'], 40),
@@ -179,7 +179,7 @@ function handleSighting(fields) {
   const log = readJson('data/logbook.json').filter((e) => e.issue !== number);
   log.unshift(entry);
   writeJson('data/logbook.json', log);
-  finish(true, 'signed. thank you for stopping by.');
+  finish(true, 'signed.');
 }
 
 // ---------- route ----------
@@ -189,8 +189,8 @@ function handleSighting(fields) {
     const fields = parseForm(body);
     if (/^\[paddock\]/i.test(title)) return await handleHorse(fields);
     if (/^\[log\]/i.test(title)) return handleSighting(fields);
-    finish(false, 'this issue was not opened from one of the forms, so i left it alone.');
+    finish(false, 'not from a form. left alone.');
   } catch (err) {
-    finish(false, `something went wrong handling this one, so nothing was added: ${String(err.message).slice(0, 200)}`);
+    finish(false, `broke handling this one. nothing added: ${String(err.message).slice(0, 200)}`);
   }
 })();

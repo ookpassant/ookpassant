@@ -27,7 +27,7 @@ function replaceBlock(src, name, inner) {
 // ---------- the paddock ----------
 function renderPaddock(horses) {
   if (!horses.length) {
-    return '<p><em>the paddock is empty. be the first.</em></p>';
+    return '<p><em>nothing in here yet.</em></p>';
   }
   const cell = (h) => [
     '<td align="center" width="25%" valign="top">',
@@ -48,7 +48,7 @@ function renderPaddock(horses) {
     rows.push('<tr>\n' + group.map(cell).concat(pad).join('\n') + '\n</tr>');
   }
   const count = horses.length === 1 ? 'one horse' : `${horses.length} horses`;
-  return `<table>\n${rows.join('\n')}\n</table>\n\n<sub>${count} in the paddock, and <a href="https://chelseahopkins.co.uk/paddock/">a few more on the site</a>. all colouring by the person named under it, shown with permission.</sub>`;
+  return `<table>\n${rows.join('\n')}\n</table>\n\n<sub>${count}. more at <a href="https://chelseahopkins.co.uk/paddock/">chelseahopkins.co.uk/paddock</a>. colouring belongs to whoever is named under it.</sub>`;
 }
 
 // ---------- the log book ----------

@@ -134,23 +134,23 @@ wordpress and woocommerce that real businesses run on. a bookings and membership
       <img src="paddock/bases/charging.png" alt="a charcoal horse coming straight at you, uncoloured" width="150">
     </td>
     <td width="40%" valign="top">
-      <p>three horses, drawn in charcoal and left uncoloured on purpose.</p>
-      <p><b>how it works.</b> pick one at <a href="https://chelseahopkins.co.uk/colour/">chelseahopkins.co.uk/colour</a> and fill it in there — brush, bucket, whatever suits. name it, send it over, no account needed anywhere.</p>
-      <p><b>the fine print.</b> the drawings are mine, the colouring is yours. i go through them by hand and put up the ones i fall for, so give me a day or two. anything comes down the moment you ask.</p>
+      <p>three horses. i drew them, i left them blank.</p>
+      <p><b>how.</b> colour one at <a href="https://chelseahopkins.co.uk/colour/">chelseahopkins.co.uk/colour</a>. brush, bucket, name it, send it. no account, no sign-up.</p>
+      <p><b>terms.</b> drawings mine, colouring yours. i put up the ones i like. anything comes down if you ask.</p>
       <p align="center"><a href="https://chelseahopkins.co.uk/colour/"><img src="https://img.shields.io/badge/colour%20a%20horse-2a251d?style=for-the-badge&logoColor=d4a84b" alt="colour a horse"></a></p>
     </td>
   </tr>
 </table>
 
 <!-- paddock:start -->
-<p><em>the paddock is empty. be the first.</em></p>
+<p><em>nothing in here yet.</em></p>
 <!-- paddock:end -->
 
 <br>
 
 ## vii · log book
 
-every field guide has a page at the back where you record what you saw and when. this is that page, except the thing you saw was me. <a href="https://github.com/ookpassant/ookpassant/issues/new?template=log-a-sighting.yml">sign it</a>.
+every field guide has a page at the back for what you saw and when. the thing you saw was me. <a href="https://github.com/ookpassant/ookpassant/issues/new?template=log-a-sighting.yml">sign it</a>.
 
 <!-- logbook:start -->
 <p><em>nobody has signed it yet.</em></p>
