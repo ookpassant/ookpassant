@@ -8,8 +8,10 @@
 // only happens on push, and the clock doesn't care about pushes.
 
 const WORKER = 'https://paddock.ookpassant.workers.dev';
+const SITE = 'https://chelseahopkins.co.uk';
 const DAYS = 30;
 const DAY = 86_400_000;
+const BADGE = 150;
 
 const board = document.getElementById('board');
 if (board) run();
@@ -107,6 +109,7 @@ async function run() {
     if (mine.has(slug)) {
       button.textContent = 'adopted';
       button.disabled = true;
+      papers(card);
     }
 
     button.addEventListener('click', () => take(slug, card, button, tally, clock));
@@ -115,6 +118,95 @@ async function run() {
   document.getElementById('board').hidden = looking === 0;
   document.getElementById('nothing-looking').hidden = looking !== 0;
   document.getElementById('glue').hidden = doomed === 0;
+  stable();
+}
+
+// ---------- adoption papers ----------
+
+/** The whole point of an adoptable: code to paste somewhere that isn't here. */
+function snippet(format, slug, name) {
+  const img = `${SITE}/paddock/horses/${slug}.png`;
+  const home = `${SITE}/paddock/`;
+  if (format === 'html') {
+    return `<a href="${home}"><img src="${img}" alt="${name}, adopted" width="${BADGE}"></a>`;
+  }
+  if (format === 'bbcode') {
+    return `[url=${home}][img]${img}[/img][/url]`;
+  }
+  return `[![${name}](${img})](${home})`;
+}
+
+function papers(card) {
+  const box = card.querySelector('.papers');
+  if (!box || box.dataset.wired) return;
+  box.dataset.wired = '1';
+  box.hidden = false;
+
+  const slug = card.dataset.slug;
+  const name = card.querySelector('b').textContent;
+  const pick = box.querySelector('select');
+  const out = box.querySelector('textarea');
+  const copy = box.querySelector('.copy');
+
+  const refresh = () => { out.value = snippet(pick.value, slug, name); };
+  refresh();
+
+  pick.addEventListener('change', refresh);
+  copy.addEventListener('click', async () => {
+    out.select();
+    try {
+      await navigator.clipboard.writeText(out.value);
+    } catch {
+      document.execCommand('copy'); // older browsers, and anywhere clipboard is blocked
+    }
+    copy.textContent = 'copied';
+    setTimeout(() => { copy.textContent = 'copy'; }, 1600);
+  });
+}
+
+/**
+ * Everything this browser has adopted, in one block, for a profile readme.
+ * Runs again after every adoption, so it reads the adopted set fresh each time
+ * rather than closing over the list it saw first.
+ */
+function stable() {
+  const wrap = document.getElementById('stable');
+  if (!wrap) return;
+
+  const pick = wrap.querySelector('select');
+  const out = wrap.querySelector('textarea');
+  const copy = wrap.querySelector('.copy');
+
+  const refresh = () => {
+    const mine = remembered();
+    const cards = [...document.querySelectorAll('.horse')].filter((c) => mine.has(c.dataset.slug));
+    if (!cards.length) return false;
+    wrap.hidden = false;
+    wrap.querySelector('.count').textContent =
+      cards.length === 1 ? 'one horse' : `${cards.length} horses`;
+    out.value = cards
+      .map((c) => snippet(pick.value, c.dataset.slug, c.querySelector('b').textContent))
+      .join(pick.value === 'markdown' ? ' ' : '\n');
+    out.rows = Math.min(6, cards.length + 1);
+    return true;
+  };
+
+  if (!refresh()) return;
+
+  if (wrap.dataset.wired) return;
+  wrap.dataset.wired = '1';
+
+  pick.addEventListener('change', refresh);
+  copy.addEventListener('click', async () => {
+    out.select();
+    try {
+      await navigator.clipboard.writeText(out.value);
+    } catch {
+      document.execCommand('copy'); // older browsers, and anywhere clipboard is blocked
+    }
+    copy.textContent = 'copied';
+    setTimeout(() => { copy.textContent = 'copy the lot'; }, 1600);
+  });
 }
 
 async function take(slug, card, button, tally, clock) {
@@ -135,6 +227,8 @@ async function take(slug, card, button, tally, clock) {
     clock.textContent = 'safe';
     card.classList.remove('urgent');
     card.classList.add('safe');
+    papers(card);
+    stable();
   } catch (err) {
     button.textContent = was;
     button.disabled = false;

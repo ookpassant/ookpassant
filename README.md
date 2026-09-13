@@ -135,7 +135,7 @@ wordpress and woocommerce that real businesses run on. a bookings and membership
     </td>
     <td width="40%" valign="top">
       <p><b>colour it in. let it free. someone will adopt it.</b></p>
-      <p>three horses, drawn blank. colour one at <a href="https://chelseahopkins.co.uk/colour/">chelseahopkins.co.uk/colour</a> and turn it loose. anyone can adopt it and one adoption is enough. thirty days with nobody interested and it goes to the glue factory.</p>
+      <p>three horses, drawn blank. colour one at <a href="https://chelseahopkins.co.uk/colour/">chelseahopkins.co.uk/colour</a> and turn it loose. anyone can adopt it and gets code to stick it on their own readme. one adoption is enough. thirty days with nobody interested and it goes to the glue factory.</p>
       <p><b>terms.</b> drawings mine, colouring yours. no account, no sign-up. anything comes down if you ask.</p>
       <p align="center"><a href="https://chelseahopkins.co.uk/colour/"><img src="https://img.shields.io/badge/colour%20a%20horse-2a251d?style=for-the-badge&logoColor=d4a84b" alt="colour a horse"></a></p>
     </td>

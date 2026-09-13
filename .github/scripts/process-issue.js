@@ -156,7 +156,7 @@ async function handleHorse(fields) {
     `${name} is loose, coloured by ${artist}. thirty days to find a home:`,
     'https://chelseahopkins.co.uk/paddock/',
     '',
-    'markdown if you want them elsewhere:',
+    'anyone who adopts them gets code for their own page. here is yours:',
     '',
     '```markdown',
     `[![${name}](${url})](https://chelseahopkins.co.uk/paddock/)`,

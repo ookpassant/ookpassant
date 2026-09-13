@@ -131,10 +131,37 @@ const card = (h) => `      <li class="horse" data-slug="${esc(h.slug)}" data-fre
         <span class="tally">&nbsp;</span>
         <span class="clock">&nbsp;</span>
         <button type="button" class="adopt">adopt</button>
+        <div class="papers" hidden>
+          <label class="tag" for="fmt-${esc(h.slug)}">papers</label>
+          <select id="fmt-${esc(h.slug)}">
+            <option value="markdown">markdown</option>
+            <option value="html">html</option>
+            <option value="bbcode">bbcode</option>
+          </select>
+          <textarea readonly rows="3" aria-label="Code for ${esc(h.name)}"></textarea>
+          <button type="button" class="copy">copy</button>
+        </div>
       </li>`;
 
+const stable = `  <section id="stable" hidden>
+    <h2>your stable</h2>
+    <p class="prose">you have <span class="count"></span>. paste them wherever you like — a readme, a carrd, a forum signature. they link back here.</p>
+    <div class="papers open">
+      <label class="tag" for="fmt-all">all of them</label>
+      <select id="fmt-all">
+        <option value="markdown">markdown</option>
+        <option value="html">html</option>
+        <option value="bbcode">bbcode</option>
+      </select>
+      <textarea readonly rows="3" aria-label="Code for every horse you have adopted"></textarea>
+      <button type="button" class="copy">copy the lot</button>
+    </div>
+  </section>
+
+`;
+
 const grid = horses.length
-  ? `  <ul class="herd" id="board">
+  ? stable + `  <ul class="herd" id="board">
 ${horses.map(card).join('\n')}
   </ul>
 

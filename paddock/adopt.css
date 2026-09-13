@@ -124,3 +124,82 @@
   text-decoration: none;
 }
 .go:hover { background: var(--amber); border-color: var(--amber); color: #201c14; }
+
+/* ---------- adoption papers ---------- */
+
+/* A class rule with display:flex beats the [hidden] attribute's display:none
+   from the UA sheet, so the papers would show before anyone adopted anything. */
+.papers[hidden] { display: none; }
+
+.papers {
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+  margin-top: .5rem;
+  padding: .6rem;
+  border: 1px solid var(--line);
+  background: var(--paper-2);
+}
+
+.papers .tag {
+  font-family: var(--mono);
+  font-size: .6rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.papers select {
+  font-family: var(--mono);
+  font-size: .68rem;
+  padding: .3rem;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+.papers textarea {
+  font-family: var(--mono);
+  font-size: .62rem;
+  line-height: 1.4;
+  padding: .4rem;
+  background: var(--paper);
+  color: var(--ink-2);
+  border: 1px solid var(--line);
+  resize: vertical;
+  width: 100%;
+}
+
+.papers select:focus-visible,
+.papers textarea:focus-visible { outline: 2px solid var(--amber); outline-offset: 1px; }
+
+.papers .copy {
+  font-family: var(--mono);
+  font-size: .68rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: .4rem .7rem;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  cursor: pointer;
+}
+.papers .copy:hover { border-color: var(--amber); }
+.papers .copy:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+
+/* ---------- your stable ---------- */
+
+#stable {
+  margin: 2.5rem 0;
+  padding: 1.25rem 1.5rem 1.5rem;
+  border: 1px solid var(--amber);
+}
+#stable h2 {
+  font-family: var(--display);
+  font-size: 1.6rem;
+  font-weight: 500;
+  margin: 0 0 .4rem;
+}
+#stable .prose { margin: 0 0 .9rem; font-size: .95rem; }
+#stable .papers { margin-top: 0; background: var(--paper); }
+#stable textarea { font-size: .66rem; }
