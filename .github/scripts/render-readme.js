@@ -33,9 +33,11 @@ function renderPound(dogs) {
     '<td align="center" width="25%" valign="top">',
     `<img src="pound/dogs/${d.slug}.png" alt="${esc(d.name)}, coloured in" width="150"><br>`,
     `<b>${esc(d.name)}</b><br>`,
+    // The artist names themselves in the colouring form, so they aren't
+    // necessarily a GitHub account. Only link where they gave us somewhere.
     d.link
       ? `<sub>coloured by <a href="${esc(d.link)}">${esc(d.artist)}</a></sub>`
-      : `<sub>coloured by <a href="https://github.com/${esc(d.artist)}">${esc(d.artist)}</a></sub>`,
+      : `<sub>coloured by ${esc(d.artist)}</sub>`,
     '</td>',
   ].join('\n');
 
@@ -46,7 +48,7 @@ function renderPound(dogs) {
     rows.push('<tr>\n' + group.map(cell).concat(pad).join('\n') + '\n</tr>');
   }
   const count = dogs.length === 1 ? 'one dog' : `${dogs.length} dogs`;
-  return `<table>\n${rows.join('\n')}\n</table>\n\n<sub>${count} in the pound. all colouring by the person named under it, shown with permission.</sub>`;
+  return `<table>\n${rows.join('\n')}\n</table>\n\n<sub>${count} in the pound, and <a href="https://chelseahopkins.co.uk/pound/">a few more on the site</a>. all colouring by the person named under it, shown with permission.</sub>`;
 }
 
 // ---------- the log book ----------

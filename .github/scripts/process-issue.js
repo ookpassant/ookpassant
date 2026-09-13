@@ -19,12 +19,27 @@ const ROOT = path.resolve(__dirname, '..', '..');
 const MAX_BYTES = 15 * 1024 * 1024;
 const SPRITE = 400;
 const PAPER = { r: 253, g: 249, b: 241, alpha: 1 };
+// Set this to the deployed worker's origin (see worker/README.md). Drawings
+// from /colour/ are parked there for sixty days and fetched once on approval.
+const WORKER_ORIGIN = 'https://pound.ookpassant.workers.dev';
+
 // The image arrives as markdown — "![name](https://...)" — so this searches
 // rather than anchors. The host and path prefix are still literal, so the only
-// thing that can match is an attachment GitHub itself is hosting. A url that
-// merely mentions one of these hosts inside a query string can't match, because
-// the match has to begin at a word boundary and covers the host itself.
-const ALLOWED_IMAGE_HOST = /(?<=^|[\s(<"'])https:\/\/(?:github\.com\/user-attachments\/assets\/[\w-]+|user-images\.githubusercontent\.com\/[\w\-/.%]+|raw\.githubusercontent\.com\/[\w\-/.%]+)/;
+// thing that can match is the worker or an attachment GitHub itself is hosting.
+// A url that merely mentions one of these hosts inside a query string can't
+// match, because the match has to begin at a word boundary and covers the host.
+const ALLOWED_IMAGE_HOST = new RegExp(
+  '(?<=^|[\\s(<"\'])https:\\/\\/(?:' + [
+    escapeRe(WORKER_ORIGIN.replace(/^https:\/\//, '')) + '\\/i\\/[a-f0-9]{20}\\.png',
+    'github\\.com\\/user-attachments\\/assets\\/[\\w-]+',
+    'user-images\\.githubusercontent\\.com\\/[\\w\\-/.%]+',
+    'raw\\.githubusercontent\\.com\\/[\\w\\-/.%]+',
+  ].join('|') + ')'
+);
+
+function escapeRe(s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
 
 const body = process.env.ISSUE_BODY || '';
 const title = process.env.ISSUE_TITLE || '';
@@ -111,6 +126,11 @@ async function handleDog(fields) {
     return finish(false, 'i can only take png, jpeg, webp or gif, so nothing was added.');
   }
 
+  // Drawings sent from /colour/ come in under Chelsea's own token, so the issue
+  // author is her. The artist names themselves in the form instead.
+  const artist = clean(fields['coloured by'], 40) || user;
+  if (!artist) return finish(false, 'i could not tell who coloured this one, so nothing was added.');
+
   const slug = slugify(name, number);
   const rel = `pound/dogs/${slug}.png`;
   await sharp(buf)
@@ -123,7 +143,7 @@ async function handleDog(fields) {
   dogs.push({
     slug,
     name,
-    artist: user,
+    artist,
     link: safeLink(fields['link back to you']),
     issue: number,
     added: new Date().toISOString().slice(0, 10),
@@ -132,12 +152,13 @@ async function handleDog(fields) {
 
   const url = `https://raw.githubusercontent.com/ookpassant/ookpassant/main/${rel}`;
   finish(true, [
-    `${name} is in the pound. thank you for colouring.`,
+    `${name} is in the pound, coloured by ${artist}. he is on the profile and at`,
+    'https://chelseahopkins.co.uk/pound/ now.',
     '',
-    'here is the markdown if you want to show them anywhere else:',
+    'markdown, if you want to show him anywhere else:',
     '',
     '```markdown',
-    `[![${name}](${url})](https://github.com/ookpassant)`,
+    `[![${name}](${url})](https://chelseahopkins.co.uk/pound/)`,
     '```',
   ].join('\n'));
 }

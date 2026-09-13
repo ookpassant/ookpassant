@@ -22,7 +22,7 @@ const md = require('markdown-it')({ html: true, linkify: true, typographer: true
 const ROOT = __dirname;
 const OUT = path.join(ROOT, '_site');
 const SITE = 'https://chelseahopkins.co.uk';
-const SKIP = new Set(['_site', 'node_modules', '.git', '.github', 'templates', 'build.js', 'package.json', 'package-lock.json', '.gitignore']);
+const SKIP = new Set(['_site', 'node_modules', '.git', '.github', 'templates', 'worker', 'build.js', 'package.json', 'package-lock.json', '.gitignore']);
 
 const MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 const nice = (iso) => { const [y, m, d] = iso.split('-').map(Number); return `${d} ${MONTHS[m - 1]} ${y}`; };
@@ -102,10 +102,42 @@ index = index.replace(/<!-- notes:start -->[\s\S]*?<!-- notes:end -->/,
     : '<p class="prose">nothing written up yet.</p>');
 fs.writeFileSync(indexPath, index);
 
+// ---------- the pound ----------
+// data/pound.json is written by .github/scripts/process-issue.js when Chelsea
+// approves a submission. Here it becomes the gallery at /pound/.
+const dogs = (() => {
+  try { return JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'pound.json'), 'utf8')); }
+  catch { return []; }
+})();
+
+const poundTpl = fs.readFileSync(path.join(ROOT, 'templates', 'pound.html'), 'utf8');
+const credit = (d) => (d.link
+  ? `<a href="${esc(d.link)}">${esc(d.artist)}</a>`
+  : esc(d.artist));
+const grid = dogs.length
+  ? `  <ul class="pound-grid">\n${dogs.map((d) => `    <li>
+      <img src="/pound/dogs/${esc(d.slug)}.png" alt="${esc(d.name)}, coloured in by ${esc(d.artist)}" width="400" height="400" loading="lazy">
+      <b>${esc(d.name)}</b>
+      <span class="by">coloured by ${credit(d)}</span>
+    </li>`).join('\n')}\n  </ul>`
+  : `  <div class="empty">
+    <img src="/pound/base.png" alt="a blank lineart dog, waiting to be coloured in" width="800" height="800">
+    <p>Nobody has been through yet. The first dog in here could be yours.</p>
+  </div>`;
+
+fs.mkdirSync(path.join(OUT, 'pound'), { recursive: true });
+fs.writeFileSync(path.join(OUT, 'pound', 'index.html'), fill(poundTpl, {
+  grid,
+  count: dogs.length === 1 ? 'one dog' : `${dogs.length} dogs`,
+}));
+fs.rmSync(path.join(OUT, 'pound', 'README.md'), { force: true });
+
 // ---------- sitemap ----------
 const today = new Date().toISOString().slice(0, 10);
 const urls = [
   { loc: `${SITE}/`, lastmod: notes[0] ? notes[0].date : today, freq: 'monthly' },
+  { loc: `${SITE}/colour/`, lastmod: today, freq: 'monthly' },
+  { loc: `${SITE}/pound/`, lastmod: today, freq: 'weekly' },
   ...(notes.length ? [{ loc: `${SITE}/notes/`, lastmod: notes[0].date, freq: 'weekly' }] : []),
   ...notes.map((n) => ({ loc: SITE + n.url, lastmod: n.date, freq: 'yearly' })),
 ];
@@ -133,4 +165,4 @@ if (fs.existsSync(llmsPath) && notes.length) {
   fs.writeFileSync(llmsPath, llms);
 }
 
-console.log(`built ${notes.length} note${notes.length === 1 ? '' : 's'} into ${path.relative(ROOT, OUT)}/`);
+console.log(`built ${notes.length} note${notes.length === 1 ? '' : 's'} and ${dogs.length} dog${dogs.length === 1 ? '' : 's'} into ${path.relative(ROOT, OUT)}/`);

@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>colour a dog · chelsea hopkins</title>
+<meta name="description" content="Colour in the pound dog in your browser and send him to me. The ones I like go up for adoption on my GitHub profile.">
+<link rel="canonical" href="https://chelseahopkins.co.uk/colour/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="colour a dog">
+<meta property="og:description" content="Colour in the pound dog in your browser and send him to me.">
+<meta property="og:url" content="https://chelseahopkins.co.uk/colour/">
+<meta property="og:image" content="https://chelseahopkins.co.uk/pound/base.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-40 -40 80 80'%3E%3Cpath d='M0,-34 C3,-12 12,-3 34,0 C12,3 3,12 0,34 C-3,12 -12,3 -34,0 C-12,-3 -3,-12 0,-34 Z' fill='%23c9962e'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/fonts.css">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/colour/oekaki.css">
+</head>
+<body class="note-page">
+
+<a class="skip" href="#board">skip to the dog</a>
+
+<header class="note-head">
+  <a class="crumb" href="/">← chelsea hopkins</a>
+  <a class="crumb" href="/pound/">the pound</a>
+</header>
+
+<main class="note-main">
+  <p class="eyebrow">the pound · colouring desk</p>
+  <h1>colour a dog</h1>
+  <p class="prose">
+    He came out of the drawing blank. Fill him in however you like, give him a name,
+    and send him over. I go through them by hand and the ones I fall for go up for
+    adoption on <a href="https://github.com/ookpassant">my GitHub profile</a> and in
+    <a href="/pound/">the pound</a>, credited to you.
+  </p>
+
+  <div class="desk">
+
+    <div class="board" id="board">
+      <div class="stack">
+        <canvas id="paint" data-tool="brush" width="800" height="800" aria-label="Colouring canvas. Draw with a pointer or use the tools above."></canvas>
+        <canvas id="lines" width="800" height="800" aria-hidden="true"></canvas>
+      </div>
+      <p class="loading">fetching the dog…</p>
+    </div>
+
+    <div class="kit">
+
+      <fieldset class="tools">
+        <legend>tool</legend>
+        <div class="row" role="group" aria-label="Drawing tool">
+          <button type="button" data-tool="brush" aria-pressed="true">brush</button>
+          <button type="button" data-tool="bucket" aria-pressed="false">fill</button>
+          <button type="button" data-tool="eraser" aria-pressed="false">rub out</button>
+        </div>
+        <label class="slider" for="size">
+          <span>brush size</span>
+          <input type="range" id="size" min="2" max="90" value="18">
+          <output id="size-out">18</output>
+        </label>
+      </fieldset>
+
+      <fieldset class="tools">
+        <legend>colour</legend>
+        <div class="palette" id="swatches" role="group" aria-label="Palette"></div>
+        <label class="slider" for="custom">
+          <span>anything else</span>
+          <input type="color" id="custom" value="#c9962e">
+        </label>
+      </fieldset>
+
+      <fieldset class="tools">
+        <legend>oops</legend>
+        <div class="row">
+          <button type="button" id="undo" disabled>undo</button>
+          <button type="button" id="redo" disabled>redo</button>
+          <button type="button" id="clear">start again</button>
+        </div>
+      </fieldset>
+
+      <form class="tools send" id="send">
+        <legend>send him over</legend>
+        <label for="dog-name">his name</label>
+        <input type="text" id="dog-name" name="dog-name" maxlength="40" required autocomplete="off" placeholder="Barnaby">
+
+        <label for="artist">who shall i credit</label>
+        <input type="text" id="artist" name="artist" maxlength="40" required autocomplete="nickname" placeholder="a name or a handle">
+
+        <label for="link">somewhere to link you <span>optional</span></label>
+        <input type="url" id="link" name="link" maxlength="200" autocomplete="url" placeholder="https://">
+
+        <label class="check">
+          <input type="checkbox" id="mine" required>
+          <span>I coloured this myself, I'm happy for it to go on Chelsea's profile credited to me, and I can ask for it back down whenever.</span>
+        </label>
+
+        <div class="cf-turnstile" id="turnstile" hidden></div>
+
+        <button type="submit" id="submit">send to the pound</button>
+        <button type="button" id="download" class="quiet">just save it for me</button>
+      </form>
+
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+
+    </div>
+  </div>
+
+  <p class="prose small">
+    Nothing appears anywhere until I've looked at it. Your drawing is held for
+    sixty days while I decide, and comes down the moment you ask.
+  </p>
+</main>
+
+<footer class="colophon">
+  <p><a href="/pound/">see who's been adopted</a> · <a href="/notes/">field notes</a></p>
+  <p><a href="/">back to the guide</a></p>
+</footer>
+
+<script src="/main.js" defer></script>
+<script src="/colour/oekaki.js" defer></script>
+</body>
+</html>

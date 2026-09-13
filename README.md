@@ -130,9 +130,9 @@ wordpress and woocommerce that real businesses run on. a bookings and membership
     </td>
     <td width="66%" valign="top">
       <p>i drew a dog and left him blank on purpose. he is yours to fill in.</p>
-      <p><b>how it works.</b> <a href="https://raw.githubusercontent.com/ookpassant/ookpassant/main/pound/base.png">take the base</a>. colour it in however you like — procreate, ms paint, felt tips and a phone camera, i genuinely don't mind. give them a name. <a href="https://github.com/ookpassant/ookpassant/issues/new?template=adopt-a-dog.yml">bring them back here</a> and they go in the pound below, credited to you.</p>
-      <p><b>the fine print.</b> i look at every one before it goes up, so give me a day or two. your colouring stays yours and comes down the moment you ask.</p>
-      <p align="center"><a href="https://github.com/ookpassant/ookpassant/issues/new?template=adopt-a-dog.yml"><img src="https://img.shields.io/badge/adopt%20a%20dog-2a251d?style=for-the-badge&logoColor=d4a84b" alt="adopt a dog"></a></p>
+      <p><b>how it works.</b> there is a colouring board at <a href="https://chelseahopkins.co.uk/colour/">chelseahopkins.co.uk/colour</a> with him already loaded. brush, bucket, whatever you like. name him, send him over, and no account is needed anywhere.</p>
+      <p><b>the fine print.</b> i go through them by hand and put up the ones i fall for, so give me a day or two. your colouring stays yours and comes down the moment you ask.</p>
+      <p align="center"><a href="https://chelseahopkins.co.uk/colour/"><img src="https://img.shields.io/badge/colour%20a%20dog-2a251d?style=for-the-badge&logoColor=d4a84b" alt="colour a dog"></a></p>
     </td>
   </tr>
 </table>

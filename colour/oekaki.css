@@ -1,0 +1,237 @@
+/* the colouring desk at /colour/ — leans on style.css for tokens and type */
+
+.desk {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(16rem, 1fr);
+  gap: clamp(1rem, 3vw, 2rem);
+  align-items: start;
+  margin: 2rem 0;
+}
+@media (max-width: 800px) {
+  .desk { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---------- the board ---------- */
+
+.board {
+  position: relative;
+  border: 1px solid var(--line);
+  background: var(--paper-2);
+  padding: .75rem;
+}
+
+.board .stack {
+  position: relative;
+  aspect-ratio: 1;
+  background: #fdf9f1;
+  opacity: 0;
+  transition: opacity .3s var(--ease);
+}
+.board[data-ready="true"] .stack { opacity: 1; }
+.board[data-ready="true"] .loading { display: none; }
+
+.stack canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+#lines {
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+#paint {
+  touch-action: none;
+  cursor: crosshair;
+}
+#paint[data-tool="bucket"] { cursor: cell; }
+#paint[data-tool="eraser"] { cursor: grab; }
+
+.board .loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* the lineart is drawn dark on white, so in dark mode the whole board stays
+   a lit sheet of paper rather than inverting into mush */
+@media (prefers-color-scheme: dark) {
+  .board .stack { background: #f4efe4; }
+  #lines { mix-blend-mode: multiply; }
+}
+
+/* ---------- the kit ---------- */
+
+.kit {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.tools {
+  border: 1px solid var(--line);
+  padding: .85rem 1rem 1rem;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: .7rem;
+}
+
+.tools legend,
+.send legend {
+  font-family: var(--mono);
+  font-size: .68rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0 .4rem;
+}
+
+.tools .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+}
+
+/* Scoped to .row and .send on purpose: the swatches are buttons too, and a
+   plain `.tools button` rule would paint over every one of them. */
+.tools .row button,
+.send button {
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: .5rem .8rem;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  cursor: pointer;
+  transition: background .15s var(--ease), border-color .15s var(--ease);
+}
+.tools .row button:hover:not(:disabled),
+.send button:hover:not(:disabled) { border-color: var(--amber); }
+.tools .row button:disabled { opacity: .4; cursor: default; }
+.tools .row button:focus-visible,
+.send button:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+.tools .row button[aria-pressed="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.slider {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  font-family: var(--mono);
+  font-size: .68rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.slider span { flex: none; }
+.slider input[type="range"] { flex: 1; min-width: 0; accent-color: var(--amber); }
+.slider output { font-variant-numeric: tabular-nums; min-width: 2ch; text-align: right; }
+.slider input[type="color"] {
+  inline-size: 3rem;
+  block-size: 1.9rem;
+  padding: 0;
+  border: 1px solid var(--line);
+  background: none;
+  cursor: pointer;
+}
+
+/* ---------- palette ---------- */
+
+.palette {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: .35rem;
+}
+
+.palette .swatch {
+  aspect-ratio: 1;
+  border: 1px solid var(--line);
+  background: var(--c);
+  cursor: pointer;
+  padding: 0;
+  transition: transform .12s var(--ease);
+}
+.palette .swatch:hover { transform: scale(1.12); }
+.palette .swatch:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+.palette .swatch[aria-pressed="true"] {
+  box-shadow: inset 0 0 0 2px var(--paper), 0 0 0 2px var(--ink);
+}
+
+/* ---------- the form ---------- */
+
+.send {
+  gap: .5rem;
+}
+.send label {
+  font-family: var(--mono);
+  font-size: .68rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: .3rem;
+}
+.send label span { text-transform: none; letter-spacing: 0; opacity: .8; }
+
+.send input[type="text"],
+.send input[type="url"] {
+  font-family: var(--body);
+  font-size: .95rem;
+  padding: .5rem .6rem;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  width: 100%;
+}
+.send input:focus-visible { outline: 2px solid var(--amber); outline-offset: 1px; }
+
+.send .check {
+  display: flex;
+  gap: .55rem;
+  align-items: start;
+  margin-top: .6rem;
+  font-family: var(--body);
+  font-size: .82rem;
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink-2);
+}
+.send .check input { margin-top: .25rem; accent-color: var(--amber); flex: none; }
+
+#submit {
+  margin-top: .8rem;
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+  padding: .7rem 1rem;
+}
+#submit:hover:not(:disabled) { background: var(--amber); border-color: var(--amber); color: #201c14; }
+.quiet { opacity: .85; }
+
+.status {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: .74rem;
+  line-height: 1.5;
+  color: var(--muted);
+  min-height: 1.4em;
+}
+.status[data-kind="bad"] { color: #b4553f; }
+.status[data-kind="good"] { color: var(--olive); }
+@media (prefers-color-scheme: dark) {
+  .status[data-kind="bad"] { color: #e08a72; }
+}
