@@ -1,0 +1,16 @@
+<div class="lock" id="locked">
+  <div class="lock-frame">
+    <p class="lock-mark" aria-hidden="true">✳</p>
+    <h2 class="lock-head">this one's locked</h2>
+    <p class="lock-why">the words are here, encrypted. the passphrase isn't. if you've been given one it goes in below, and everything happens inside your browser — nothing is sent anywhere, and nobody is told you tried.</p>
+    {{hint}}
+    <form class="lock-form" autocomplete="off">
+      <label class="lock-label" for="lock-pass">passphrase</label>
+      <input class="lock-input" id="lock-pass" type="password" autocomplete="off" spellcheck="false" autocapitalize="off" required>
+      <button class="lock-go" type="submit">unlock</button>
+    </form>
+    <p class="lock-status" role="status" aria-live="polite"></p>
+    <noscript><p class="lock-status">this one needs javascript — the decrypting happens in the page.</p></noscript>
+  </div>
+</div>
+<script type="application/json" id="envelope">{{envelope}}</script>

@@ -1,0 +1,36 @@
+#!/bin/sh
+# refuse to commit the plaintext of a locked note.
+#
+# the repo is public. a note marked `lock: true` is only protected while its
+# plaintext stays out of git — and git remembers, so one accidental commit is
+# permanent. this is the mechanical version of remembering.
+#
+# enable once:  git config core.hooksPath .githooks
+
+fail=0
+for file in $(git diff --cached --name-only --diff-filter=ACM); do
+  case "$file" in
+    *.enc) continue ;;
+    *.md) ;;
+    *) continue ;;
+  esac
+  [ -f "$file" ] || continue
+  # only the front matter block, so the words "lock: true" inside prose are fine
+  if sed -n '/^---$/,/^---$/p' "$file" | grep -qiE '^lock:[[:space:]]*true'; then
+    echo "pre-commit: $file is marked lock: true and is plaintext."
+    fail=1
+  fi
+done
+
+if [ "$fail" = 1 ]; then
+  cat <<'MSG'
+
+  that is the readable version of a locked note, and this repo is public.
+
+  run:  npm run lock -- <file>
+  then commit the .enc it writes into notes/, and keep the plaintext in drafts/.
+
+  if you really mean it:  git commit --no-verify
+MSG
+  exit 1
+fi

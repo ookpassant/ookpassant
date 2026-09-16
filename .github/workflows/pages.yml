@@ -1,5 +1,9 @@
-# builds the site (renders notes/*.md) and deploys it to github pages.
-# pages source must be set to "github actions" in the repo settings.
+# builds the site (renders notes/*.md and notes/*.enc) and deploys it to github
+# pages. pages source must be set to "github actions" in the repo settings.
+#
+# the build also rewrites the field notes block in README.md, so this workflow
+# commits that back when — and only when — it actually changed. the commit
+# carries [skip ci] so it does not trigger another run of this workflow.
 
 name: build and deploy
 
@@ -9,7 +13,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -28,6 +32,20 @@ jobs:
           cache: npm
       - run: npm ci
       - run: node build.js
+
+      - name: sync the readme's notes block
+        if: github.event_name == 'push'
+        run: |
+          if git diff --quiet -- README.md; then
+            echo "readme notes block already current"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "Sync recent field notes into the readme [skip ci]"
+          git push
+
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -26,7 +26,7 @@ when the app draws nearby glimmers it calls one function, `get_treasures_nearby(
 
 ## the gate
 
-to open one, the phone calls `discover_treasure()` with three values: the glimmer id, your latitude, your longitude. inside, one line decides everything.
+to open one, the phone calls `discover_treasure()` with three values, the glimmer id, your latitude, your longitude. inside, one line decides everything.
 
 ```sql
 IF NOT ST_DWithin(
@@ -34,7 +34,7 @@ IF NOT ST_DWithin(
   ST_SetSRID(ST_MakePoint(user_lon, user_lat), 4326)::geography,
   15
 ) THEN
-  RAISE EXCEPTION 'Not close enough yet — keep wandering';
+  RAISE EXCEPTION 'Not close enough yet, keep wandering';
 END IF;
 ```
 
@@ -44,9 +44,9 @@ fifteen metres. the app itself celebrates at ten. that mismatch is deliberate, a
 
 this is the part i'm proudest of, and there's no clever code in it. it's a missing permission.
 
-row level security on `treasures` says you can read a row if you created it, or if there's a row in `discoveries` saying you found it. and `discoveries` has no insert policy. none. no client can write to it. the only thing that can is `discover_treasure()`, which runs with elevated rights and writes a row only after the distance check passes.
+row level security on `treasures` says you can read a row if you created it, or if there's a row in `discoveries` saying you found it. and `discoveries` has no insert policy, none, no client can write to it. the only thing that can is `discover_treasure()`, which runs with elevated rights and writes a row only after the distance check passes.
 
-so the content isn't hidden behind a check you could route around. the only way to get the key is to call the function that measures you.
+so the content is guarded by a missing permission rather than a check you could route around, and the only way to get the key is to call the function that measures you.
 
 ## the honest limits
 
