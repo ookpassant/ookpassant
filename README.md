@@ -91,7 +91,7 @@ things i've built, written up properly. [all of them](https://chelseahopkins.co.
 
 <br>
 
-## iv · moonlighting
+## iv · commissions
 
 wordpress and woocommerce that real businesses run on. a bookings and membership platform i built is live on three client sites. club management. stock control. a dealer map. all private, all in production.
 
