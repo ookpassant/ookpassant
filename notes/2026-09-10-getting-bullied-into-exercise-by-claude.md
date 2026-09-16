@@ -10,7 +10,7 @@ i sit down to write code and stand up several hours later. [minimum-viable-exerc
 
 a folder with a markdown file in it. the file has a short header that tells claude when the skill applies, and then plain instructions. no code, no api. you install it and claude reads it whenever the description matches what's about to happen.
 
-the trick in this one is the trigger. it fires before any task claude reckons will take a while: long code, documents, research. the header says so in words. "if there's a delay coming, use it."
+the trick in this one is the trigger. it fires before any task claude reckons will take a while, long code, documents, research. the header says so in words. "if there's a delay coming, use it."
 
 ## what it does
 

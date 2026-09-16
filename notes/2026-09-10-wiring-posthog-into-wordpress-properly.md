@@ -26,7 +26,7 @@ three events: product added to cart, checkout started, order completed. the last
 
 ad blockers block posthog's domains. the fix is to serve it from your own. a rewrite rule turns `yoursite.com/phog/…` into a server-side relay to your posthog host, forwarding the visitor's ip so geolocation still works.
 
-a proxy on a wordpress site is a thing that gets abused, so this one is narrow. it relays only to the host you configured. it accepts only a fixed list of first path segments, the ones posthog actually uses: `static`, `e`, `i`, `decide`, `capture`, `batch`, `array`, `s`, `flags`. anything else is refused. the request body is capped and the upstream timeout is five seconds. it can't be pointed at another host and it can't be used to fetch things. very busy site? put a cdn in front instead. the readme says so.
+a proxy on a wordpress site is a thing that gets abused, so this one is narrow. it relays only to the host you configured, and it accepts only a fixed list of first path segments, the ones posthog actually uses: `static`, `e`, `i`, `decide`, `capture`, `batch`, `array`, `s`, `flags`, anything else is refused. the request body is capped, the upstream timeout is five seconds, and it can't be pointed at another host or used to fetch things. very busy site? put a cdn in front instead, the readme says so.
 
 ## analytics where the client already is
 
@@ -38,4 +38,4 @@ feature flags evaluated server-side, with a shortcode and a php helper, so you c
 
 ## the review
 
-before publishing i ran an adversarial review: separate agents attacking each surface, each finding re-verified by a sceptical pass. ssrf through the proxy, header injection, xss, and injection into the analytics queries were all looked at specifically. the hardening above is what came out of it.
+before publishing i ran an adversarial review, separate agents attacking each surface, each finding re-verified by a sceptical pass. ssrf through the proxy, header injection, xss, and injection into the analytics queries were all looked at specifically. the hardening above is what came out of it.
