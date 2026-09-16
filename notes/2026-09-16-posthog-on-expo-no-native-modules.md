@@ -54,10 +54,14 @@ if (KEY) {
   }
 }
 
-export function track(event: string, properties?: Record<string, unknown>) {
+type Json = string | number | boolean | null | Json[] | { [key: string]: Json };
+
+export function track(event: string, properties?: Record<string, Json>) {
   try { client?.capture(event, properties); } catch { /* never throw into the app */ }
 }
 ```
+
+`Record<string, unknown>` is the obvious signature there and it doesn't compile: the SDK wants values it can actually serialise. Typing it loosely lets a caller pass a `Date` to an event that can never carry one.
 
 Construction sets up the queue and the AppState listeners, so even that gets a try. Analytics is never worth a boot crash, and an analytics library that can throw into a render is one that eventually will, on someone's phone, in a field, where you can't see it.
 
@@ -136,7 +140,7 @@ The mechanism was already sitting there. I'd been stamping `internal: true` on i
 
 ## What's missing, on purpose
 
-There's no session replay on mobile. There is on the website, because I want to know whether people actually read the field notes or bounce off the second paragraph, and a blog post is about as low-stakes as a replay gets. The app is different. Mobile replay needs exactly the native surface I've been avoiding, and the privacy argument is stronger than the crash one: a replay of the reveal screen is a replay of a glimmer's words, and a replay of a child's session is a replay of a child. I already have their location for the app to work, and watching someone move through it would still have felt wrong. That's not a logical distinction and I'm not going to pretend it is.
+There's no session replay on mobile. There is on the website, because I want to know whether people actually read the scribblings or bounce off the second paragraph, and a blog post is about as low-stakes as a replay gets. The app is different. Mobile replay needs exactly the native surface I've been avoiding, and the privacy argument is stronger than the crash one: a replay of the reveal screen is a replay of a glimmer's words, and a replay of a child's session is a replay of a child. I already have their location for the app to work, and watching someone move through it would still have felt wrong. That's not a logical distinction and I'm not going to pretend it is.
 
 The thing replay is usually bought for, seeing why a flow failed, `plant_failed` does honestly. It carries an error name, a code and a 180-character message, and it grew those fields after my sister's gallery uploads failed on build 8 and all the telemetry could tell me was that the glimmer slipped away. I had database access and logs, so I found it. A stranger wouldn't have, so now the event says what went wrong.
 
@@ -148,7 +152,7 @@ I'd still build it this way. Build it before you need it, because when you do ne
 
 ---
 
-[^1]: *[link to the repo once it's up: analytics.ts, geo.ts, versions table]*
+[^1]: [github.com/ookpassant/expo-min-setup](https://github.com/ookpassant/expo-min-setup). Two files, the versions it was pinned and typechecked against, and the reference values that prove the geohash. One of those values was wrong when it was first written, and the test is the only reason anyone found out.
 
 [^2]: 72 events, 37 flags on mobile, and a registry file that disagrees with the code on three of them. The audit that found all of this was Claude Code reading the repo. The calls about what to change were mine.
 

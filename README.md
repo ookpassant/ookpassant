@@ -77,16 +77,16 @@ things i've left out in the open.
 
 <br>
 
-## iii · field notes
+## iii · scribblings
 
 things i've built, written up properly. [all of them](https://chelseahopkins.co.uk/notes/), or the most recent:
 
 <!-- notes:start -->
-- [a game no platform would advertise](https://chelseahopkins.co.uk/notes/selling-a-game-nobody-would-let-us-advertise/) — polyarmory launched free, with no budget, a predecessor restricted on steam, and a release date that kept moving because of real events. 20,000 downloads in ten days and a pc gamer feature anyway.
 - [Merge everything. Ship nothing.](https://chelseahopkins.co.uk/notes/merge-everything-ship-nothing/) — How one person runs a release process with 62 feature flags.
 - [Taste is the part you can't vibe](https://chelseahopkins.co.uk/notes/taste-is-the-part-you-cant-vibe/) — What an arts degree does for a builder that a bootcamp doesn't.
 - [I don't want Whimsee to be my income](https://chelseahopkins.co.uk/notes/i-dont-want-whimsee-to-be-my-income/) — It's free forever, and free things need a person who's fed.
 - [I picked 10 metres because of a puddle](https://chelseahopkins.co.uk/notes/ten-metres-because-of-a-puddle/) — Never show a button the server will refuse.
+- [Your agent has stopped imagining a reader](https://chelseahopkins.co.uk/notes/your-agent-has-stopped-imagining-a-reader/) — This post is technically correct and you will not be able to read it.
 <!-- notes:end -->
 
 <br>

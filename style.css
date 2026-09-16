@@ -569,24 +569,17 @@ dd:last-child { margin-bottom: 0; }
 
 .entries { list-style: none; margin: 0; padding: 0; }
 .entry { border-bottom: 1px solid var(--line); }
-.entry > a {
-  display: grid; grid-template-columns: 9rem 1fr; column-gap: 1.5rem; align-items: baseline;
-  padding: 1.1rem 0; text-decoration: none;
-}
-.entry-when {
-  font-family: var(--mono); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
-  color: var(--muted); white-space: nowrap; display: flex; flex-direction: column; gap: .35rem;
-}
-.entry-lock { color: var(--blue); }
-.entry-lock::before { content: "✦ "; }
+/* entries carry no date, so there is no left column to reserve: the title
+   leads and the lock rides alongside it. */
+.entry > a { display: block; padding: 1.1rem 0; text-decoration: none; }
 .entry-title { font-family: var(--display); font-weight: 600; font-size: 1.35rem; letter-spacing: -.01em; }
-.entry-summary { grid-column: 2; margin: .25rem 0 0; color: var(--ink-2); max-width: var(--measure); text-wrap: pretty; }
-.entry > a:hover .entry-title { color: var(--blue); }
-@media (max-width: 40rem) {
-  .entry > a { grid-template-columns: 1fr; row-gap: .2rem; }
-  .entry-summary { grid-column: 1; }
-  .entry-when { flex-direction: row; gap: .8rem; }
+.entry-lock {
+  font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--blue); white-space: nowrap; margin-left: .7rem; vertical-align: .15em;
 }
+.entry-lock::before { content: "✦ "; }
+.entry-summary { margin: .3rem 0 0; color: var(--ink-2); max-width: var(--measure); text-wrap: pretty; }
+.entry > a:hover .entry-title { color: var(--blue); }
 
 /* ---------- note header ---------- */
 

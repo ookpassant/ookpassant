@@ -142,10 +142,13 @@ const noteTpl = fs.readFileSync(path.join(ROOT, 'templates', 'note.html'), 'utf8
 const listTpl = fs.readFileSync(path.join(ROOT, 'templates', 'notes-index.html'), 'utf8');
 const lockTpl = fs.readFileSync(path.join(ROOT, 'templates', 'locked.html'), 'utf8');
 
+// no date on an entry. the notes carry one so they can be sorted, fed and
+// listed in the sitemap, but a reader does not get told when a thing was
+// published, so a run of posts written in one week does not read as one week.
 const entry = (n) => `<li class="entry${n.locked ? ' entry--locked' : ''}">` +
   `<a href="${n.url}">` +
-  `<span class="entry-when">${n.date ? esc(nice(n.date)) : ''}${n.locked ? '<span class="entry-lock" aria-label="locked">locked</span>' : ''}</span>` +
   `<b class="entry-title">${esc(n.title)}</b>` +
+  (n.locked ? `<span class="entry-lock" aria-label="locked">locked</span>` : '') +
   (n.summary ? `<p class="entry-summary">${esc(n.summary)}</p>` : '') +
   `</a></li>`;
 
@@ -165,8 +168,6 @@ for (const n of all) {
     summary: esc(n.summary),
     // a hidden note must not describe itself to a crawler or a link preview
     robots: n.listed ? 'index,follow' : 'noindex,nofollow',
-    iso: n.date,
-    when: n.date ? `    <p class="note-when"><time datetime="${n.date}">${nice(n.date)}</time></p>` : '',
     category: n.category ? ` · ${esc(n.category)}` : '',
     url: SITE + n.url,
     content,
@@ -241,7 +242,7 @@ fs.writeFileSync(path.join(OUT, 'sitemap.xml'),
 
 fs.writeFileSync(path.join(OUT, 'feed.xml'),
   `<?xml version="1.0" encoding="UTF-8"?>\n<feed xmlns="http://www.w3.org/2005/Atom">\n` +
-  `  <title>chelsea hopkins · field notes</title>\n  <link href="${SITE}/feed.xml" rel="self"/>\n  <link href="${SITE}/"/>\n  <id>${SITE}/</id>\n` +
+  `  <title>chelsea hopkins · scribblings</title>\n  <link href="${SITE}/feed.xml" rel="self"/>\n  <link href="${SITE}/"/>\n  <id>${SITE}/</id>\n` +
   `  <updated>${listed[0] ? listed[0].date : today}T00:00:00Z</updated>\n  <author><name>chelsea hopkins</name></author>\n` +
   listed.map((n) => `  <entry>\n    <title>${esc(n.title)}</title>\n    <link href="${SITE}${n.url}"/>\n    <id>${SITE}${n.url}</id>\n    <updated>${n.date}T00:00:00Z</updated>\n    <summary>${esc(n.summary)}</summary>` +
     (n.locked ? '' : `\n    <content type="html">${esc(n.html)}</content>`) +
