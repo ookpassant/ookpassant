@@ -141,12 +141,18 @@ const noteTpl = fs.readFileSync(path.join(ROOT, 'templates', 'note.html'), 'utf8
 const listTpl = fs.readFileSync(path.join(ROOT, 'templates', 'notes-index.html'), 'utf8');
 const lockTpl = fs.readFileSync(path.join(ROOT, 'templates', 'locked.html'), 'utf8');
 
-const entry = (n) => `<li class="entry${n.locked ? ' entry--locked' : ''}">` +
-  `<a href="${n.url}">` +
-  `<span class="entry-when">${n.date ? esc(nice(n.date)) : ''}${n.locked ? '<span class="entry-lock" aria-label="locked">locked</span>' : ''}</span>` +
-  `<b class="entry-title">${esc(n.title)}</b>` +
-  (n.summary ? `<p class="entry-summary">${esc(n.summary)}</p>` : '') +
-  `</a></li>`;
+// on the grouped /notes/ index, category is already the section heading, so
+// each row shows its date instead. on the homepage's flat, ungrouped list,
+// category is the only thing that tells one entry from another at a glance.
+const entry = (n, { showDate = true } = {}) => {
+  const label = showDate ? (n.date ? esc(nice(n.date)) : '') : esc(n.category || '');
+  return `<li class="entry${n.locked ? ' entry--locked' : ''}">` +
+    `<a href="${n.url}">` +
+    `<span class="entry-when">${label}${n.locked ? '<span class="entry-lock" aria-label="locked">locked</span>' : ''}</span>` +
+    `<b class="entry-title">${esc(n.title)}</b>` +
+    (n.summary ? `<p class="entry-summary">${esc(n.summary)}</p>` : '') +
+    `</a></li>`;
+};
 
 for (const n of all) {
   const dir = path.join(OUT, 'notes', n.slug);
@@ -199,7 +205,7 @@ const indexPath = path.join(OUT, 'index.html');
 let index = fs.readFileSync(indexPath, 'utf8');
 index = index.replace(/<!-- notes:start -->[\s\S]*?<!-- notes:end -->/,
   listed.length
-    ? `<!-- notes:start --><ol class="entries">${listed.slice(0, 6).map(entry).join('\n')}</ol>` +
+    ? `<!-- notes:start --><ol class="entries">${listed.slice(0, 6).map((n) => entry(n, { showDate: false })).join('\n')}</ol>` +
       (listed.length > 6 ? `<p class="prose small"><a href="/notes/">all ${listed.length} notes</a></p>` : '') +
       `<!-- notes:end -->`
     : '<!-- notes:start --><p class="prose">nothing written up yet.</p><!-- notes:end -->');
