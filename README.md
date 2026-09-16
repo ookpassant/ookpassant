@@ -35,6 +35,7 @@ chartered PR person who'd rather ship the thing than write the deck about it.
       <p><b>distinguishing marks.</b> postgis decides whether you're actually there. row level security keeps every note dark until you are. edge functions do the rest.</p>
       <p><b>diet.</b> expo / react native · next.js on cloudflare workers · supabase · posthog</p>
       <p><b>habitat.</b> wherever you happen to be standing.</p>
+      <p><b>also writes.</b> the <a href="https://whimsee.co.uk/blog">whimsee blog</a>, research notes on the places themselves, written before anything gets planted in them.</p>
     </td>
     <td width="50%" valign="top">
       <a href="https://heyjackdaw.com"><img src="assets/photos/jackdaw.jpg" alt="a jackdaw held gently in a hand, pale eye looking at the camera" width="100%"></a>
@@ -85,10 +86,10 @@ things i've built, written up properly. [all of them](https://chelseahopkins.co.
 
 <!-- notes:start -->
 - [selling a game nobody would let us advertise](https://chelseahopkins.co.uk/notes/selling-a-game-nobody-would-let-us-advertise/) — polyarmory launched free, with no budget, a predecessor restricted on steam, and a release date that kept moving because of real events. 20,000 downloads in ten days and a pc gamer feature anyway.
-- [a human veto on ai social posts](https://chelseahopkins.co.uk/notes/a-human-veto-on-ai-social-posts/) — how jackdaw drafts in your voice, waits for you, and publishes to ten platforms without a single platform adapter.
-- [getting bullied into exercise by claude](https://chelseahopkins.co.uk/notes/getting-bullied-into-exercise-by-claude/) — a claude code skill is a markdown file. this one makes claude set you a desk workout while it works, then check up on you.
-- [how whimsee knows you're there](https://chelseahopkins.co.uk/notes/how-whimsee-knows-youre-there/) — a postgis distance check inside one database function, and a table that nobody is allowed to write to.
-- [wiring posthog into wordpress properly](https://chelseahopkins.co.uk/notes/wiring-posthog-into-wordpress-properly/) — consent that really gates, an order event that doesn't double-count, a proxy that can't be turned against you, and analytics inside wp-admin.
+- [Merge everything. Ship nothing.](https://chelseahopkins.co.uk/notes/merge-everything-ship-nothing/) — How one person runs a release process with 62 feature flags.
+- [Taste is the part you can't vibe](https://chelseahopkins.co.uk/notes/taste-is-the-part-you-cant-vibe/) — What an arts degree does for a builder that a bootcamp doesn't.
+- [I don't want Whimsee to be my income](https://chelseahopkins.co.uk/notes/i-dont-want-whimsee-to-be-my-income/) — It's free forever, and free things need a person who's fed.
+- [I picked 10 metres because of a puddle](https://chelseahopkins.co.uk/notes/ten-metres-because-of-a-puddle/) — Never show a button the server will refuse.
 <!-- notes:end -->
 
 <br>

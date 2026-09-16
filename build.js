@@ -68,6 +68,7 @@ function readPublic(file) {
 
 function readLocked(file) {
   const { data, body } = parse(fs.readFileSync(path.join(notesDir, file), 'utf8'));
+  if (bool(data.draft)) return null;
   const listed = bool(data.listed, true);
   const m = file.match(/^(\d{4}-\d{2}-\d{2})-(.+)\.md\.enc$/);
   const slug = listed ? (m ? m[2] : file.replace(/\.md\.enc$/, '')) : file.replace(/^_/, '').replace(/\.enc$/, '');
