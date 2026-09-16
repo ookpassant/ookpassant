@@ -1,6 +1,6 @@
 ---
 title: Your agent has stopped imagining a reader
-summary: I wrote the same incident twice. Once for agents, once for people.
+summary: you're absolutely right! this article stinks.
 category: essay
 order: 70
 ---

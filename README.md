@@ -86,7 +86,7 @@ things i've built, written up properly. [all of them](https://chelseahopkins.co.
 - [Taste is the part you can't vibe](https://chelseahopkins.co.uk/notes/taste-is-the-part-you-cant-vibe/) — What an arts degree does for a builder that a bootcamp doesn't.
 - [I don't want Whimsee to be my income](https://chelseahopkins.co.uk/notes/i-dont-want-whimsee-to-be-my-income/) — It's free forever, and free things need a person who's fed.
 - [I picked 10 metres because of a puddle](https://chelseahopkins.co.uk/notes/ten-metres-because-of-a-puddle/) — Never show a button the server will refuse.
-- [Your agent has stopped imagining a reader](https://chelseahopkins.co.uk/notes/your-agent-has-stopped-imagining-a-reader/) — I wrote the same incident twice. Once for agents, once for people.
+- [Your agent has stopped imagining a reader](https://chelseahopkins.co.uk/notes/your-agent-has-stopped-imagining-a-reader/) — you're absolutely right! this article stinks.
 <!-- notes:end -->
 
 <br>
