@@ -5,7 +5,7 @@ category: essay
 order: 40
 ---
 
-I have an illustration degree, a day job in comms, and a side project in both stores that I built on my own with an agent doing most of the typing, because I get restless. I'm not an engineer and I'm not going to pretend the code is beautiful. What I'd argue is that the app is good, that it's good for reasons that have nothing to do with the code, and that the reason it's good is three years of standing in a room being told my work was wrong.
+I have an illustration degree, a day job in comms, and a side project in both stores that I built on my own with an agent doing most of the typing, because I get restless. I'm not an engineer and I'm not going to pretend the code is beautiful. The app is good, it's good for reasons that have nothing to do with the code, and the reason it's good is three years of standing in a room being told my work was wrong.
 
 That's the claim. Building things has got cheap. Knowing what's wrong with the thing you built hasn't, and the second one is the job now.
 
@@ -19,7 +19,7 @@ You do that for three years. By the end you have a reflex, and the reflex is the
 
 I know what it costs me when I don't. Every time I've ignored that feeling it's because I was playing it safe, making the version I thought was wanted rather than the one I knew was right, and it has cost me. Roles I wanted. Opportunities I'd have called dream ones at the time. I've metaphorically shot myself in the foot enough times now to recognise the shape of it, and these days when the feeling shows up and I'm tempted to override it, I look back at the last few times I did and learn hard from them.
 
-Engineers get code review, which is the same mechanism pointed at a different object. Review teaches you taste in code, what's clean, what'll bite you, what's clever in the bad way. It teaches you much less about whether the thing the code makes is any good, because that's not what's on the wall. I'd argue that's the gap an arts background fills, and it's a gap that matters more every month, because the code is increasingly not the hard part.
+Engineers get code review, which is the same mechanism pointed at a different object. Review teaches you taste in code, what's clean, what'll bite you, what's clever in the bad way. It teaches you much less about whether the thing the code makes is any good, because that's not what's on the wall. That's the gap an arts background fills, and it's a gap that matters more every month, because the code is increasingly not the hard part.
 
 ## 2. Taste in a codebase looks like naming
 
@@ -41,7 +41,7 @@ There's a third one that I think about more. The app's home page promises never 
 
 ## 4. What the agent can't do
 
-Most of Whimsee was typed by Claude Code. I'm not shy about that and I'm not going to pretend it makes me a developer. What I'd say is that it made the building cheap enough that the whole job moved.
+Most of Whimsee was typed by Claude Code. I'm not shy about that and I'm not going to pretend it makes me a developer. It made the building cheap enough that the whole job moved.
 
 When the agent writes the code, every hour I have goes on what to build, what to call it, whether it's right, and what to cut. Those are the things the crit taught me. They're also, as far as I can tell, the things the agent is worst at, not because it can't produce a plausible answer but because it can't tell which of its plausible answers is the one this app needs. It'll give you `treasure_collected` and it'll give you `glimmer_kept_forever`, and it'll argue for either with equal confidence, and somebody has to know.
 
@@ -51,7 +51,7 @@ Here's the honest bit. I had to send the first draft of nearly every post I've w
 
 If you're an engineer, I'm not telling you to go to art school. I'm telling you the crit is a mechanism and you can run it on anything. Put the thing you built, not the code, in front of people who'll tell you it's wrong, and practise trusting the feeling before you have the reason.
 
-If you're a builder without an engineering background, I'm telling you the thing you were worried was a gap might be the point. The scarce skill now isn't producing the app. It's being the person in the room who knows the app is wrong, and why, and what it should have been called.
+If you're a builder without an engineering background, I'm telling you the thing you were worried was a gap is the point. The scarce skill now isn't producing the app. It's being the person in the room who knows the app is wrong, and why, and what it should have been called.
 
 And if you've got a good crit story, wrong on the wall and how you found out why, I'd like to hear it.
 
