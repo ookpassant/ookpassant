@@ -68,6 +68,7 @@ function readPublic(file) {
 
 function readLocked(file) {
   const { data, body } = parse(fs.readFileSync(path.join(notesDir, file), 'utf8'));
+  if (bool(data.draft)) return null;
   const listed = bool(data.listed, true);
   const m = file.match(/^(\d{4}-\d{2}-\d{2})-(.+)\.md\.enc$/);
   const slug = listed ? (m ? m[2] : file.replace(/\.md\.enc$/, '')) : file.replace(/^_/, '').replace(/\.enc$/, '');
@@ -141,18 +142,21 @@ const noteTpl = fs.readFileSync(path.join(ROOT, 'templates', 'note.html'), 'utf8
 const listTpl = fs.readFileSync(path.join(ROOT, 'templates', 'notes-index.html'), 'utf8');
 const lockTpl = fs.readFileSync(path.join(ROOT, 'templates', 'locked.html'), 'utf8');
 
-// on the grouped /notes/ index, category is already the section heading, so
-// each row shows its date instead. on the homepage's flat, ungrouped list,
-// category is the only thing that tells one entry from another at a glance.
-const entry = (n, { showDate = true } = {}) => {
-  const label = showDate ? (n.date ? esc(nice(n.date)) : '') : esc(n.category || '');
-  return `<li class="entry${n.locked ? ' entry--locked' : ''}">` +
-    `<a href="${n.url}">` +
-    `<span class="entry-when">${label}${n.locked ? '<span class="entry-lock" aria-label="locked">locked</span>' : ''}</span>` +
-    `<b class="entry-title">${esc(n.title)}</b>` +
-    (n.summary ? `<p class="entry-summary">${esc(n.summary)}</p>` : '') +
-    `</a></li>`;
-};
+// no date on an entry. the notes carry one so they can be sorted, fed and
+// listed in the sitemap, but a reader does not get told when a thing was
+// published, so a run of posts written in one week does not read as one week.
+//
+// the grouped /notes/ index has the category as its section heading already.
+// the homepage's flat list has nothing, so it takes the category as a label:
+// without it every row is title and summary and they blur together.
+const entry = (n, { showCategory = false } = {}) =>
+  `<li class="entry${n.locked ? ' entry--locked' : ''}">` +
+  `<a href="${n.url}">` +
+  (showCategory && n.category ? `<span class="entry-cat">${esc(n.category)}</span>` : '') +
+  `<b class="entry-title">${esc(n.title)}</b>` +
+  (n.locked ? `<span class="entry-lock" aria-label="locked">locked</span>` : '') +
+  (n.summary ? `<p class="entry-summary">${esc(n.summary)}</p>` : '') +
+  `</a></li>`;
 
 for (const n of all) {
   const dir = path.join(OUT, 'notes', n.slug);
@@ -170,8 +174,6 @@ for (const n of all) {
     summary: esc(n.summary),
     // a hidden note must not describe itself to a crawler or a link preview
     robots: n.listed ? 'index,follow' : 'noindex,nofollow',
-    iso: n.date,
-    when: n.date ? `    <p class="note-when"><time datetime="${n.date}">${nice(n.date)}</time></p>` : '',
     category: n.category ? ` · ${esc(n.category)}` : '',
     url: SITE + n.url,
     content,
@@ -205,7 +207,7 @@ const indexPath = path.join(OUT, 'index.html');
 let index = fs.readFileSync(indexPath, 'utf8');
 index = index.replace(/<!-- notes:start -->[\s\S]*?<!-- notes:end -->/,
   listed.length
-    ? `<!-- notes:start --><ol class="entries">${listed.slice(0, 6).map((n) => entry(n, { showDate: false })).join('\n')}</ol>` +
+    ? `<!-- notes:start --><ol class="entries">${listed.slice(0, 6).map((n) => entry(n, { showCategory: true })).join('\n')}</ol>` +
       (listed.length > 6 ? `<p class="prose small"><a href="/notes/">all ${listed.length} notes</a></p>` : '') +
       `<!-- notes:end -->`
     : '<!-- notes:start --><p class="prose">nothing written up yet.</p><!-- notes:end -->');
@@ -246,7 +248,7 @@ fs.writeFileSync(path.join(OUT, 'sitemap.xml'),
 
 fs.writeFileSync(path.join(OUT, 'feed.xml'),
   `<?xml version="1.0" encoding="UTF-8"?>\n<feed xmlns="http://www.w3.org/2005/Atom">\n` +
-  `  <title>chelsea hopkins · field notes</title>\n  <link href="${SITE}/feed.xml" rel="self"/>\n  <link href="${SITE}/"/>\n  <id>${SITE}/</id>\n` +
+  `  <title>chelsea hopkins · scribblings</title>\n  <link href="${SITE}/feed.xml" rel="self"/>\n  <link href="${SITE}/"/>\n  <id>${SITE}/</id>\n` +
   `  <updated>${listed[0] ? listed[0].date : today}T00:00:00Z</updated>\n  <author><name>chelsea hopkins</name></author>\n` +
   listed.map((n) => `  <entry>\n    <title>${esc(n.title)}</title>\n    <link href="${SITE}${n.url}"/>\n    <id>${SITE}${n.url}</id>\n    <updated>${n.date}T00:00:00Z</updated>\n    <summary>${esc(n.summary)}</summary>` +
     (n.locked ? '' : `\n    <content type="html">${esc(n.html)}</content>`) +

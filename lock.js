@@ -98,8 +98,14 @@ async function main() {
     process.exit(1);
   }
 
+  // a listed note keeps the fields the index needs in cleartext, `order` among
+  // them: drop it and the note silently sorts to the end of its group.
   const meta = listed
-    ? { title: data.title, summary: data.summary || '', category: data.category || 'note', date, lock: true, listed: true, ...(data.hint ? { hint: data.hint } : {}) }
+    ? {
+        title: data.title, summary: data.summary || '', category: data.category || 'note', date,
+        ...(data.order !== undefined ? { order: data.order } : {}),
+        lock: true, listed: true, ...(data.hint ? { hint: data.hint } : {}),
+      }
     : { lock: true, listed: false, ...(data.hint ? { hint: data.hint } : {}) };
 
   const out = path.join(NOTES, listed ? `${date}-${slug}.md.enc` : `_${slug}.enc`);
