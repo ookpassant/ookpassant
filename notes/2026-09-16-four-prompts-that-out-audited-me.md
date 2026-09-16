@@ -2,7 +2,7 @@
 title: 4 prompts that out-audited me
 summary: Steal them. Then come and tell me what yours found.
 category: build
-order: 30
+order: 70
 draft: true
 ---
 

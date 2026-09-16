@@ -490,7 +490,13 @@ dd:last-child { margin-bottom: 0; }
 .crumb { font-family: var(--mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
 .crumb:hover { color: var(--blue); }
 
-.note-main { position: relative; z-index: 1; max-width: 46rem; margin: 0 auto; padding: clamp(3rem, 8vw, 6rem) var(--gutter); }
+/* 48rem of text, plus the gutter outside it, so the measure is the same 48rem
+   here and on a page with sidenotes. */
+.note-main {
+  position: relative; z-index: 1; margin: 0 auto;
+  max-width: calc(48rem + 2 * var(--gutter));
+  padding: clamp(3rem, 8vw, 6rem) var(--gutter);
+}
 .note-main .eyebrow {
   display: inline-block;
   color: var(--blue); background: color-mix(in oklab, var(--blue) 10%, var(--paper));
@@ -647,6 +653,13 @@ dd:last-child { margin-bottom: 0; }
 }
 .video-frame iframe { display: block; width: 100%; height: 100%; border: 0; }
 
+/* given the room, the player breaks out past the text column — a video read at
+   measure width is a postage stamp. only without sidenotes: there the margin is
+   spoken for, and a bleeding frame would sit on top of the notes. */
+@media (min-width: 72rem) {
+  body:not(.has-sidenotes) .video { margin-inline: -5rem; }
+}
+
 /* ---------- footnotes ---------- */
 /* endnotes by default. note.js lifts them into the margin when there is a margin
    to lift them into, and sets .has-sidenotes on the body. with javascript off,
@@ -669,8 +682,10 @@ dd:last-child { margin-bottom: 0; }
 .sidenote { display: none; }
 
 @media (min-width: 1100px) {
-  .has-sidenotes .note-main { max-width: 74rem; }
-  .has-sidenotes .note-main > article { max-width: 46rem; }
+  /* the column, plus the 3rem gap and the 17rem sidenote, plus the gutter. spelled
+     out rather than rounded up, so changing the measure moves this with it. */
+  .has-sidenotes .note-main { max-width: calc(48rem + 3rem + 17rem + 2 * var(--gutter)); }
+  .has-sidenotes .note-main > article { max-width: 48rem; }
   .has-sidenotes .note-body { position: relative; }
   .has-sidenotes .endnotes { display: none; }
 

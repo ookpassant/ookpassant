@@ -2,7 +2,7 @@
 title: PostHog on Expo, no native modules
 summary: No page views, no coordinates, nothing you didn't decide to send.
 category: build
-order: 50
+order: 80
 draft: true
 ---
 

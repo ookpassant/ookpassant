@@ -2,7 +2,7 @@
 title: I don't feel at all
 summary: Eurobeat fancams of Michèle Mouton, and the switch that flips on a start line.
 category: essay
-order: 80
+order: 50
 ---
 
 "How do you feel as the start time approaches?"
@@ -62,3 +62,7 @@ The fancam kids are building a shrine to something they've never touched. The sh
 But the actual thing's better. The noise, the gravel, the smell of it. The start line. The switch.
 
 Go find a rally. Feel it for yourself.
+
+---
+
+*Want to read more like this? Buy [SLICKS](https://www.slicksmag.com/).*

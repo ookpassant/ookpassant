@@ -2,7 +2,7 @@
 title: I picked 10 metres because of a puddle
 summary: Never show a button the server will refuse.
 category: build
-order: 60
+order: 30
 ---
 
 Every distance in Whimsee is a guess. Whimsee is a side project, a GPS discovery app I built to learn, and it's built on walking to a place and having something happen when you're close enough: a hidden thing reveals itself and you can dig it up, or a spot tells you what it is and shows you a photo. None of the "close enough" numbers were measured, tested or calibrated. I picked them on feel and then bolted an engineering margin underneath.

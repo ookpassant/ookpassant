@@ -2,7 +2,7 @@
 title: Taste is the part you can't vibe
 summary: What an arts degree does for a builder that a bootcamp doesn't.
 category: essay
-order: 20
+order: 40
 ---
 
 I have an illustration degree, a day job in comms, and a side project in both stores that I built on my own with an agent doing most of the typing, because I get restless. I'm not an engineer and I'm not going to pretend the code is beautiful. What I'd argue is that the app is good, that it's good for reasons that have nothing to do with the code, and that the reason it's good is three years of standing in a room being told my work was wrong.

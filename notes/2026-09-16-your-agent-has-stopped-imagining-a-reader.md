@@ -2,7 +2,7 @@
 title: Your agent has stopped imagining a reader
 summary: you're absolutely right! this article stinks.
 category: essay
-order: 70
+order: 20
 ---
 
 Everything in the next four hundred words is true. It happened to me in August, it's in my commit history, and every claim would survive a fact-check. I've also written it in the dialect people have started calling Claudish, and it gives everybody a feeling of seasickness and absolute wordwhelm. Try anyway. Then I'll translate, and then I'll tell you what I think it means.
