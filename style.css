@@ -612,9 +612,27 @@ dd:last-child { margin-bottom: 0; }
 }
 .note-body tbody td { padding: .6rem .8rem .6rem 0; border-bottom: 1px solid var(--line); vertical-align: top; text-wrap: pretty; }
 .note-body tbody tr:last-child td { border-bottom: 0; }
+/* the wrapper scrolls, so the table stays a table and its columns stay lined up.
+   display:block on the table itself scrolls too, and loses the column widths. */
+.table-scroll {
+  overflow-x: auto; margin: 1.6em 0; -webkit-overflow-scrolling: touch;
+  /* the two paper-coloured covers scroll WITH the content, the two shadows are
+     pinned to the box, so a shadow only shows on a side there is more table on.
+     no javascript, and nothing to show when the table already fits. */
+  background:
+    linear-gradient(to right, var(--paper), transparent) 0 0 / 2.5rem 100% no-repeat local,
+    linear-gradient(to left, var(--paper), transparent) 100% 0 / 2.5rem 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(20,20,20,.16), transparent) 0 0 / 1rem 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(20,20,20,.16), transparent) 100% 0 / 1rem 100% no-repeat scroll;
+}
+.table-scroll > table { margin: 0; }
+.table-scroll:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
 @media (max-width: 48rem) {
-  .note-body table { display: block; overflow-x: auto; white-space: nowrap; }
-  .note-body tbody td { white-space: normal; min-width: 8rem; }
+  .note-body td, .note-body th { white-space: normal; min-width: 7rem; }
+  .note-body td:last-child, .note-body th:last-child { min-width: 11rem; }
+  /* a flag name is one word. the table scrolls, so let it be as wide as it is
+     rather than snapping it in half mid-identifier. */
+  .note-body td code { white-space: nowrap; overflow-wrap: normal; }
 }
 
 /* ---------- diagram plates ---------- */
@@ -744,3 +762,44 @@ dd:last-child { margin-bottom: 0; }
   font-family: var(--mono); font-size: .75rem; color: var(--blue); margin: .9rem 0 0; min-height: 1.2em;
 }
 .lock.is-working .lock-go { opacity: .5; pointer-events: none; }
+
+/* ---------- phones ---------- */
+/* everything above is written for a screen with room on it. this block is the
+   same layout on a 390px-wide one: smaller display type, a cover panel that
+   fits inside the viewport instead of hanging off it, and body text at a size
+   that gets more than five words on a line. */
+
+@media (max-width: 40rem) {
+  /* 3.4rem was a floor, not a size: on a 390px screen it forced 54px type and
+     pushed the photo behind it off the top of the page. */
+  h1 { font-size: clamp(2.5rem, 13vw, 4rem); }
+
+  /* the frame bleeds 1.5rem past the text box, and the text box only sits .4 of
+     a gutter off the edge, so on a phone the left of the frame was off-screen. */
+  .cover-text {
+    margin: var(--gutter) var(--gutter) clamp(2rem, 5vw, 3.5rem);
+    padding: 1.5rem 1.25rem;
+  }
+  .cover-text::before { inset: -.5rem -.75rem; border-width: 3px; box-shadow: 6px 6px 0 var(--yellow); }
+  /* the strapline wrapped onto two lines and read as a broken sign. */
+  .cover-text .eyebrow { font-size: .58rem; letter-spacing: .1em; margin-bottom: 1rem; }
+  .cover { min-height: 90svh; }
+
+  /* 1.1em on top of the body size is 19px here, which is about 38 characters a
+     line. at 1em it's nearer 45, which is a line rather than a fragment. */
+  .note-body { font-size: 1em; line-height: 1.55; }
+  /* the summary pulls itself up under the title with a negative margin, which
+     at this heading size left them touching. */
+  .note-main h1 { margin-bottom: 2rem; }
+  .note-summary { font-size: 1.1em; }
+  .note-main .eyebrow { margin-bottom: 1rem; }
+
+  /* the first group heading sat straight under the intro paragraph with no
+     more space than a line break. */
+  .group:first-of-type { margin-top: 2.5rem; }
+  .group + .group { margin-top: 3rem; }
+
+  /* a long unbroken token in a code block used to decide the page width. */
+  .note-body pre { padding: .8rem .9rem; font-size: .82em; }
+  .note-body code { overflow-wrap: anywhere; }
+}
