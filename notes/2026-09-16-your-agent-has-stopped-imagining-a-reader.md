@@ -1,6 +1,6 @@
 ---
 title: Your agent has stopped imagining a reader
-summary: This post is technically correct and you will not be able to read it.
+summary: I wrote the same incident twice. Once for agents, once for people.
 category: essay
 order: 70
 ---
@@ -33,18 +33,14 @@ The same thing happened with my analytics notes, which still said no session rep
 
 Jina Yoon wrote [a good piece](https://posthog.com/newsletter/fix-your-agents) a couple of weeks ago about subtracting context so agents can think, and the line I keep coming back to is: for each line in your AGENTS.md, if you can't name the failure it prevents, delete it. I'd like to steal it and point it the other way.
 
-For each sentence your agent writes, if you can't name the reader it's for, it shouldn't be there. That's what the parody above is missing. Every sentence in it is defensible and not one of them is for anyone. "Load-bearing" is a word you use when you're not sure the sentence would stand up without it. "Non-trivial" is a number you didn't look up. "This isn't X, it's Y" is a rhythm, not a distinction, and it turns up three times in four paragraphs because it feels like thinking. The compound nouns, state-registry drift vector and the rest, are what a model produces when it's optimising for the next model in the chain rather than the person at the end of it.
+For each sentence your agent writes, if you can't name the reader it's for, it shouldn't be there. Every sentence up there is defensible and not one of them is for anyone. "Load-bearing" is a word you use when you're not sure the sentence would stand up without it. "Non-trivial" is a number you didn't look up. "This isn't X, it's Y" is a rhythm, not a distinction, and it turns up three times because it feels like thinking. "State-registry drift vector" is four nouns doing the work of none.
 
-That's the thing I'd actually argue. Claudish isn't a training glitch and it isn't laziness. It's what writing sounds like when the writer has stopped imagining a reader, and agents mostly write for other agents now. The context goes in, the plan comes out, another agent reads the plan, and by the time a human sees any of it the prose has been through three rounds of nobody. We had this before. Corporate-speak is what people wrote when they were writing for their manager instead of the customer. Same failure, with the manager swapped for a subagent.
+Claudish is what writing sounds like when the writer has stopped imagining a reader, and agents mostly write for other agents now. The context goes in, the plan comes out, another agent reads the plan, and by the time a human sees any of it the prose has been through three rounds of nobody. We had this before. Corporate-speak is what people wrote when they were writing for their manager instead of the customer. Same failure, manager swapped for subagent.
 
-Which is also why Jina's subtraction point is the right instinct, just aimed at the input side. Her team strips context so the model can think clearly. The same discipline on the output side is a person with a red pen asking who each sentence is for, and mostly it's for the reader, and mostly the fix is deleting.
+I'd built a tool for this before the dialect had a name. A skill that runs Wikipedia's "signs of AI writing" list over a draft and flags the tells: the -ing phrases that add fake depth, the rule-of-three lists, the sententious little closer at the end of every section, the em dashes.[^1] I made it because I hated reading my own AI-assisted drafts, and I've used it on every post I've written since, including this one.
 
-I'd built a tool for this before the dialect had a name. A skill that runs Wikipedia's "signs of AI writing" list over a draft and flags the tells: the -ing phrases that add fake depth, the rule-of-three lists, the sententious little closer at the end of every section, the em dashes.[^1] I made it because I hated reading my own AI-assisted drafts, and I've used it on every post I've written since, including this one.[^2]
-
-If you're editing your AGENTS.md this month because of Jina's piece, do the same pass on the last thing your agent wrote for a human. Count the sentences you can name a reader for. It'll be fewer than you'd like, and every one you cut will make the rest sound like a person.
+If you're editing your AGENTS.md because of Jina's piece, do the same pass on the last thing your agent wrote for a human. Count the sentences you can name a reader for.
 
 ---
 
 [^1]: The skill isn't public, but I'll share it if you ask. It's built on the list maintained by WikiProject AI Cleanup, which is worth reading on its own, because it was written by people who've cleaned up thousands of examples and have no interest in being polite about it.
-
-[^2]: The first draft of this post came back from Claude, and I sent it back for being too Claude. Twice.
