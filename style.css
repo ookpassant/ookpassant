@@ -500,3 +500,158 @@ dd:last-child { margin-bottom: 0; }
   .observe { opacity: 1; transform: none; transition: none; }
   .plate-photo:hover { transform: none; }
 }
+
+/* ---------- notes index: grouped ---------- */
+
+.group + .group { margin-top: 3.5rem; }
+.group-head {
+  font-family: var(--mono); font-size: .72rem; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--amber); font-weight: 400; margin: 0 0 .25rem;
+  display: flex; align-items: baseline; gap: .6rem;
+}
+.group-head::after { content: ""; flex: 1; border-bottom: 1px solid var(--line); }
+.group-count { order: 3; color: var(--muted); }
+
+.entries { list-style: none; margin: 0; padding: 0; }
+.entry { border-bottom: 1px solid var(--line); }
+.entry > a {
+  display: grid; grid-template-columns: 9rem 1fr; column-gap: 1.5rem; align-items: baseline;
+  padding: 1.1rem 0; text-decoration: none;
+}
+.entry-when {
+  font-family: var(--mono); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted); white-space: nowrap; display: flex; flex-direction: column; gap: .35rem;
+}
+.entry-lock { color: var(--amber); }
+.entry-lock::before { content: "✳ "; }
+.entry-title { font-family: var(--display); font-weight: 500; font-size: 1.35rem; letter-spacing: -.01em; }
+.entry-summary { grid-column: 2; margin: .25rem 0 0; color: var(--ink-2); max-width: var(--measure); text-wrap: pretty; }
+.entry > a:hover .entry-title { color: var(--amber); }
+@media (max-width: 40rem) {
+  .entry > a { grid-template-columns: 1fr; row-gap: .2rem; }
+  .entry-summary { grid-column: 1; }
+  .entry-when { flex-direction: row; gap: .8rem; }
+}
+
+/* ---------- note header ---------- */
+
+.note-summary { max-width: var(--measure); margin: -1rem 0 1rem; font-size: 1.2em; line-height: 1.45; color: var(--ink-2); text-wrap: pretty; }
+.note-summary:empty { display: none; }
+.note-when { font-family: var(--mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 2.5rem; }
+
+/* ---------- tables ---------- */
+/* the essays lean on these, and a table is the one thing that will not fold at
+   phone width. it scrolls sideways inside its own box rather than stretching
+   the page and breaking every other line length on it. */
+
+.note-body table { width: 100%; border-collapse: collapse; font-size: .92em; margin: 1.6em 0; }
+.note-body thead th {
+  font-family: var(--mono); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--amber); text-align: left; font-weight: 400; padding: .5rem .8rem .5rem 0;
+  border-bottom: 1px solid var(--line); white-space: nowrap;
+}
+.note-body tbody td { padding: .6rem .8rem .6rem 0; border-bottom: 1px solid var(--line); vertical-align: top; text-wrap: pretty; }
+.note-body tbody tr:last-child td { border-bottom: 0; }
+@media (max-width: 48rem) {
+  .note-body table { display: block; overflow-x: auto; white-space: nowrap; }
+  .note-body tbody td { white-space: normal; min-width: 8rem; }
+}
+
+/* ---------- diagram plates ---------- */
+/* a [diagram: ...] paragraph is a drawing that does not exist yet. it reads as
+   an empty frame so an unfinished plate looks unfinished, rather than looking
+   like a stray line of prose. */
+
+.diagram { margin: 2.2em 0; }
+.diagram-frame {
+  border: 1px dashed var(--line); background: var(--paper-2);
+  aspect-ratio: 16 / 7; display: grid; place-items: center;
+}
+.diagram-mark {
+  font-family: var(--mono); font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted);
+}
+.diagram figcaption, .note-body figcaption {
+  font-family: var(--mono); font-size: .72rem; line-height: 1.5; letter-spacing: .04em;
+  color: var(--muted); margin-top: .6rem; text-wrap: pretty;
+}
+.note-body figure img { display: block; width: 100%; }
+
+/* ---------- footnotes ---------- */
+/* endnotes by default. note.js lifts them into the margin when there is a margin
+   to lift them into, and sets .has-sidenotes on the body. with javascript off,
+   or on a narrow screen, this list is the whole feature and works fine. */
+
+.footnote-ref a, a.footnote-ref {
+  font-family: var(--mono); font-size: .7em; text-decoration: none; padding: 0 .1em;
+  vertical-align: super; line-height: 1; color: var(--amber);
+}
+.endnotes { margin-top: 3.5em; border-top: 1px dashed var(--line); padding-top: 1.5em; }
+.endnotes-head {
+  font-family: var(--mono); font-size: .72rem; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--amber); font-weight: 400; margin: 0 0 1rem;
+}
+.endnotes-list { padding-left: 1.2em; color: var(--ink-2); font-size: .95em; }
+.endnotes-list li + li { margin-top: .6em; }
+.endnotes-list p { margin: 0; }
+.footnote-backref { text-decoration: none; margin-left: .3em; }
+
+.sidenote { display: none; }
+
+@media (min-width: 1100px) {
+  .has-sidenotes .note-main { max-width: 74rem; }
+  .has-sidenotes .note-main > article { max-width: 46rem; }
+  .has-sidenotes .note-body { position: relative; }
+  .has-sidenotes .endnotes { display: none; }
+
+  .has-sidenotes .sidenote {
+    display: grid; grid-template-columns: 1.4rem 1fr; gap: .5rem;
+    position: absolute; left: calc(100% + 3rem); width: 17rem;
+    font-size: .82rem; line-height: 1.5; color: var(--ink-2);
+    transition: top .2s var(--ease);
+  }
+  .has-sidenotes .sidenote-n {
+    font-family: var(--mono); font-size: .7rem; color: var(--amber); text-align: right; padding-top: .15em;
+  }
+  .has-sidenotes .sidenote-text p { margin: 0; text-wrap: pretty; }
+  .has-sidenotes .sidenote-text p + p { margin-top: .5em; }
+}
+
+@media (prefers-reduced-motion: reduce) { .sidenote { transition: none; } }
+
+/* ---------- locked notes ---------- */
+
+.lock { margin: 1rem 0 2rem; }
+.lock-frame {
+  border: 1px dashed var(--line); background: var(--paper-2);
+  padding: clamp(1.5rem, 5vw, 3rem); max-width: var(--measure);
+}
+.lock-mark { font-size: 1.6rem; color: var(--amber); margin: 0 0 .6rem; line-height: 1; }
+.lock-head {
+  font-family: var(--display); font-weight: 500; font-size: 1.5rem; letter-spacing: -.015em;
+  margin: 0 0 .8rem;
+}
+.lock-why { margin: 0; color: var(--ink-2); line-height: 1.55; text-wrap: pretty; }
+.lock-hint {
+  margin: 1rem 0 0; padding-left: 1rem; border-left: 2px solid var(--amber);
+  font-style: italic; color: var(--ink-2);
+}
+.lock-form { display: flex; flex-wrap: wrap; gap: .6rem; align-items: flex-end; margin-top: 1.6rem; }
+.lock-label {
+  font-family: var(--mono); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted); flex-basis: 100%;
+}
+.lock-input {
+  flex: 1 1 14rem; font-family: var(--mono); font-size: 1rem; padding: .6rem .7rem;
+  background: var(--paper); color: var(--ink); border: 1px solid var(--line);
+}
+.lock-input:focus-visible { outline: 2px solid var(--amber); outline-offset: 1px; }
+.lock-go {
+  font-family: var(--mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
+  padding: .7rem 1.2rem; cursor: pointer;
+  background: var(--ink); color: var(--paper); border: 1px solid var(--ink);
+}
+.lock-go:hover { background: var(--amber); border-color: var(--amber); color: var(--ink); }
+.lock-status {
+  font-family: var(--mono); font-size: .75rem; color: var(--amber); margin: .9rem 0 0; min-height: 1.2em;
+}
+.lock.is-working .lock-go { opacity: .5; pointer-events: none; }

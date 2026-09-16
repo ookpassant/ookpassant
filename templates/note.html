@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{title}} · chelsea hopkins</title>
 <meta name="description" content="{{summary}}">
+<meta name="robots" content="{{robots}}">
 <link rel="canonical" href="{{url}}">
 <meta property="og:type" content="article">
 <meta property="og:title" content="{{title}}">
@@ -31,11 +32,11 @@
 
 <main class="note-main">
   <article>
-    <p class="eyebrow">field note · {{category}}</p>
+    <p class="eyebrow">field note{{category}}</p>
     <h1>{{title}}</h1>
-    <div class="note-body">
+    <p class="note-summary">{{summary}}</p>
+{{when}}
 {{content}}
-    </div>
   </article>
 </main>
 
@@ -45,5 +46,6 @@
 </footer>
 
 <script src="/main.js" defer></script>
+<script src="/note.js" defer></script>
 </body>
 </html>

@@ -3,9 +3,12 @@
   "private": true,
   "description": "chelseahopkins.co.uk and the github profile readme",
   "scripts": {
-    "build": "node build.js"
+    "build": "node build.js",
+    "lock": "node lock.js",
+    "hooks": "git config core.hooksPath .githooks && echo 'pre-commit guard enabled'"
   },
   "dependencies": {
-    "markdown-it": "^14.1.0"
+    "markdown-it": "^14.1.0",
+    "markdown-it-footnote": "^4.0.0"
   }
 }

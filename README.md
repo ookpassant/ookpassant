@@ -79,13 +79,27 @@ things i've left out in the open.
 
 <br>
 
-## iii · domesticated varieties
+## iii · field notes
+
+things i've built, written up properly. [all of them](https://chelseahopkins.co.uk/notes/), or the most recent:
+
+<!-- notes:start -->
+- [selling a game nobody would let us advertise](https://chelseahopkins.co.uk/notes/selling-a-game-nobody-would-let-us-advertise/) — polyarmory launched free, with no budget, a predecessor restricted on steam, and a release date that kept moving because of real events. 20,000 downloads in ten days and a pc gamer feature anyway.
+- [a human veto on ai social posts](https://chelseahopkins.co.uk/notes/a-human-veto-on-ai-social-posts/) — how jackdaw drafts in your voice, waits for you, and publishes to ten platforms without a single platform adapter.
+- [getting bullied into exercise by claude](https://chelseahopkins.co.uk/notes/getting-bullied-into-exercise-by-claude/) — a claude code skill is a markdown file. this one makes claude set you a desk workout while it works, then check up on you.
+- [how whimsee knows you're there](https://chelseahopkins.co.uk/notes/how-whimsee-knows-youre-there/) — a postgis distance check inside one database function, and a table that nobody is allowed to write to.
+- [wiring posthog into wordpress properly](https://chelseahopkins.co.uk/notes/wiring-posthog-into-wordpress-properly/) — consent that really gates, an order event that doesn't double-count, a proxy that can't be turned against you, and analytics inside wp-admin.
+<!-- notes:end -->
+
+<br>
+
+## iv · domesticated varieties
 
 wordpress and woocommerce that real businesses run on. a bookings and membership platform i built is live on three client sites. club management. stock control. a dealer map. all private, all in production.
 
 <br>
 
-## iv · diet
+## v · diet
 
 <p>
 <img src="https://img.shields.io/badge/typescript-2a251d?style=flat-square&logo=typescript&logoColor=d4a84b" alt="typescript">
@@ -107,7 +121,7 @@ wordpress and woocommerce that real businesses run on. a bookings and membership
 
 <br>
 
-## v · behaviour
+## vi · behaviour
 
 <img src="assets/photos/pinewood.jpg" alt="low sun through a pine wood, long shadows across deep moss, a small stream cutting through" width="100%">
 <p align="center"><sub>fig. 4 · pine wood, november.</sub></p>

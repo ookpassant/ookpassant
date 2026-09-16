@@ -1,2 +1,6 @@
 _site/
 node_modules/
+
+# plaintext of locked notes. write them here, run `npm run lock -- <file>`,
+# and commit only the ciphertext that lands in notes/.
+drafts/
