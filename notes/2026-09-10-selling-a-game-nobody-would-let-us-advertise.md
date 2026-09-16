@@ -1,5 +1,5 @@
 ---
-title: selling a game nobody would let us advertise
+title: a game no platform would advertise
 date: 2026-09-10
 summary: polyarmory launched free, with no budget, a predecessor restricted on steam, and a release date that kept moving because of real events. 20,000 downloads in ten days and a pc gamer feature anyway.
 slug: selling-a-game-nobody-would-let-us-advertise
@@ -13,7 +13,7 @@ i ran pr on it. this is what that actually involved.
 
 ## the constraints
 
-no budget. not a small budget. none. the whole campaign ran on time and a notion board.
+no budget, not a small one, none at all. the whole campaign ran on time and a notion board.
 
 the team's previous game, onlycans: thirst date, is age and region restricted on steam. polyarmory's first itch.io listing came down for being too erotic. paid social and most storefront promotion were gone before we'd finished thinking about them.
 
@@ -23,41 +23,25 @@ the release moved more than once. a game about a man being radicalised by talk r
 
 ## what we did have
 
-real thematic weight underneath the absurdity. colt is right about the problems and wrong about the causes, the in-game radio escalates the way a real pipeline does, and the antagonists were built specifically to occupy the slot that antisemitic conspiracy tropes usually fill.
+real thematic weight underneath the absurdity, colt is right about the problems and wrong about the causes, the in-game radio escalates the way a real pipeline does, and the antagonists were built specifically to occupy the slot that antisemitic conspiracy tropes usually fill.
 
-an eight hour runtime, which is exactly the shape of a youtube series.
-
-an original theme song by the stupendium, who publishes to an audience in the hundreds of millions of views.
-
-no ai-generated assets anywhere in the shipped game.
-
-and a predecessor still sitting at 96% across 3,489 reviews four years after release, which is the only credibility that matters when a five-person team asks a journalist for twenty minutes.
+an eight hour runtime, which is exactly the shape of a youtube series, and an original theme song by the stupendium, who publishes to an audience in the hundreds of millions of views. no ai-generated assets anywhere in the shipped game, and a predecessor still sitting at 96% across 3,489 reviews four years after release, which is the only credibility that matters when a five-person team asks a journalist for twenty minutes.
 
 ## the approach
 
-**four angles, matched to the outlet.** a stats hook for the traffic-driven sites. a cultural hook for the features desks, pitched as thematic depth rather than controversy bait. an absurdist hook built on the options menu, which is the one that opens doors at tier 1. and the stupendium collaboration for anyone arriving through his audience.
+we built four angles, matched to the outlet. a stats hook for the traffic-driven sites, a cultural hook for the features desks pitched as thematic depth rather than controversy bait, an absurdist hook built on the options menu, which is the one that opens doors at tier 1, and the stupendium collaboration for anyone arriving through his audience. nobody got a generic pitch, each one was built around what that specific writer's readers turn up for.
 
-nobody got a generic pitch. each one was built around what that specific writer's readers turn up for.
+the launch date was itself the story. we put it out the day before valentine's day, a dating sim, free, on the most romantic evening of the year, which gave every outlet a peg without anyone having to invent one. games media has moved underneath everyone, though, polygon gutted, the verge out of gaming, inverse closed its gaming section, so every outlet and every byline got checked before anything went out, and we pitched on bluesky rather than x because that's where the journalists actually are now.
 
-**a launch date that was itself the story.** we put it out the day before valentine's day. a dating sim, free, on the most romantic evening of the year. that gave every outlet a peg without anyone having to invent one.
-
-**verify before you pitch.** games media has moved underneath everyone. polygon gutted, the verge out of gaming, inverse closed its gaming section. every outlet and every byline got checked before anything went out.
-
-**bluesky over x.** that's where the journalists actually are now.
-
-**mid-tier creators, 50k to 500k subscribers.** cold pitching mega-tier channels with no sponsorship money behind you is a lottery ticket. mid-tier is where a free eight-hour game with a strange premise reads as a gift rather than an imposition. creator kit with gifs and timestamps so nobody had to hunt for the good bits, and an in-character colt michigan interview offered as a collaboration hook.
+and we went after mid-tier creators, 50k to 500k subscribers. cold pitching mega-tier channels with no sponsorship money behind you is a lottery ticket, mid-tier is where a free eight-hour game with a strange premise reads as a gift rather than an imposition, and a creator kit with gifs and timestamps meant nobody had to hunt for the good bits, plus an in-character colt michigan interview offered as a collaboration hook.
 
 ## what happened
 
-6,500+ wishlists before launch, and the #2 slot on steam's upcoming releases page in the hour before it went live.
+6,500+ wishlists before launch, the #2 slot on steam's upcoming releases page in the hour before it went live, and 7,500+ downloads in the first eight hours, past 20,000 inside ten days.
 
-7,500+ downloads in the first eight hours. past 20,000 inside ten days.
+pc gamer ran a feature on 19 february and called it "daylight robbery for how good it is", then listed it under top free games, a listing that still sits on the steam page as an award, and the second wind games showcase picked it up for their spring 2026 watchexp special selection, which came out of a submission i drafted.
 
-pc gamer ran a feature on 19 february and called it "daylight robbery for how good it is", then listed it under top free games. that listing still sits on the steam page as an award.
-
-the second wind games showcase picked it up for their spring 2026 watchexp special selection, which came out of a submission i drafted.
-
-game rant covered it three days after pc gamer. yarn spinner featured it in their engine showcase. the launch release went out over games press and got picked up. resetera had a thread running months before launch.
+game rant covered it three days after pc gamer, yarn spinner featured it in their engine showcase, the launch release went out over games press and got picked up, and resetera had a thread running months before launch.
 
 steam sits at overwhelmingly positive: 96% across 565 reviews, and 97% across the last thirty days, seven months after release.
 
