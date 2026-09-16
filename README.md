@@ -18,8 +18,6 @@ comms lead by day. i build the tools i wish existed by night.
   <a href="https://heyjackdaw.com">jackdaw</a>
 </p>
 
-<p align="center"><sub>this page is laid out like a sketchbook because everything i make turns out to have an animal in it.</sub></p>
-
 <br>
 
 ## i · specimens
