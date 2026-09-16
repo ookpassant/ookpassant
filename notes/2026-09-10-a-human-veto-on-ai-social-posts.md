@@ -17,7 +17,7 @@ deadline: string | null;
 
 null means a human has to act. a timestamp means a human has until then. everything else is just which list the thing sits in.
 
-there's a dial for how much review sits between drafting and the queue: hands-on, batch, veto, full. on hands-on the nightly run does nothing at all and every draft waits for a tap. on veto and full, a proposal gets a window, twelve hours by default, and if no objection is heard it queues itself. so at those settings the veto is a window rather than a gate, and the notification becomes the safety mechanism. there's a comment in the code that calls it the most important message the engine sends, and says it must not depend on a channel the tenant might not have. telegram if you've got it. email if you haven't.
+there's a dial for how much review sits between drafting and the queue, running from hands-on through batch and veto to full. on hands-on the nightly run does nothing at all and every draft waits for a tap. on veto and full, a proposal gets a window, twelve hours by default, and if no objection is heard it queues itself. so at those settings the veto is a window rather than a gate, and the notification becomes the safety mechanism. there's a comment in the code that calls it the most important message the engine sends, and says it must not depend on a channel the tenant might not have. telegram if you've got it. email if you haven't.
 
 ## nothing is ever told to publish now
 
@@ -27,7 +27,7 @@ approval covers pixels too. for carousels, claude writes the words and picks a l
 
 ## ten platforms, zero adapters
 
-instagram, tiktok, twitter, threads, bluesky, linkedin, facebook, reddit, youtube, pinterest. i assumed that meant ten adapter files. there are none. publishing goes through one vendor client, and the differences between platforms live in three places: a prose note per platform that the model reads while drafting, a short list of which platforms need media, and a per-target override at post time.
+instagram, tiktok, twitter, threads, bluesky, linkedin, facebook, reddit, youtube, pinterest. i assumed that meant ten adapter files. there are none. publishing goes through one vendor client, and the differences between platforms live in three places, a prose note per platform that the model reads while drafting, a short list of which platforms need media, and a per-target override at post time.
 
 the prose is where the real logic is. twitter's note is about 280 characters including hashtags. linkedin's is the longest by a mile, and includes an instruction not to write a stack of one-line paragraphs, which is the most recognisable ai shape on that platform. the only platform that gets an actual branch in code is linkedin, because a swipeable carousel there has to be a pdf document rather than a set of images.
 
@@ -39,7 +39,7 @@ every create call carries a fresh request id in a header, and the vendor treats 
 
 three loops, all ending in the same system prompt.
 
-engagement comes back from published posts. after every ten new posts, or thirty days, a report runs: median engagement per platform, with and without media. claude turns that into at most five bullets, and those bullets ride in every subsequent draft. under twenty posts the block labels itself as early hints, weak signals not rules, so the model doesn't over-fit to a fortnight.
+engagement comes back from published posts. after every ten new posts, or thirty days, a report runs and works out median engagement per platform, with and without media. claude turns that into at most five bullets, and those bullets ride in every subsequent draft. under twenty posts the block labels itself as early hints, weak signals not rules, so the model doesn't over-fit to a fortnight.
 
 corrections can be pinned. when you refine a draft in telegram, one tap turns that refinement into a standing rule, and standing rules override everything, including the tone profile. one of them is enforced in code as well as in prompt. if you've ever said no hashtags, a regex strips them after generation, because the model drifts.
 
@@ -51,8 +51,6 @@ and the honest gap. rejections teach nothing. skipping a proposal deletes it. th
 
 the base prompt is fifty lines of rules against sounding like a machine, grouped by how they fail. one test: read the draft without its first line and without its last line, and if it reads better, cut them. another: repeat a noun rather than reaching for a synonym, because swapping words to dodge repetition is a machine habit.
 
-em dashes are stripped in code after generation. everywhere, including the headlines in the renderer.
+em dashes are stripped in code after generation, everywhere, including the headlines in the renderer, and when the model answers in prose instead of json, usually to ask for more context, that gets shown as jackdaw talking rather than logged as a failure.
 
-when the model answers in prose instead of json, usually to ask for more context, that isn't treated as an error. it's shown as jackdaw talking.
-
-every drafting path claims an idea from your monthly allowance up front and refunds it if nothing was produced. nobody should lose an idea to somebody else's outage.
+every drafting path claims an idea from your monthly allowance up front and refunds it if nothing was produced, so an outage on my end doesn't cost you one.
