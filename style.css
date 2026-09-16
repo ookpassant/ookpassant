@@ -561,7 +561,7 @@ dd:last-child { margin-bottom: 0; }
 .group + .group { margin-top: 3.5rem; }
 .group-head {
   font-family: var(--mono); font-size: .72rem; letter-spacing: .16em; text-transform: uppercase;
-  color: var(--amber); font-weight: 400; margin: 0 0 .25rem;
+  color: var(--blue); font-weight: 600; margin: 0 0 .25rem;
   display: flex; align-items: baseline; gap: .6rem;
 }
 .group-head::after { content: ""; flex: 1; border-bottom: 1px solid var(--line); }
@@ -577,11 +577,11 @@ dd:last-child { margin-bottom: 0; }
   font-family: var(--mono); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
   color: var(--muted); white-space: nowrap; display: flex; flex-direction: column; gap: .35rem;
 }
-.entry-lock { color: var(--amber); }
-.entry-lock::before { content: "✳ "; }
-.entry-title { font-family: var(--display); font-weight: 500; font-size: 1.35rem; letter-spacing: -.01em; }
+.entry-lock { color: var(--blue); }
+.entry-lock::before { content: "✦ "; }
+.entry-title { font-family: var(--display); font-weight: 600; font-size: 1.35rem; letter-spacing: -.01em; }
 .entry-summary { grid-column: 2; margin: .25rem 0 0; color: var(--ink-2); max-width: var(--measure); text-wrap: pretty; }
-.entry > a:hover .entry-title { color: var(--amber); }
+.entry > a:hover .entry-title { color: var(--blue); }
 @media (max-width: 40rem) {
   .entry > a { grid-template-columns: 1fr; row-gap: .2rem; }
   .entry-summary { grid-column: 1; }
@@ -602,7 +602,7 @@ dd:last-child { margin-bottom: 0; }
 .note-body table { width: 100%; border-collapse: collapse; font-size: .92em; margin: 1.6em 0; }
 .note-body thead th {
   font-family: var(--mono); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase;
-  color: var(--amber); text-align: left; font-weight: 400; padding: .5rem .8rem .5rem 0;
+  color: var(--blue); text-align: left; font-weight: 600; padding: .5rem .8rem .5rem 0;
   border-bottom: 1px solid var(--line); white-space: nowrap;
 }
 .note-body tbody td { padding: .6rem .8rem .6rem 0; border-bottom: 1px solid var(--line); vertical-align: top; text-wrap: pretty; }
@@ -619,11 +619,16 @@ dd:last-child { margin-bottom: 0; }
 
 .diagram { margin: 2.2em 0; }
 .diagram-frame {
-  border: 1px dashed var(--line); background: var(--paper-2);
-  aspect-ratio: 16 / 7; display: grid; place-items: center;
+  border: 3px solid var(--ink);
+  background: repeating-linear-gradient(135deg, var(--blue) 0 26px, var(--green) 26px 52px);
+  aspect-ratio: 16 / 7; display: grid; place-items: center; overflow: hidden;
 }
 .diagram-mark {
-  font-family: var(--mono); font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted);
+  display: inline-block;
+  font-family: var(--display); font-weight: 700; font-size: .95rem; letter-spacing: -.01em;
+  color: var(--paper); background: var(--ink); border: 2px solid var(--ink);
+  border-radius: 30px 10px 26px 10px / 10px 26px 10px 24px;
+  padding: .5em .9em; transform: rotate(-2deg); box-shadow: 4px 4px 0 var(--yellow);
 }
 .diagram figcaption, .note-body figcaption {
   font-family: var(--mono); font-size: .72rem; line-height: 1.5; letter-spacing: .04em;
@@ -638,12 +643,12 @@ dd:last-child { margin-bottom: 0; }
 
 .footnote-ref a, a.footnote-ref {
   font-family: var(--mono); font-size: .7em; text-decoration: none; padding: 0 .1em;
-  vertical-align: super; line-height: 1; color: var(--amber);
+  vertical-align: super; line-height: 1; color: var(--blue);
 }
 .endnotes { margin-top: 3.5em; border-top: 1px dashed var(--line); padding-top: 1.5em; }
 .endnotes-head {
   font-family: var(--mono); font-size: .72rem; letter-spacing: .16em; text-transform: uppercase;
-  color: var(--amber); font-weight: 400; margin: 0 0 1rem;
+  color: var(--blue); font-weight: 600; margin: 0 0 1rem;
 }
 .endnotes-list { padding-left: 1.2em; color: var(--ink-2); font-size: .95em; }
 .endnotes-list li + li { margin-top: .6em; }
@@ -665,7 +670,7 @@ dd:last-child { margin-bottom: 0; }
     transition: top .2s var(--ease);
   }
   .has-sidenotes .sidenote-n {
-    font-family: var(--mono); font-size: .7rem; color: var(--amber); text-align: right; padding-top: .15em;
+    font-family: var(--mono); font-size: .7rem; color: var(--blue); text-align: right; padding-top: .15em;
   }
   .has-sidenotes .sidenote-text p { margin: 0; text-wrap: pretty; }
   .has-sidenotes .sidenote-text p + p { margin-top: .5em; }
@@ -677,17 +682,18 @@ dd:last-child { margin-bottom: 0; }
 
 .lock { margin: 1rem 0 2rem; }
 .lock-frame {
-  border: 1px dashed var(--line); background: var(--paper-2);
+  border: 3px solid var(--ink); background: var(--paper-2);
+  box-shadow: var(--hard);
   padding: clamp(1.5rem, 5vw, 3rem); max-width: var(--measure);
 }
-.lock-mark { font-size: 1.6rem; color: var(--amber); margin: 0 0 .6rem; line-height: 1; }
+.lock-mark { font-size: 1.6rem; color: var(--blue); margin: 0 0 .6rem; line-height: 1; }
 .lock-head {
-  font-family: var(--display); font-weight: 500; font-size: 1.5rem; letter-spacing: -.015em;
+  font-family: var(--display); font-weight: 700; font-size: 1.5rem; letter-spacing: -.015em;
   margin: 0 0 .8rem;
 }
 .lock-why { margin: 0; color: var(--ink-2); line-height: 1.55; text-wrap: pretty; }
 .lock-hint {
-  margin: 1rem 0 0; padding-left: 1rem; border-left: 2px solid var(--amber);
+  margin: 1rem 0 0; padding-left: 1rem; border-left: 3px solid var(--blue);
   font-style: italic; color: var(--ink-2);
 }
 .lock-form { display: flex; flex-wrap: wrap; gap: .6rem; align-items: flex-end; margin-top: 1.6rem; }
@@ -697,16 +703,18 @@ dd:last-child { margin-bottom: 0; }
 }
 .lock-input {
   flex: 1 1 14rem; font-family: var(--mono); font-size: 1rem; padding: .6rem .7rem;
-  background: var(--paper); color: var(--ink); border: 1px solid var(--line);
+  background: var(--paper); color: var(--ink); border: 2px solid var(--ink);
 }
-.lock-input:focus-visible { outline: 2px solid var(--amber); outline-offset: 1px; }
+.lock-input:focus-visible { outline: 2px solid var(--blue); outline-offset: 1px; }
 .lock-go {
   font-family: var(--mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
   padding: .7rem 1.2rem; cursor: pointer;
-  background: var(--ink); color: var(--paper); border: 1px solid var(--ink);
+  background: var(--ink); color: var(--paper); border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--yellow);
+  transition: transform .2s var(--ease), box-shadow .2s var(--ease), background .3s var(--ease);
 }
-.lock-go:hover { background: var(--amber); border-color: var(--amber); color: var(--ink); }
+.lock-go:hover { background: var(--blue); border-color: var(--ink); color: var(--paper); transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--yellow); }
 .lock-status {
-  font-family: var(--mono); font-size: .75rem; color: var(--amber); margin: .9rem 0 0; min-height: 1.2em;
+  font-family: var(--mono); font-size: .75rem; color: var(--blue); margin: .9rem 0 0; min-height: 1.2em;
 }
 .lock.is-working .lock-go { opacity: .5; pointer-events: none; }
