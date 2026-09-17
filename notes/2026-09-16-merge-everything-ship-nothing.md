@@ -7,6 +7,8 @@ order: 10
 
 I have 62 feature flags in a side project: 37 on mobile, 22 on the website, and 3 that both ends read. The project is Whimsee, a GPS discovery app I built on evenings because I wanted it to exist and wanted to learn how. When I wrote most of the flags it had no users. It's in both stores now, and the number has gone up rather than down, which I'm aware is the wrong direction.
 
+[photo: forest-window.jpg | a stained-glass panel hung from a timber frame across a leaf-covered forest path, autumn beech on one side and dark conifers on the other]
+
 The picture of feature flags most people carry around is the canary: a new checkout rolled out to five percent of a million people while someone watches the error rate. I had nobody to roll out to. So what were they for?
 
 The answer has a name, and I didn't know it. Engineers split flags into roughly four kinds (Pete Hodgson's write-up on Martin Fowler's site is the one everyone points to). Release toggles let unfinished code sit on main, switched off. Experiment toggles run A/B tests. Ops toggles kill things that misbehave. Permission toggles decide who gets to see what.

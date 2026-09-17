@@ -3,10 +3,11 @@ title: PostHog on Expo, no native modules
 summary: No page views, no coordinates, nothing you didn't decide to send.
 category: build
 order: 80
-draft: true
 ---
 
 Whimsee sends 72 hand-written events to PostHog and 0 page views. It's a GPS discovery app I built on my own as a side project, mostly to learn, and this is how PostHog is wired into it. It's the setup I'd hand to anyone starting an Expo app today, and it's opinionated. No provider, no autocapture, no session replay on mobile, no native modules, and an event stream where nothing arrives that I didn't decide to send.
+
+[photo: bare-canopy.jpg | looking straight up through bare winter trees at a pale sky, branches crossing overhead]
 
 Some of that is because Whimsee is an app that sends children into woods and I'd rather under-collect than explain myself to a regulator. Some of it is because a store build once died on every device before a line of JavaScript ran, and I'd like that to be the last time.
 
@@ -158,7 +159,7 @@ I'd still build it this way. Build it before you need it, because when you do ne
 
 [^3]: `coarseArea(51.5074, -0.1278)` is `gcpvj`, which is London. If yours says something else, your geohash is wrong.
 
-[^4]: *[what you noticed from your seat on first launch of the store build, and how long before you understood it. two sentences.]*
+[^4]: I noticed none of it. The app opened, it worked, and the only reason I know any of this happened is that I went looking while writing this post.
 
 [^5]: That funnel filters out internal and test accounts, which includes mine. The raw event counts elsewhere in this post don't. On a project where the entire core loop is 296 hunts from 79 people, the gap between with-me and without-me isn't a rounding error, so it's worth knowing which of the two you're reading.
 

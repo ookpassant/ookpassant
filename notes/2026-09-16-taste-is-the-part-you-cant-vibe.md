@@ -7,6 +7,8 @@ order: 40
 
 I have an illustration degree, a day job in comms, and a side project in both stores that I built on my own with an agent doing most of the typing, because I get restless. I'm not an engineer and I'm not going to pretend the code is beautiful. The app is good, it's good for reasons that have nothing to do with the code, and the reason it's good is three years of standing in a room being told my work was wrong.
 
+[photo: mushrooms-moss.jpg | a cluster of honey-coloured mushrooms growing out of bright green moss, the wood behind them thrown out of focus]
+
 That's the claim. Building things has got cheap. Knowing what's wrong with the thing you built hasn't, and the second one is the job now.
 
 ## 1. What a crit actually teaches

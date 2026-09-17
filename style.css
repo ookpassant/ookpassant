@@ -659,6 +659,37 @@ dd:last-child { margin-bottom: 0; }
 }
 .note-body figure img { display: block; width: 100%; }
 
+/* ---------- photographs ---------- */
+/* framed and tipped a degree, like something taped onto the page. the frame is
+   the same ink border and yellow shadow the video and the plates use. */
+
+/* the figure shrinks to the photo so the caption lines up with the picture's
+   left edge rather than floating off at the text margin. */
+.photo { margin: 2.4em auto; width: fit-content; max-width: 100%; }
+.photo img {
+  display: block; margin-inline: auto;
+  /* a portrait photo at full column width fills the whole screen and stops
+     being an illustration, so it is capped by height. the cap is expressed as a
+     max-WIDTH derived from the photo's own ratio, because setting max-height on
+     an image that already has a max-width squashes it: the width resolves
+     first, then the height, and the two stop agreeing. --ratio comes from the
+     file's own SOF marker at build time. */
+  width: auto; height: auto;
+  max-width: min(100%, calc(34rem * var(--ratio, 99)));
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--yellow);
+  /* the note-body img rule gives every other image a paper mount. a photograph
+     is the picture, not a specimen card, so it gets the frame and nothing else. */
+  padding: 0; background: none;
+}
+.photo figcaption { margin-top: .9rem; }
+
+/* room to breathe past the column, on the same terms as the video: only where
+   there is margin to spare, and never opposite a sidenote. */
+@media (min-width: 72rem) {
+  body:not(.has-sidenotes) .photo { margin-inline: -3rem; }
+}
+
 /* ---------- embedded video ---------- */
 /* framed like a plate, so an embed sits in the page as another pasted-in thing
    rather than as a hole punched through it. */

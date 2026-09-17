@@ -3,10 +3,11 @@ title: 4 prompts that out-audited me
 summary: Steal them. Then come and tell me what yours found.
 category: build
 order: 70
-draft: true
 ---
 
 In one week, four prompts run against two of my repos found 8 of 63 feature flags disagreeing with their own registry, an analytics event that had never fired for anyone offline, an app with child accounts and no child path in its analytics, a GPS logger I'd built, switched on, and then never once walked with, and a prompt cache that's probably been doing nothing since I added it.
+
+[photo: dog-path.jpg | a black and tan dog standing still on a path in a dark pinewood, lit from the side, looking straight at the camera]
 
 None of that came from a code review. I'm not a developer, I have an illustration degree and a day job in comms, and the two repos are side projects I build because I get restless. What found all of it was asking Claude Code the right question and reading the answer properly.
 

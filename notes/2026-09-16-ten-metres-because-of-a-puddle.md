@@ -9,6 +9,8 @@ Every distance in Whimsee is a guess. Whimsee is a side project, a GPS discovery
 
 This is a post about those numbers, where they came from, and the one design rule that fell out of them which I'd now put in any app that depends on a phone knowing where it is. It's also a post about the GPS accuracy data I built a whole logging system to collect, switched on, and then collected exactly one of.
 
+[photo: boots-in-brook.jpg | black wellingtons standing in a shallow stony brook, clear water running over the toes, teal waterproof trousers above | the puddle, roughly.]
+
 I've walked most of the ground the app is built for, which is the Forest of Dean: tree cover, steep valleys, and the scowles,[^1] which eat GPS for breakfast. So the guesses aren't uninformed. But they're still guesses, and I'd rather say so than pretend there was a spreadsheet.
 
 ## None of the distances came from measurement
