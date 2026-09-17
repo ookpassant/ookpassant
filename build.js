@@ -260,9 +260,9 @@ fs.writeFileSync(path.join(OUT, 'feed.xml'),
 const llmsPath = path.join(OUT, 'llms.txt');
 if (fs.existsSync(llmsPath) && listed.length) {
   let llms = fs.readFileSync(llmsPath, 'utf8');
-  const section = `## notes\n\n${listed.map((n) => `- ${n.title}: ${n.summary} ${SITE}${n.url}`.trim()).join('\n')}\n`;
-  llms = /^## notes\n[\s\S]*?(?=^## |\s*$)/m.test(llms)
-    ? llms.replace(/^## notes\n[\s\S]*?(?=^## |\s*$)/m, section + '\n')
+  const section = `## scribblings\n\n${listed.map((n) => `- ${n.title}: ${n.summary} ${SITE}${n.url}`.trim()).join('\n')}\n`;
+  llms = /^## scribblings\n[\s\S]*?(?=^## |\s*$)/m.test(llms)
+    ? llms.replace(/^## scribblings\n[\s\S]*?(?=^## |\s*$)/m, section + '\n')
     : llms.replace(/^## elsewhere/m, section + '\n## elsewhere');
   fs.writeFileSync(llmsPath, llms);
 }

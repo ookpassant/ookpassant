@@ -1,4 +1,4 @@
-/* chelseahopkins.co.uk · a field guide, doodled */
+/* chelseahopkins.co.uk · a sketchbook */
 
 :root {
   --paper: #ffffff;
@@ -733,14 +733,13 @@ dd:last-child { margin-bottom: 0; }
 .lock-mark { font-size: 1.6rem; color: var(--blue); margin: 0 0 .6rem; line-height: 1; }
 .lock-head {
   font-family: var(--display); font-weight: 700; font-size: 1.5rem; letter-spacing: -.015em;
-  margin: 0 0 .8rem;
+  margin: 0;
 }
-.lock-why { margin: 0; color: var(--ink-2); line-height: 1.55; text-wrap: pretty; }
 .lock-hint {
   margin: 1rem 0 0; padding-left: 1rem; border-left: 3px solid var(--blue);
   font-style: italic; color: var(--ink-2);
 }
-.lock-form { display: flex; flex-wrap: wrap; gap: .6rem; align-items: flex-end; margin-top: 1.6rem; }
+.lock-form { display: flex; flex-wrap: wrap; gap: .6rem; align-items: flex-end; margin-top: 1.2rem; }
 .lock-label {
   font-family: var(--mono); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase;
   color: var(--muted); flex-basis: 100%;

@@ -9,7 +9,7 @@
 - web development: wordpress and woocommerce sites that businesses run on. bookings, memberships, stock control, dealer maps. building on wordpress since 2008.
 - product analytics: posthog wired in from day one.
 
-## on the side
+## commissions
 
 app and web development for other people, evenings and weekends, through hopkins action: https://hopkinsaction.com/
 
