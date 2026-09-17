@@ -1,5 +1,5 @@
 ---
-title: Fashion thoughts
+title: Fashion Thoughts
 summary: Two pieces about fashion, identity, and sustainability in the furry fandom, written for the 2025 Confuzzled Conbook.
 category: essay
 date: 2025-05-01

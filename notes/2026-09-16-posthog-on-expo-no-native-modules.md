@@ -1,5 +1,5 @@
 ---
-title: PostHog on Expo, without the native plugin
+title: PostHog on Expo, Without the Native Plugin
 summary: No page views, no coordinates, nothing you didn't decide to send.
 category: build
 order: 80

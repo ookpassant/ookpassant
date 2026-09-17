@@ -1,5 +1,5 @@
 ---
-title: I don't feel at all
+title: I Don't Feel at All
 summary: Eurobeat fancams of Michèle Mouton, and the switch that flips on a start line.
 category: essay
 order: 50

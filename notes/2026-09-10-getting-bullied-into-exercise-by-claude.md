@@ -1,5 +1,5 @@
 ---
-title: Getting bullied into exercise by Claude
+title: Getting Bullied into Exercise by Claude
 summary: A Claude Code skill sets one short desk exercise before a long task, then asks whether you did it.
 category: build
 ---

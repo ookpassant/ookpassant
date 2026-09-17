@@ -1,5 +1,5 @@
 ---
-title: Taste is the part you can't vibe
+title: Taste Is the Part You Can't Vibe
 summary: What an illustration degree taught me about building with an agent.
 category: essay
 order: 40
