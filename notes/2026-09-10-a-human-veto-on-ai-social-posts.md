@@ -1,5 +1,5 @@
 ---
-title: A Human Veto on AI Social Posts
+title: A human veto on AI social posts
 summary: How Jackdaw drafts in your voice, gives you a review window, and publishes to ten platforms through one vendor.
 category: build
 ---

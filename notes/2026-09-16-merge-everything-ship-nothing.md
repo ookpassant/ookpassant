@@ -1,5 +1,5 @@
 ---
-title: Merge Everything. Ship Nothing.
+title: Merge everything. Ship nothing.
 summary: How one person runs a release process with 62 feature flags.
 category: build
 order: 10

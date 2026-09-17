@@ -1,5 +1,5 @@
 ---
-title: 4 Prompts That Out-Audited Me
+title: 4 prompts that out-audited me
 summary: Steal them. Then come and tell me what yours found.
 category: build
 order: 70

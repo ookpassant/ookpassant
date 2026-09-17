@@ -1,5 +1,5 @@
 ---
-title: Your Agent Has Stopped Imagining a Reader
+title: Your agent has stopped imagining a reader
 summary: you're absolutely right! this article stinks.
 category: essay
 order: 20

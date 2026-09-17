@@ -1,5 +1,5 @@
 ---
-title: I Picked 10 Metres Because of a Puddle
+title: I picked 10 metres because of a puddle
 summary: Never show a button the server will refuse.
 category: build
 order: 30

@@ -1,5 +1,5 @@
 ---
-title: Selling a Game We Couldn't Advertise
+title: Selling a game we couldn't advertise
 date: 2026-09-10
 summary: Polyarmory launched free, with no budget and few promotional options. It reached 20,000 downloads in ten days and earned a PC Gamer feature.
 slug: selling-a-game-nobody-would-let-us-advertise

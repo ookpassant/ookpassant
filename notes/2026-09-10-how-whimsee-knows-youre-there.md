@@ -1,5 +1,5 @@
 ---
-title: How Whimsee Knows You're There
+title: How Whimsee knows you're there
 summary: A PostGIS distance check, a five-metre server margin, and a table ordinary clients cannot write to.
 category: build
 ---

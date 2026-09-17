@@ -1,5 +1,5 @@
 ---
-title: Wiring PostHog into WordPress Properly
+title: Wiring PostHog into WordPress properly
 summary: Consent gating, WooCommerce events, a constrained first-party proxy and PostHog numbers inside WP Admin.
 category: build
 ---

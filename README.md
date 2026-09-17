@@ -82,11 +82,11 @@ things i've left out in the open.
 things i've built, written up properly. [all of them](https://chelseahopkins.co.uk/notes/), or the most recent:
 
 <!-- notes:start -->
-- [Merge Everything. Ship Nothing.](https://chelseahopkins.co.uk/notes/merge-everything-ship-nothing/) — How one person runs a release process with 62 feature flags.
-- [Your Agent Has Stopped Imagining a Reader](https://chelseahopkins.co.uk/notes/your-agent-has-stopped-imagining-a-reader/) — you're absolutely right! this article stinks.
-- [I Picked 10 Metres Because of a Puddle](https://chelseahopkins.co.uk/notes/ten-metres-because-of-a-puddle/) — Never show a button the server will refuse.
-- [Taste Is the Part You Can't Vibe](https://chelseahopkins.co.uk/notes/taste-is-the-part-you-cant-vibe/) — What an illustration degree taught me about building with an agent.
-- [I Don't Feel at All](https://chelseahopkins.co.uk/notes/i-dont-feel-at-all/) — Eurobeat fancams of Michèle Mouton, and the switch that flips on a start line.
+- [Merge everything. Ship nothing.](https://chelseahopkins.co.uk/notes/merge-everything-ship-nothing/) — How one person runs a release process with 62 feature flags.
+- [Your agent has stopped imagining a reader](https://chelseahopkins.co.uk/notes/your-agent-has-stopped-imagining-a-reader/) — you're absolutely right! this article stinks.
+- [I picked 10 metres because of a puddle](https://chelseahopkins.co.uk/notes/ten-metres-because-of-a-puddle/) — Never show a button the server will refuse.
+- [Taste is the part you can't vibe](https://chelseahopkins.co.uk/notes/taste-is-the-part-you-cant-vibe/) — What an illustration degree taught me about building with an agent.
+- [I don't feel at all](https://chelseahopkins.co.uk/notes/i-dont-feel-at-all/) — Eurobeat fancams of Michèle Mouton, and the switch that flips on a start line.
 <!-- notes:end -->
 
 <br>
