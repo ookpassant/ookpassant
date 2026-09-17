@@ -57,9 +57,7 @@ I hope it's a young girl. I hope she watches Mouton and Pons throwing a Quattro 
 
 Because she can. Rally doesn't care. The stage doesn't care. Show up, be quick.
 
-The fancam kids are building a shrine to something they've never touched. The shrine's real, the worship's real.
-
-But the actual thing's better. The noise, the gravel, the smell of it. The start line. The switch.
+The shrine's real and the worship's real. The actual thing's better. The noise, the gravel, the smell of it. The start line. The switch.
 
 Go find a rally. Feel it for yourself.
 

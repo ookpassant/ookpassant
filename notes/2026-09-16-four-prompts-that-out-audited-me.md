@@ -11,7 +11,7 @@ In one week, four prompts run against two of my repos found 8 of 63 feature flag
 
 None of that came from a code review. I'm not a developer, I have an illustration degree and a day job in comms, and the two repos are side projects I build because I get restless. What found all of it was asking Claude Code the right question and reading the answer properly.
 
-Every prompt is below, with what it found and what I did. The pattern that makes them work is at the end, and it's short.
+Every prompt is below, with what it found and what I did. What the good ones have in common is at the end.
 
 ## 1. Pull the flags from the code, not the registry
 
@@ -21,7 +21,7 @@ Every prompt is below, with what it found and what I did. The pattern that makes
 
 **What I did.** Wrote the removal rule I'd never had, and put it in a post. Deleted two of the four dead flags outright, which is why it's 2 dead now, and 62 with a live read against 64 sitting in the dashboard.
 
-Then, pulling the numbers for that post, I found the better finding. I had written that a flag holding back a blog card had gone live. It hadn't. It was created on 22 August at 0% rollout and has never been touched since. One entry in its entire activity log. I had shipped it in the only place that really counts, which is my own head, and the dashboard had no idea. The number that stuck was one flag in eight where my documentation and my code disagreed. The one that stung was the flag where my memory and the dashboard disagreed, inside the post about exactly that.
+Then, pulling the numbers for that post, I found the better finding. I had written that a flag holding back a blog card had gone live. It hadn't. It was created on 22 August at 0% rollout and has never been touched since. One entry in its entire activity log. I had shipped it in my own head and the dashboard had no idea. One flag in eight where my documentation and my code disagreed, and one flag where my memory and the dashboard disagreed, in the post about documentation drift.
 
 The first sentence is the whole prompt. "From the code, not from the registry" names the source of truth and refuses the shortcut. The agent's own first line back was that the registry describes flags, it doesn't prove them, which is the sentence I'd been avoiding for a year.
 
@@ -33,7 +33,7 @@ The first sentence is the whole prompt. "From the code, not from the registry" n
 
 **What I did.** Fixed the offline event the same day, by firing it at enqueue with `offline: true`. Passed `is_child` through `identify()` so children can be held out of every insight with one filter. Corrected the audit doc, which was the same drift as the flag registry wearing a different hat.
 
-There's a coda to this one. Once the numbers were in front of me, `glimmer_found` turned out to have fired 55 times in 90 days with `offline` false on every single one, despite five offline flags all sitting at 100%. I still don't know whether that's the Forest having more signal than I credit it with, or the same bug I'd just fixed on the plant side hiding on the hunt side. Writing down which of those you can't distinguish is the part people skip.
+There's a coda to this one. Once the numbers were in front of me, `glimmer_found` turned out to have fired 55 times in 90 days with `offline` false on every single one, despite five offline flags all sitting at 100%. I still don't know whether that's the Forest having more signal than I credit it with, or the same bug I'd just fixed on the plant side hiding on the hunt side. It's written down as unresolved.
 
 "Decided or forgotten" is the useful clause. It makes the agent distinguish between a choice with a record and an absence, and the answer to that question was different for web and mobile.
 
@@ -43,9 +43,9 @@ There's a coda to this one. Once the numbers were in front of me, `glimmer_found
 
 **What it found.** Every distance in the app is a ruling on feel with a comment next to it, and none came from measurement. The client and server disagree on purpose, 10 metres on the phone and 15 on the server for a dig, so a button the phone shows never fails server verification over GPS noise. The field log I'd built to collect real accuracy numbers falls back to off, and the agent couldn't tell me whether it had ever been ramped. Neither could I.
 
-**What I did.** Checked the dashboard, and I had it backwards. It had been ramped, on at 100% since 31 July, and in the seven weeks since it had fired exactly once: 19.0 metres, fair band, 12 August, one event from one person. The flag was never what was stopping it. Underneath it sits a keeper-only gate I wrote myself and then forgot about, so the only person the log could ever record was me, and I hadn't been out with it.
+**What I did.** Checked the dashboard, and I had it backwards. It had been ramped, on at 100% since 31 July, and in the seven weeks since it had fired exactly once: 19.0 metres, fair band, one event. The rollout was never what was stopping it. Underneath it sits a keeper-only gate I wrote myself and then forgot about, so the only person the log could ever record was me, and I hadn't been out with it.
 
-So I still wrote the post about guessing honestly rather than the post about data, because the data still doesn't exist. Just not for the reason I was about to give. The instrument had been running the whole time, waiting for me to go outside.
+So the post I wrote is about guessing honestly rather than about data, because the data still doesn't exist.
 
 The first question is odd on purpose. Asking what the app makes a person physically do drags the answer away from the code and toward the thing the code is for, which is where the interesting numbers were.
 
@@ -61,11 +61,11 @@ The first question is odd on purpose. Asking what the app makes a person physica
 
 ## Then ask for the copyable version
 
-This one isn't an audit and it wasn't a fresh prompt. It's the follow-up I sent in the same session as prompt 2, once I knew what the setup looked like, and it's the step that turns a list of your own mistakes into something a stranger can use. Next time I'd phrase it like this:
+This one isn't an audit and it wasn't a fresh prompt. It's the follow-up I sent in the same session as prompt 2, once I knew what the setup looked like. Next time I'd phrase it like this:
 
 > Give me a minimal, copyable version of the PostHog setup with the app-specific parts taken out. Pin the versions, make sure it typechecks, and check the geohash helper against known reference values. Nothing in it should need a native module.
 
-It produced the versions table, a client that can't throw into a render, a geohash function checked against London and Sydney, and a one-line note on what's deliberately not installed and why. It went in the repo and the tutorial links to it, so the post about my setup ends in something that isn't mine.
+It produced the versions table, a client that can't throw into a render, a geohash function checked against London and Sydney, and a one-line note on what's deliberately not installed and why. It went in the repo, and the tutorial links to it.
 
 "Against known reference values" is the bit I'd keep. Without it, the agent would have told me the geohash worked. With it, it told me what it checked.
 
