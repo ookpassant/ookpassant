@@ -33,6 +33,16 @@ These five pieces are the quickest route through how I investigate a system, exp
 - [**Merge everything. Ship nothing.**](https://chelseahopkins.co.uk/notes/merge-everything-ship-nothing/) — How one person ended up with 62 feature flags, found trunk-based development by accident, and built a rule for removing them.
 - [**Your agent has stopped imagining a reader**](https://chelseahopkins.co.uk/notes/your-agent-has-stopped-imagining-a-reader/) — What “Claudish” sounds like, why technically defensible prose can still fail, and the editing rule I use to pull it back towards a human.
 
+## Then the ones with more of me in them
+
+The technical pieces are not the whole voice. These are the ones I would use if you want to know what I care about.
+
+- [**I picked 10 metres because of a puddle**](https://chelseahopkins.co.uk/notes/ten-metres-because-of-a-puddle/) — Product judgement, unreliable GPS, field testing, and the logger I switched on before forgetting to go for a walk.
+- [**Taste is the part you can’t vibe**](https://chelseahopkins.co.uk/notes/taste-is-the-part-you-cant-vibe/) — What three years of art-school crits taught me about naming, judgement, and building with an agent.
+- [**I don’t feel at all**](https://chelseahopkins.co.uk/notes/i-dont-feel-at-all/) — Eurobeat fancams of Michèle Mouton, what happens when a start light changes, and the part of me that does not arrive on command.
+- [**I don’t want Whimsee to be my income**](https://chelseahopkins.co.uk/notes/i-dont-want-whimsee-to-be-my-income/) — Why players never pay, why partner and education versions only cover the bills, and why meaningful work and making things are not opposites.
+- [**Fashion thoughts**](https://chelseahopkins.co.uk/notes/confuzzled-conbook-fashion-thoughts/) — Two pieces written for the 2025 Confuzzled Conbook about self-presentation, furry fashion, memory, repair, and making identity by hand.
+
 ## The things I’m making
 
 ### [Whimsee](https://whimsee.co.uk)
