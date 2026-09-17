@@ -5,6 +5,7 @@
   "scripts": {
     "build": "node build.js",
     "lock": "node lock.js",
+    "unlock": "node unlock.js",
     "hooks": "git config core.hooksPath .githooks && echo 'pre-commit guard enabled'"
   },
   "dependencies": {
