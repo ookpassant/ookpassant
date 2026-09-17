@@ -12,6 +12,7 @@ I make the things I wish existed, then write down what went wrong.
 
 <p align="center">
   <a href="https://chelseahopkins.co.uk">chelseahopkins.co.uk</a> ·
+  <a href="https://hopkinsaction.com">Hopkins Action</a> ·
   <a href="https://linkedin.com/in/chelsea-hopkins-50822811a">LinkedIn</a> ·
   <a href="https://whimsee.co.uk">Whimsee</a> ·
   <a href="https://heyjackdaw.com">Jackdaw</a>
@@ -24,8 +25,6 @@ I’m Chelsea. I work in communications, have an illustration degree, and make t
 I didn’t come to code because I had a tidy plan to become a developer. I kept finding things I wanted that did not exist, so I started making them.
 
 Whimsee started with a question I couldn’t leave alone: could an illustrator make something real with code? It is now in both app stores. Since then I have built social publishing tools, WordPress plugins, motorsport admin systems, horse-genetics calculators, and several small solutions to problems that may only have bothered me.
-
-I build with agents doing much of the typing. The idea, taste, decisions, verification, and final veto stay with me.
 
 <br>
 
@@ -102,6 +101,8 @@ The polished version of a project is rarely the interesting one. I write about g
 I build WordPress and WooCommerce systems that real businesses depend on. A bookings and membership platform I made is live on three client sites. There is also club management, stock control, and a dealer map. That work is private, in production, and considerably less forgiving than a side project.
 
 I also work in communications. That matters here more than it may appear. Naming things, finding the audience, deciding what not to say, and explaining a system honestly are part of making the system.
+
+I also work in motorsport through [Hopkins Action](https://hopkinsaction.com): photography, communications, event work, and practical tools for the people running things behind the scenes.
 
 
 <br>
