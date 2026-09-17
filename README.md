@@ -21,7 +21,17 @@ I’m Chelsea. I work in communications, have an illustration degree, and make t
 
 Whimsee started with a question I couldn’t leave alone: could an illustrator make something real with code? It is now in both app stores.
 
-My main hobby is looking at things. I also draw, fly-fish, train in mixed martial arts and Brazilian jiu-jitsu, read brilliant novels and absolute rubbish, travel when I can, play games, ride mountain bikes, swim, and make little things I want.
+My main hobby is looking at things. The rest includes drawing, fly-fishing, Brazilian jiu-jitsu, books of wildly inconsistent quality, games, bikes, swimming, travelling when I can, and making little things I want.
+
+## Start with the writing
+
+These five pieces are the quickest route through how I investigate a system, explain it, and leave the awkward parts in.
+
+- [**PostHog on Expo, without the native plugin**](https://chelseahopkins.co.uk/notes/posthog-on-expo-no-native-modules/) — Seventy-two hand-written events, deliberate under-collection, offline gaps, child accounts, and the native dependency that once killed every build before JavaScript ran.
+- [**Wiring PostHog into WordPress properly**](https://chelseahopkins.co.uk/notes/wiring-posthog-into-wordpress-properly/) — Consent gating, WooCommerce events, a constrained first-party proxy, secret handling, and the difference between deduplication and reliable delivery.
+- [**How Whimsee knows you’re there**](https://chelseahopkins.co.uk/notes/how-whimsee-knows-youre-there/) — A PostGIS distance check, row-level security, the route around a different gate, and the limits of trusting coordinates supplied by a phone.
+- [**Merge everything. Ship nothing.**](https://chelseahopkins.co.uk/notes/merge-everything-ship-nothing/) — How one person ended up with 62 feature flags, found trunk-based development by accident, and built a rule for removing them.
+- [**Your agent has stopped imagining a reader**](https://chelseahopkins.co.uk/notes/your-agent-has-stopped-imagining-a-reader/) — What “Claudish” sounds like, why technically defensible prose can still fail, and the editing rule I use to pull it back towards a human.
 
 ## The things I’m making
 
@@ -41,30 +51,30 @@ One TypeScript core sits beneath a Telegram bot and web app. Claude drafts the c
 
 [Pressed Hog](https://github.com/ookpassant/pressed-hog) puts PostHog inside WordPress. [Courser Calculator](https://github.com/ookpassant/courser-calculator) does horse genetics for a game I play. [Marshpoint](https://github.com/ookpassant/marshpoint) handles motorsport marshal sign-ups. [Minimum Viable Exercise](https://github.com/ookpassant/minimum-viable-exercise) makes Claude give me a desk exercise while it works.
 
-There are [rougher scraps here](https://github.com/ookpassant?tab=repositories).
-
-## Scribblings
-
-I write about guesses, broken assumptions, overconfident agents, permissions I misunderstood, feature flags I forgot about, and the puddle that changed a product decision. [All the scribblings are here.](https://chelseahopkins.co.uk/notes/)
+<details>
+<summary>Latest scribblings</summary>
+<br>
 
 <!-- notes:start -->
 - [Merge everything. Ship nothing.](https://chelseahopkins.co.uk/notes/merge-everything-ship-nothing/) — How one person runs a release process with 62 feature flags.
-- [Your agent has stopped imagining a reader](https://chelseahopkins.co.uk/notes/your-agent-has-stopped-imagining-a-reader/) — you're absolutely right! this article stinks.
+- [Your agent has stopped imagining a reader](https://chelseahopkins.co.uk/notes/your-agent-has-stopped-imagining-a-reader/) — You’re absolutely right! This article stinks.
 - [I picked 10 metres because of a puddle](https://chelseahopkins.co.uk/notes/ten-metres-because-of-a-puddle/) — Never show a button the server will refuse.
-- [Taste is the part you can't vibe](https://chelseahopkins.co.uk/notes/taste-is-the-part-you-cant-vibe/) — What an illustration degree taught me about building with an agent.
-- [I don't feel at all](https://chelseahopkins.co.uk/notes/i-dont-feel-at-all/) — Eurobeat fancams of Michèle Mouton, and the switch that flips on a start line.
+- [Taste is the part you can’t vibe](https://chelseahopkins.co.uk/notes/taste-is-the-part-you-cant-vibe/) — What an illustration degree taught me about building with an agent.
+- [I don’t feel at all](https://chelseahopkins.co.uk/notes/i-dont-feel-at-all/) — Eurobeat fancams of Michèle Mouton, and the switch that flips on a start line.
 <!-- notes:end -->
+
+</details>
 
 ## Work
 
-I work in communications and build private WordPress and WooCommerce systems that real businesses run on. Naming things, finding the audience, deciding what not to say, and explaining a system honestly are all part of making the system.
+I’m a Chartered PR practitioner and communications lead for a global hosting brand. I have spent the last decade working across public services, live events and technology. I also build private WordPress and WooCommerce systems that real businesses run on.
 
-Most of my code is TypeScript, React, React Native, Node, PostgreSQL, PHP and WordPress. I use whatever else the problem requires.
+The thread through all of it is the same: understand the thing properly, find the people who care about it, and explain it without pretending the difficult parts are simple.
 
 ## How I work
 
-- Start with a real problem.
-- Ship small enough that mistakes remain recoverable.
-- Put analytics in early, but collect less than I could.
-- Test outside the desk whenever the product leaves the desk.
-- Say when a number is a guess.
+- I use the product before describing it.
+- I check the implementation before repeating what the documentation claims.
+- I keep the embarrassing failure if it explains the system.
+- I state where the evidence ends.
+- I would rather be useful than sound certain.
