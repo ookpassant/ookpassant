@@ -1,131 +1,131 @@
 <img src="assets/photos/oki.png" alt="a hand-drawn pack of white ghost-like animals and a grey wolf, layered over green and blue diagonal stripes with red hearts and yellow stars scattered through" width="100%">
 
-<h1 align="center">chelsea hopkins</h1>
+<h1 align="center">Chelsea Hopkins</h1>
 
 <p align="center">
-<sub>A SKETCHBOOK · DOODLE Nº OOKPASSANT · ALSO ANSWERS TO SEA</sub>
+<sub>ILLUSTRATOR · COMMUNICATOR · BUILDER · OFF-ROAD RACER</sub>
 </p>
 
 <p align="center">
-comms lead by day. i build the tools i wish existed by night.
+I make the things I wish existed, then write down what went wrong.
 </p>
 
 <p align="center">
   <a href="https://chelseahopkins.co.uk">chelseahopkins.co.uk</a> ·
-  <a href="https://hopkinsaction.com">hopkins action</a> ·
-  <a href="https://linkedin.com/in/chelsea-hopkins-50822811a">linkedin</a> ·
-  <a href="https://whimsee.co.uk">whimsee</a> ·
-  <a href="https://heyjackdaw.com">jackdaw</a>
+  <a href="https://hopkinsaction.com">Hopkins Action</a> ·
+  <a href="https://linkedin.com/in/chelsea-hopkins-50822811a">LinkedIn</a> ·
+  <a href="https://whimsee.co.uk">Whimsee</a> ·
+  <a href="https://heyjackdaw.com">Jackdaw</a>
 </p>
 
 <br>
 
-## i · the big ones
+I’m Chelsea. I work in communications, have an illustration degree, and race an unreasonable old 4x4 through quarries and forests.
+
+I didn’t come to code because I had a tidy plan to become a developer. I kept finding things I wanted that did not exist, so I started making them.
+
+Whimsee started with a question I couldn’t leave alone: could an illustrator make something real with code? It is now in both app stores. Since then I have built social publishing tools, WordPress plugins, motorsport admin systems, horse-genetics calculators, and several small solutions to problems that may only have bothered me.
+
+I build with agents doing much of the typing. The idea, taste, decisions, verification, and final veto stay with me.
+
+<br>
+
+## Things I wanted to exist
 
 <table>
   <tr>
     <td width="50%" valign="top">
       <a href="https://whimsee.co.uk"><img src="assets/photos/wander.jpg" alt="me hopping between mossy rocks beside a river in a wood, arms out for balance" width="100%"></a>
-      <p align="center"><sub>doodle i · me, being the user.</sub></p>
-      <h3><a href="https://whimsee.co.uk">whimsee</a> <sup>live on ios + android</sup></h3>
-      <p><b>why.</b> Whimsee started with a question I couldn’t leave alone: could an illustrator make something real with code? I wanted an app that sends you outside instead of keeping you in. You hide a small note where you stand. Only someone who walks there can read it. No feed, no algorithms, no infinite anything.</p>
-      <p><b>the clever bit.</b> postgis decides whether you're actually there. row level security keeps every note dark until you are. edge functions do the rest.</p>
-      <p><b>built with.</b> expo / react native · next.js on cloudflare workers · supabase · posthog</p>
-      <p><b>where it lives.</b> wherever you happen to be standing.</p>
-      <p><b>also writes.</b> the <a href="https://whimsee.co.uk/blog">whimsee blog</a>, research notes on the places themselves, written before anything gets planted in them.</p>
+      <p align="center"><sub>Me, being the user.</sub></p>
+      <h3><a href="https://whimsee.co.uk">Whimsee</a> <sup>live on iOS and Android</sup></h3>
+      <p>A GPS discovery app that sends you outside instead of keeping you in. You leave a small note where you stand. Only somebody who walks there can read it. No feed, no algorithm, no infinite anything.</p>
+      <p>PostGIS checks whether the coordinates it receives are close enough. Row-level security keeps each glimmer dark until it has been found. The app is built with Expo and React Native, with Supabase, Cloudflare, Next.js and PostHog underneath it.</p>
+      <p>Whimsee also has <a href="https://whimsee.co.uk/blog">field notes</a>: researched stories about the places themselves, written before anything gets planted in them.</p>
     </td>
     <td width="50%" valign="top">
       <a href="https://heyjackdaw.com"><img src="assets/photos/jackdaw.jpg" alt="a jackdaw held gently in a hand, pale eye looking at the camera" width="100%"></a>
-      <p align="center"><sub>doodle ii · a jackdaw, from a reference photo by emma lambert.</sub></p>
-      <h3><a href="https://heyjackdaw.com">jackdaw</a> <sup>closed beta</sup></h3>
-      <p><b>why.</b> nobody's coming to run your socials. jackdaw drafts posts in your voice, you veto every one, and it learns what lands.</p>
-      <p><b>the clever bit.</b> one typescript core under both faces. claude writes per-platform captions, headless chromium renders the carousels, and publishing is idempotent across ten platforms, so a retry never double-posts.</p>
-      <p><b>built with.</b> typescript / node · telegram bot + web app · claude api · headless chromium · posthog</p>
-      <p><b>where it lives.</b> telegram, and a web app for bigger screens. the early queue is open.</p>
+      <p align="center"><sub>A jackdaw, drawn from a reference photo by Emma Lambert.</sub></p>
+      <h3><a href="https://heyjackdaw.com">Jackdaw</a> <sup>closed beta</sup></h3>
+      <p>Nobody is coming to run your socials. Jackdaw drafts posts in your voice, gives you the veto, publishes across ten platforms, and learns from what happens afterwards.</p>
+      <p>One TypeScript core sits beneath a Telegram bot and web app. Claude drafts the copy, headless Chromium renders the carousels, and one publishing client handles the platforms without pretending they are all the same.</p>
+      <p>The important bit is not that AI writes. It is that a person remains responsible for what leaves the building.</p>
     </td>
   </tr>
 </table>
 
 <br>
 
-## ii · odds and ends
+## Useful little things
 
 <img src="assets/photos/fungus.jpg" alt="a cluster of honey-coloured fungus growing out of a fallen log" width="100%">
-<p align="center"><sub>doodle iii · things found out in the open.</sub></p>
+<p align="center"><sub>Things found out in the open.</sub></p>
 
-things i've left out in the open.
-
-| thing | what it is |
+| Thing | Why it exists |
 |---|---|
-| [**pressed-hog**](https://github.com/ookpassant/pressed-hog) | a hedgehog with a wordpress plugin in it. wires posthog into wordpress properly: session replay, surveys, woocommerce events, consent modes, a reverse proxy that ad blockers don't clock, and analytics inside wp-admin. |
-| [**courser-calculator**](https://github.com/ookpassant/courser-calculator) | horse genetics for a horse rpg i play. rolls four foals from two parents, then lists every foal the pairing could ever produce. runs entirely in your browser. [have a go](https://ook.monster/courser-calc). |
-| [**marshpoint**](https://github.com/ookpassant/marshpoint) | marshal signups for motorsport events, self-hosted. invite links, licence uploads, team rosters, and a dashboard for whoever's holding the clipboard. |
-| [**minimum-viable-exercise**](https://github.com/ookpassant/minimum-viable-exercise) | a claude code skill. while claude works, it sets me a quick desk workout and checks afterwards whether i did it. |
+| [**Pressed Hog**](https://github.com/ookpassant/pressed-hog) | A hedgehog with a WordPress plugin in it. It wires PostHog into WordPress with consent controls, WooCommerce events, surveys, session replay, a constrained reverse proxy, and useful numbers inside WP Admin. |
+| [**Courser Calculator**](https://github.com/ookpassant/courser-calculator) | Horse genetics for a horse RPG I play. It rolls four foals from two parents, then lists every foal the pairing could ever produce. It runs entirely in the browser. [Have a go.](https://ook.monster/courser-calc) |
+| [**Marshpoint**](https://github.com/ookpassant/marshpoint) | Self-hosted marshal sign-ups for motorsport events: invite links, licence uploads, team rosters, and a dashboard for whoever is holding the clipboard. |
+| [**Minimum Viable Exercise**](https://github.com/ookpassant/minimum-viable-exercise) | A Claude Code skill that gives me a short desk exercise while Claude works, then checks whether I actually did it. Mild disappointment is the entire enforcement mechanism. |
 
 <details>
-<summary><sub>&nbsp;smaller scraps, some of them rough</sub></summary>
+<summary><sub>&nbsp;Smaller scraps, some of them rough</sub></summary>
 <br>
 
-| thing | what it is |
+| Thing | What it does |
 |---|---|
-| [**where-when**](https://github.com/ookpassant/where-when) | i had to be in the office 50% of the time. this kept score. |
-| [**speed-countdown**](https://github.com/ookpassant/speed-countdown) | an offline pwa so my dad can count down to his racecar arriving. strongly vibe-coded. |
-| [**dirt-plugin**](https://github.com/ookpassant/dirt-plugin) | wordpress admin for off-road racing. |
-| [**dirtbike-quiz**](https://github.com/ookpassant/dirtbike-quiz) | which dirtbike are you. |
+| [**Where When**](https://github.com/ookpassant/where-when) | I had to be in the office 50% of the time. This kept score. |
+| [**Speed Countdown**](https://github.com/ookpassant/speed-countdown) | An offline PWA so my dad can count down to his race car arriving. Strongly vibe-coded. |
+| [**Dirt Plugin**](https://github.com/ookpassant/dirt-plugin) | WordPress admin for off-road racing. |
+| [**Dirtbike Quiz**](https://github.com/ookpassant/dirtbike-quiz) | Which dirtbike are you? An important question, finally answered. |
 
 </details>
 
 <br>
 
-## iii · scribblings
+## I write about the build
 
-things i've built, written up properly. [all of them](https://chelseahopkins.co.uk/notes/), or the most recent:
+The polished version of a project is rarely the interesting one. I write about guesses, failed reviews, overconfident agents, permissions I misunderstood, feature flags I forgot about, and the puddle that changed a product decision.
+
+[All the scribblings are here.](https://chelseahopkins.co.uk/notes/)
 
 <!-- notes:start -->
 - [Merge everything. Ship nothing.](https://chelseahopkins.co.uk/notes/merge-everything-ship-nothing/) — How one person runs a release process with 62 feature flags.
-- [Your agent has stopped imagining a reader](https://chelseahopkins.co.uk/notes/your-agent-has-stopped-imagining-a-reader/) — you're absolutely right! this article stinks.
+- [Your agent has stopped imagining a reader](https://chelseahopkins.co.uk/notes/your-agent-has-stopped-imagining-a-reader/) — You’re absolutely right! This article stinks.
 - [I picked 10 metres because of a puddle](https://chelseahopkins.co.uk/notes/ten-metres-because-of-a-puddle/) — Never show a button the server will refuse.
-- [Taste is the part you can't vibe](https://chelseahopkins.co.uk/notes/taste-is-the-part-you-cant-vibe/) — What an illustration degree taught me about building with an agent.
-- [I don't feel at all](https://chelseahopkins.co.uk/notes/i-dont-feel-at-all/) — Eurobeat fancams of Michèle Mouton, and the switch that flips on a start line.
+- [Taste is the part you can’t vibe](https://chelseahopkins.co.uk/notes/taste-is-the-part-you-cant-vibe/) — What an illustration degree taught me about building with an agent.
+- [I don’t feel at all](https://chelseahopkins.co.uk/notes/i-dont-feel-at-all/) — Eurobeat fancams of Michèle Mouton, and the switch that flips on a start line.
 <!-- notes:end -->
 
 <br>
 
-## iv · commissions
+## The work that is not on GitHub
 
-wordpress and woocommerce that real businesses run on. a bookings and membership platform i built is live on three client sites. club management. stock control. a dealer map. all private, all in production.
+I build WordPress and WooCommerce systems that real businesses depend on. A bookings and membership platform I made is live on three client sites. There is also club management, stock control, and a dealer map. That work is private, in production, and considerably less forgiving than a side project.
 
-<br>
+I also work in communications. That matters here more than it may appear. Naming things, finding the audience, deciding what not to say, and explaining a system honestly are part of making the system.
 
-## v · the pencil case
-
-<p>
-<img src="https://img.shields.io/badge/typescript-141414?style=flat-square&logo=typescript&logoColor=5068ff" alt="typescript">
-<img src="https://img.shields.io/badge/node-141414?style=flat-square&logo=nodedotjs&logoColor=5068ff" alt="node">
-<img src="https://img.shields.io/badge/react-141414?style=flat-square&logo=react&logoColor=5068ff" alt="react">
-<img src="https://img.shields.io/badge/react%20native-141414?style=flat-square&logo=react&logoColor=5068ff" alt="react native">
-<img src="https://img.shields.io/badge/expo-141414?style=flat-square&logo=expo&logoColor=5068ff" alt="expo">
-<img src="https://img.shields.io/badge/next.js-141414?style=flat-square&logo=nextdotjs&logoColor=5068ff" alt="next.js">
-<img src="https://img.shields.io/badge/supabase-141414?style=flat-square&logo=supabase&logoColor=5068ff" alt="supabase">
-<img src="https://img.shields.io/badge/postgres-141414?style=flat-square&logo=postgresql&logoColor=5068ff" alt="postgres">
-<img src="https://img.shields.io/badge/cloudflare-141414?style=flat-square&logo=cloudflare&logoColor=5068ff" alt="cloudflare">
-<img src="https://img.shields.io/badge/docker-141414?style=flat-square&logo=docker&logoColor=5068ff" alt="docker">
-<img src="https://img.shields.io/badge/php-141414?style=flat-square&logo=php&logoColor=5068ff" alt="php">
-<img src="https://img.shields.io/badge/wordpress-141414?style=flat-square&logo=wordpress&logoColor=5068ff" alt="wordpress">
-<img src="https://img.shields.io/badge/laravel-141414?style=flat-square&logo=laravel&logoColor=5068ff" alt="laravel">
-<img src="https://img.shields.io/badge/claude%20api-141414?style=flat-square&logo=anthropic&logoColor=5068ff" alt="claude api">
-<img src="https://img.shields.io/badge/posthog-141414?style=flat-square&logo=posthog&logoColor=5068ff" alt="posthog">
-</p>
+Then there is [Hopkins Action](https://hopkinsaction.com): motorsport, photography, comms, and the part of my life where software has to survive people wearing gloves in a muddy field.
 
 <br>
 
-## vi · how i work
+## What is in the pencil case
+
+TypeScript, Node, React, React Native, Expo, Next.js, Supabase, PostgreSQL, PostGIS, Cloudflare, Docker, PHP, WordPress, WooCommerce, Laravel, Claude and PostHog.
+
+I am not equally good at all of them. I am good at finding out what I need, checking the parts that can hurt somebody, and writing down the boundary between what a system does and what I merely hoped it did.
+
+<br>
+
+## How I work
 
 <img src="assets/photos/pinewood.jpg" alt="low sun through a pine wood, long shadows across deep moss, a small stream cutting through" width="100%">
-<p align="center"><sub>doodle iv · pine wood, november.</sub></p>
+<p align="center"><sub>Pine wood, November.</sub></p>
 
-- i ship small and often.
-- posthog on everything from day one.
-- claude in the loop, me on the veto.
-- i write the docs first.
-- nocturnal, mostly.
+- Start with a real problem.
+- Write down what the thing is for before building it.
+- Ship small enough that mistakes remain recoverable.
+- Put analytics in early, but collect less than I could.
+- Keep an agent in the loop and a human on the veto.
+- Test outside the desk whenever the product leaves the desk.
+- Say when a number is a guess.
+- Leave useful notes for the next person, especially when that person is me.
