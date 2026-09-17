@@ -1,57 +1,80 @@
 ---
-title: a game no platform would advertise
+title: Selling a game we couldn't advertise
 date: 2026-09-10
-summary: polyarmory launched free, with no budget, a predecessor restricted on steam, and a release date that kept moving because of real events. 20,000 downloads in ten days and a pc gamer feature anyway.
+summary: Polyarmory launched free, with no budget and few promotional options. It reached 20,000 downloads in ten days and earned a PC Gamer feature.
 slug: selling-a-game-nobody-would-let-us-advertise
 category: campaign
 ---
 
-polyarmory: high calibre love is a free fps and dating sim about a prepper who takes a pill and starts flirting with his guns. underneath the premise it's a satire about gun culture, isolated men and the pipelines that find them. it started as a seven-day game jam entry and turned into fourteen months of work from a team scattered across several time zones.
+*Polyarmory: High Calibre Love* is a free FPS and dating sim about a prepper who takes a pill and starts flirting with his guns. Underneath the premise, it is a satire about gun culture, isolated men and the pipelines that find them.
 
-i ran pr on it. this is what that actually involved.
+It began as a seven-day game jam entry and became fourteen months of work by a team scattered across several time zones. I ran PR for the launch.
 
-## the constraints
+We had no budget, few places willing to promote the game and a release date that kept moving. It still reached 20,000 downloads in ten days.
 
-no budget, not a small one, none at all. the whole campaign ran on time and a notion board.
+## The constraints
 
-the team's previous game, onlycans: thirst date, is age and region restricted on steam. polyarmory's first itch.io listing came down for being too erotic. paid social and most storefront promotion were gone before we'd finished thinking about them.
+There was no campaign budget. The whole thing ran on our time and a Notion board.
 
-the game is free on purpose. maximum reach, no arguments inside the team about splitting money, and nothing for a payment processor to withhold.
+The team's previous game, *OnlyCans: Thirst Date*, was age- and region-restricted on Steam. *Polyarmory's* first itch.io listing was removed for being too erotic. Paid social and most storefront promotion were therefore unavailable before we had finished planning the campaign.
 
-the release moved more than once. a game about a man being radicalised by talk radio doesn't launch the week of a shooting, so we moved it, and then moved it again.
+The game was free on purpose. That gave it the widest possible reach, avoided arguments about how a five-person team should divide the income, and left nothing for a payment processor to withhold.
 
-## what we did have
+The release moved more than once. A game about a man being radicalised by talk radio should not launch in the week of a shooting, so we delayed it when real events made the timing wrong.
 
-real thematic weight underneath the absurdity, colt is right about the problems and wrong about the causes, the in-game radio escalates the way a real pipeline does, and the antagonists were built specifically to occupy the slot that antisemitic conspiracy tropes usually fill.
+## What we could sell
 
-an eight hour runtime, which is exactly the shape of a youtube series, and an original theme song by the stupendium, who publishes to an audience in the hundreds of millions of views. no ai-generated assets anywhere in the shipped game, and a predecessor still sitting at 96% across 3,489 reviews four years after release, which is the only credibility that matters when a five-person team asks a journalist for twenty minutes.
+The absurd premise had real thematic weight underneath it. Colt is right about the problems he can see and wrong about their causes. The in-game radio escalates in the way a real radicalisation pipeline does. The antagonists were written to occupy the role usually filled by antisemitic conspiracy tropes without reproducing them.
 
-## the approach
+We also had useful evidence that the team could deliver. The game ran for about eight hours, which suited a YouTube series. The Stupendium had written and performed an original theme song. At the time we pitched, *OnlyCans* still had 96% positive reviews on Steam from 3,489 players.
 
-we built four angles, matched to the outlet. a stats hook for the traffic-driven sites, a cultural hook for the features desks pitched as thematic depth rather than controversy bait, an absurdist hook built on the options menu, which is the one that opens doors at tier 1, and the stupendium collaboration for anyone arriving through his audience. nobody got a generic pitch, each one was built around what that specific writer's readers turn up for.
+There were no AI-generated assets in the shipped game.
 
-the launch date was itself the story. we put it out the day before valentine's day, a dating sim, free, on the most romantic evening of the year, which gave every outlet a peg without anyone having to invent one. games media has moved underneath everyone, though, polygon gutted, the verge out of gaming, inverse closed its gaming section, so every outlet and every byline got checked before anything went out, and we pitched on bluesky rather than x because that's where the journalists actually are now.
+## Four pitches, not one
 
-and we went after mid-tier creators, 50k to 500k subscribers. cold pitching mega-tier channels with no sponsorship money behind you is a lottery ticket, mid-tier is where a free eight-hour game with a strange premise reads as a gift rather than an imposition, and a creator kit with gifs and timestamps meant nobody had to hunt for the good bits, plus an in-character colt michigan interview offered as a collaboration hook.
+We built four versions of the story:
 
-## what happened
+- A performance angle for outlets led by traffic and launch numbers.
+- A cultural angle about radicalisation, masculinity and gun culture for features desks.
+- An absurdist angle built around details such as the options menu.
+- A collaboration angle around The Stupendium and his audience.
 
-6,500+ wishlists before launch, the #2 slot on steam's upcoming releases page in the hour before it went live, and 7,500+ downloads in the first eight hours, past 20,000 inside ten days.
+Nobody received a generic pitch with their name changed. Each version was built around what that writer covered and what their readers came to them for.
 
-pc gamer ran a feature on 19 february and called it "daylight robbery for how good it is", then listed it under top free games, a listing that still sits on the steam page as an award, and the second wind games showcase picked it up for their spring 2026 watchexp special selection, which came out of a submission i drafted.
+The release date helped. We launched on the eve of Valentine's Day, giving editors a timely peg for a free dating sim about romancing guns.
 
-game rant covered it three days after pc gamer, yarn spinner featured it in their engine showcase, the launch release went out over games press and got picked up, and resetera had a thread running months before launch.
+Games coverage had also contracted, with publications closing sections and writers moving beats. We checked every outlet and byline immediately before pitching. We used Bluesky more than X because that was where many of the journalists we wanted to reach were active.
 
-steam sits at overwhelmingly positive: 96% across 565 reviews, and 97% across the last thirty days, seven months after release.
+## Why we targeted mid-sized creators
 
-## what i'd get wrong less next time
+We concentrated on creators with roughly 50,000 to 500,000 subscribers.
 
-i wanted to lead with the strangest individual details and had to be talked out of it. the absurdity is a door. the substance has to arrive in the same breath or the pitch reads as a novelty and gets filed as one.
+Pitching the largest channels without sponsorship money was a lottery. For a mid-sized creator, a free eight-hour game with a strange premise could be useful material rather than another demand on their inbox.
 
-the review target was 1,000 inside 90 days and we didn't get there. free games get reviewed at a much lower rate than paid ones, and i set that number by reading across from games people had paid for. the downloads landed. the reviews were always going to lag, and i should have modelled it that way from the start.
+The creator kit included GIFs, useful timestamps and an offer to interview Colt Michigan in character. Nobody had to search the game for a clip or invent a collaboration format from scratch.
 
-i'd also build the creator kit before the press kit. the creators moved faster and asked for less.
+## What happened
 
-## the transferable bit
+The game had more than 6,500 wishlists before launch. It reached number two on Steam's upcoming releases page in the hour before release, then passed 7,500 downloads in its first eight hours and 20,000 within ten days.
 
-no money and a platform environment that kept closing doors, and it still got tier 1 coverage, a showcase selection and an overwhelmingly positive rating. most of that came from knowing which writer needed which version of the story, and what week to send it.
+[PC Gamer](https://www.pcgamer.com/games/visual-novel/i-romanced-a-hunky-british-man-with-a-shotgun-for-a-head-in-a-game-that-lets-me-have-us-government-approved-pronouns-like-jamestown-grits-and-freedom/) featured it on 19 February and described getting a game this good for free as "daylight robbery". The publication later included it in a list of the best free games, and Steam still displays that recognition on the store page.
+
+The Second Wind Games Showcase selected it for its Spring 2026 WATCHEXP programme following a submission I drafted. Game Rant covered it three days after PC Gamer, Yarn Spinner added it to its engine showcase, and ResetEra had a thread running before launch.
+
+At the time of writing, [Steam showed](https://store.steampowered.com/app/4220820/Polyarmory_High_Calibre_Love/) 96% positive reviews from 565 players. Recent reviews were 97% positive.
+
+## What I would change
+
+I initially wanted to lead with the strangest individual details and had to be talked out of it. The absurdity opened the door, but the substance had to arrive in the same pitch. Without it, the game looked like a novelty and was easy to file as one.
+
+I also set the wrong review target. I wanted 1,000 reviews within 90 days, based on results from games people had paid for. Free games are reviewed at a lower rate. The downloads arrived, but the reviews were always going to accumulate more slowly. I should have modelled those separately.
+
+Next time, I would also build the creator kit before the press kit. Creators moved faster and needed less from us.
+
+## What was repeatable
+
+The campaign did not succeed because we found a secret free channel. We worked with a game that was unusually easy to describe, had something serious underneath the joke and gave creators enough material for several hours of video.
+
+The repeatable part was narrower: match the angle to the recipient, remove work from the creator and give journalists a reason to cover the game that week.
+
+That was enough to turn no budget and very limited paid promotion into a PC Gamer feature, a showcase selection and 20,000 downloads in ten days.

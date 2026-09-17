@@ -5,123 +5,115 @@ category: build
 order: 10
 ---
 
-I have 62 feature flags in a side project: 37 on mobile, 22 on the website, and 3 that both ends read. The project is Whimsee, a GPS discovery app I built on evenings because I wanted it to exist and wanted to learn how. When I wrote most of the flags it had no users. It's in both stores now, and the number has gone up rather than down, which I'm aware is the wrong direction.
+I have 62 feature flags in a side project: 37 on mobile, 22 on the website, and 3 that both ends read. The project is Whimsee, a GPS discovery app I built on evenings because I wanted it to exist and wanted to learn how. When I wrote most of the flags it had no users. It's in both stores now, and the number has gone up rather than down.
 
 [photo: forest-window.jpg | a stained-glass panel hung from a timber frame across a leaf-covered forest path, autumn beech on one side and dark conifers on the other]
 
-The picture of feature flags most people carry around is the canary: a new checkout rolled out to five percent of a million people while someone watches the error rate. I had nobody to roll out to. So what were they for?
+The usual picture of a feature flag is a canary rollout: a new checkout shown to five percent of a million people while someone watches the error rate. I had nobody to roll out to. So what were mine for?
 
-The answer has a name, and I didn't know it. Engineers split flags into roughly four kinds (Pete Hodgson's write-up on Martin Fowler's site is the one everyone points to). Release toggles let unfinished code sit on main, switched off. Experiment toggles run A/B tests. Ops toggles kill things that misbehave. Permission toggles decide who gets to see what.
+Engineers split flags into roughly four kinds in [Pete Hodgson's write-up](https://martinfowler.com/articles/feature-toggles.html): release toggles let unfinished code sit on main; experiment toggles run tests; ops toggles switch off things that misbehave; and permission toggles decide who sees what.
 
-What I'd built was mostly the first kind, on nearly everything, with a lot of the third mixed in. Trunk-based development, arrived at by accident, through pure trial and error, by someone who had never heard the phrase.
+Most of mine were release toggles, with some ops toggles mixed in. I'd arrived at trunk-based development by trial and error without knowing the name for it.
 
-I'm not a traditionally taught developer. I have an illustration degree and a day job in comms, and this is one of the things I build to stay interested. So I came at it backwards: built the thing, then went looking for what it's called, and found a textbook pattern I'd already pushed past the point where the textbook stops. That's also where I'm least sure I'm right, so if you're an engineer reading this with your head in your hands, I do want to hear why.
+I'm not a traditionally taught developer. I have an illustration degree and a day job in comms, and this is one of the things I build to stay interested. I built the process first and found the terminology later. The part I hadn't built was a reliable way to remove the flags again.
 
-Below: three of my flags, what PostHog thinks of the pile, and the removal rule I've only just noticed I don't have.
+Here are three of them, what an audit found in the pile, and the removal rule I have now.
 
 ## Ship everything. Flip what's live.
 
-Whimsee is an Expo app, and Expo ships updates over the air. You merge to main and the JavaScript goes out to installed phones without a release build, an App Store review, or anything else in the way. In practice that means main is production, because there isn't a staging environment to hide unfinished work in.
+Whimsee is an Expo app, and compatible JavaScript changes can go out over the air without a new store build. For those changes, main is effectively production: there isn't a staging environment where unfinished work can sit.
 
-So the question I had early on was how you merge things that aren't finished, and the answer I landed on was a flag on almost everything. Not on the risky features or the big ones, on each feature individually, so that any one of them can be turned on, turned off, and turned back on again without touching a build. The code goes out with the merge. The feature waits until I say so.
+My answer was a flag on almost every feature. Not only the risky or large ones. Each feature could be turned on, turned off, and turned on again without another build. The code went out with the merge; the feature waited until I said so.
 
-That's exactly what a release toggle is for. The odd part is doing it for nearly every feature, alone, with nobody to coordinate with but myself.
+I wanted to test on my own phone, in the real build, standing in an actual wood. Once the flag separates "code on main" from "thing a person can see", branches stop being where work in progress lives.
 
-I did it on purpose. I wanted to test things on myself in the real build, on my own phone, standing in an actual wood, and once the flag is what separates "code that's on main" from "thing a person can see", branches stop being where work in progress lives.
-
-Sixty-odd flags need a list, so there's a registry file in the repo. Each entry is a paragraph rather than a row: what the flag gates, which end reads it, and what the code falls back to if PostHog can't be reached. Not every flag has one, and only about a third of the entries say anything at all about when the flag should come out, which becomes relevant later. It's the thing I read instead of the dashboard. When I say registry in this post, I mean that file, not PostHog's flag list.
+Sixty-odd flags need a list, so there's a registry file in the repo. Each entry explains what the flag gates, which end reads it, and what the code does if PostHog can't be reached. Not every flag has an entry, and only about a third say when they should come out. When I say registry here, I mean that file, not PostHog's flag list.
 
 [diagram: main → OTA → phones, with the flag drawn as the switch between "merged" and "live". Your hand.]
 
 ## A flag lands faster than an update
 
-An over-the-air update doesn't arrive when you merge it. By default the app downloads the new bundle the next time it's opened, and then runs it the time after that. So to actually see a change, a person has to close the app and reopen it, and then close it and reopen it again. Twice. And there is no good way to tell people that. You can't push a notification saying "please quit the app twice to see the thing", and even if you could, nobody would.
+By default, an Expo over-the-air update downloads when the app is cold-started and runs after the next restart. In practice, someone may need to close and reopen the app twice: once to download the new bundle, and again to use it.
 
-Yes, I know about reloadAsync. You can fetch the update on launch and restart the app into it straight away. I chose not to, because a restart a few seconds after opening the app is exactly the kind of thing that makes people think it's broken, and because a network fetch on every launch is a poor trade for an app whose whole point is that you're outdoors, often without signal. Whimsee waits for the update to arrive on its own.
+I could fetch the update and call `reloadAsync`, but that would restart the app shortly after launch. Whimsee is used outdoors, often with poor signal, so I chose not to put a network fetch in the way of opening it.
 
-A flag doesn't have that problem. Flip it in the PostHog dashboard and the app picks it up on its next flag fetch, which for most people is the next time they open it. One open, not two, and no explaining. My users wandered in rather than signed up, so nobody is reading release notes and waiting to restart twice.
+In my setup, a PostHog flag refreshes the next time the app opens. That's one open rather than two, without asking anyone to read release notes or restart the app again.
 
 ## Test on yourself, then on one other person
 
-The mechanics of "test on myself" changed as the app got users, and all three versions are useful if you're building alone.
+Before Whimsee had users, I flipped flags straight to 100%. A flag was a switch in a dashboard that saved me rebuilding whenever I wanted to see how a new map or screen felt on a real phone.
 
-When there were no users at all, I just flipped flags at 100%. There's nobody to protect, so a flag is a switch you throw from a dashboard instead of from a commit, and it saved me a rebuild every time I wanted to see whether the new map felt right on a real phone.
+Once people were using the app, I targeted my own person ID. I could run the unreleased feature inside the same production build as everyone else, with no separate test build. When an early user suggested a feature, I targeted his ID and put it on his phone before anyone else's.
 
-Once there were some users, I started targeting my own person ID. The flag was on for me and off for everyone else, so I was running the unreleased thing inside the same production build everyone else had. No separate test build and no TestFlight track for my bad ideas.
+After the public launch, I used the same flags for a group of testers who had agreed to see broken things. The code and flag stayed the same; only the audience changed.
 
-That worked the other way too. An early user suggested a feature, so I built it, targeted his person ID, and he had it on his phone before anyone else, with a direct line to tell me what was wrong with it.
-
-Once the app went public, the same flags targeted a group of testers who'd agreed to see broken things, so a feature got a small real audience before it got everyone. Through all of that the flag never changed and the code never changed. Only who could see it did.
-
-All of that is past tense, and I only found out how completely when I looked at the dashboard for this post. Not one of the 64 flags targets a person or a group today. Every one is at 100%, at 0%, or switched off. I took the targeting down each time it had done its job without noticing I was doing it.
+I checked the dashboard while writing this and found that none of the 64 flags there targets a person or group now. Every one is at 100%, at 0%, or switched off. I dismantled each test audience when it had done its job without noticing that I had a process.
 
 ## Three flags, three different jobs
 
 | Flag | What it gates | Fallback | What happened |
 |---|---|---|---|
-| `blog_trail_lantern` | "Light the lantern" card on a field note | Off | Still held on main, unramped since 22 August, waiting on a trail to be planted |
-| `intro_redesign` | New onboarding copy and swipe | Off | Created, ramped to 100%, deleted twenty minutes later |
-| `photo_compression` | Downscale photos before the 5MB check | On | Kill switch that couldn't be reached, because the build died before JavaScript ran |
+| `blog_trail_lantern` | "Light the lantern" card on a field note | Off | Finished and merged, but held at 0% until the trail is planted |
+| `intro_redesign` | New onboarding copy and swipe | Off | Created, ramped to 100%, and deleted twenty minutes later |
+| `photo_compression` | Downscale photos before the 5MB check | On | Intended as a kill switch, but the build died before JavaScript ran |
 
 ### A flag can hold back a promise
 
-`blog_trail_lantern` wasn't protecting against a bug. The card is real, finished code. It sits at the foot of a field note on the Whimsee blog and says want to walk this, light the lantern, with a QR code and a button that takes you to the trail. It merged to main on 22 August and then sat there with the flag off, marked do not ramp, for weeks, and neither reason had anything to do with whether the code worked. The trail the article was written about hadn't been planted yet. And the Forest of Dean Local History Society hadn't got back to me about whether I could write about it at all.
+`blog_trail_lantern` wasn't protecting against a bug. The finished card sits at the foot of a field note and offers a QR code and button for walking the trail. It merged to main on 22 August, then stayed at 0% because the trail hadn't been planted and the Forest of Dean Local History Society hadn't confirmed that I could write about it.
 
-Without a flag there are only two moves and I didn't like either. I could leave it on a branch, where it would rot, because main took fifteen-odd blog commits in that window including changes to the parser the lantern's build-time checks live inside, and that branch would have been a mess to merge by the time the society replied. Or I could ship it live, and someone on a laptop would scan a QR, drive to Cinderford, and stand in a wood where nothing was planted, on a trail I hadn't been given permission to write about.
+Without the flag, I could leave the code on a branch while main changed underneath it, or show someone a route to a wood where nothing had been planted. The flag let the code move with main while the promise waited on a person.
 
-The flag let the code age along with main while the promise waited on a human being.
-
-And this is where I have to correct myself, in the post about registries that disagree with reality. When I started writing this section I told you the lantern was live. It isn't. I went and checked while pulling the numbers for this piece, and `blog_trail_lantern` was created on 22 August at 0% rollout and has not been touched since. One entry in its whole activity log, no ramp, nothing. The article it hangs off is still sitting in a drafts folder, held back until the ground is seeded. The card has been finished and merged for over three weeks and no human being has ever seen it.
-
-I had shipped it in my own head and the dashboard had no idea. The registry describes flags, it doesn't prove them.
+I thought the lantern was live until I checked for this post. Its activity log contains one entry: created at 0%, never ramped. The article is still in drafts. The registry described the flag; it didn't prove what had happened to it.
 
 ### A flag can undo a bad twenty minutes
 
-On 23 July I redesigned the intro screens, the ones you see the first time you open the app. New copy, new swipe. It went out behind a flag, I put it live, and it was wrong. The swipe really didn't feel right. It felt like a series of statements instead of a journey in. That was the whole review.
+On 23 July I redesigned the intro screens. New copy, new swipe. It went out behind a flag, I put it live, and it felt wrong: a series of statements rather than a journey into the app.
 
-The activity log is less flattering than my memory. I created the flag at 12:54, ramped it to 100%, and deleted it at 13:14. It was live to everyone for fourteen of those twenty minutes, and I never targeted my own phone with it at all. So what the flag bought me wasn't a private trial. It was the deletion: there was nothing left for the switch to switch, so the flag went with the feature. It's the only one of the three you won't find in my dashboard, and the only one that got a proper ending, and I got there by hating the thing rather than by having a rule.
+The activity log says I created the flag at 12:54, ramped it to 100%, and deleted it at 13:14. It was live to everyone for fourteen of those twenty minutes. The flag didn't buy me a private trial. It let me remove the feature without waiting for another update, then delete the flag with it.
 
-### A flag can't gate linkage
+### A flag can't gate native linkage
 
-`photo_compression` downscales a photo before the 5MB check, and it shipped as a kill switch: flag on by default, with a note in my registry saying to turn it off if the compressor misbehaved. The compressor did misbehave, and the switch turned out to be irrelevant.
+`photo_compression` downscales a photo before the 5MB check. It shipped behind a kill switch, on by default, with a note telling me to switch it off if the compressor misbehaved.
 
-The compressor came with a native module, `expo-image-manipulator`, and its version was one patch step out from `expo-modules-core`. It referenced symbols that core didn't export, so 0.2.0 build 5 died at launch, on every device, every time, before a line of JavaScript had run. No JavaScript means PostHog was never reached, which means the flag was never read, which means the off switch I'd carefully documented was decoration.
+The compressor did misbehave. In that build, `expo-image-manipulator` referenced symbols that the installed `expo-modules-core` didn't export. Version 0.2.0 build 5 died at launch on every device before JavaScript ran. PostHog was never reached, so the flag was never read.
 
-The part that actually stung was that having the switch there made adding a native module feel reversible when it wasn't. The real mitigation isn't a flag at all, it's launching any build with a new native module from TestFlight before you submit it, which I do now.
+The switch made adding a native module feel reversible when it wasn't. I now launch any build containing a new native module through TestFlight before submitting it.
 
-[diagram: what a flag can reach. JS and behaviour inside the line. Native linkage, dyld, the binary itself outside it. Keep it rough.]
+[diagram: what a flag can reach. JavaScript and behaviour inside the line; native linkage, dyld, and the binary outside it. Keep it rough.]
 
 ## Who shouldn't do this
 
-- Teams with a staging environment and a release train. You're probably running a tidier version of this already, with a tenth of the flags.
-- Anything where the feature has to be off the instant you say so. A flag lands on the next fetch, not on the flip, and for me that's fine.
-- Anyone who won't write down when a flag comes out. Which, as it turns out, includes me.
+- Teams with a staging environment and a release train. You're probably running a tidier version already, with fewer flags.
+- Anything that must switch off immediately. My flags change on the next fetch, not the dashboard click.
+- Anyone who won't write down when a flag comes out. Which, as it turns out, included me.
 
-## I have a rule for putting them in and half a rule for taking them out
+## Off is not gone
 
-My rule for putting flags in is simple and I'd defend it. Almost every individual feature gets one, so it can be tested, turned on, turned off, and turned on again without a rebuild, and so the moment it becomes visible is one I choose.
+I had a clear rule for adding flags: almost every feature got one so I could test it, choose when it became visible, and switch it off without another build.
 
-For taking them out, I thought I had nothing. Then I read my own flag descriptions in PostHog properly and found I'd been writing exit conditions all along, just the wrong kind. The demo door App Review asked for says to turn it off once Apple approves the app. `testers_page` says to retire it when the test round ends. `blog_trail_lantern` says do not ramp until the trail is planted and the society says yes. Six flags carry a permanent tag and a note saying never retire, never ramp below 100: the age gate, the location badge, spots showing a rough area instead of a pin, quiet blocking, text size, and cookieless web analytics.
+I thought I had no rule for removing them. Then I read the descriptions and found plenty of exit conditions, all ending too early. The App Review demo door said to switch it off after approval. `testers_page` said to retire it after the test round. `blog_trail_lantern` said not to ramp until the trail was planted and the society agreed.
 
-Every one of those conditions is about switching a flag off. Not one says when the flag, and the if-statement wrapped around it, should be deleted. That demo door is the proof. Apple approved the app, I switched that flag off on 25 August exactly as the note told me to, and the app has asked PostHog for it on every sign-in since, because the read is still in the door. Off is not gone.
+Those notes said when a flag should be switched off, not when the read and its surrounding `if` statement should be deleted. Apple approved the app and I switched off the demo door exactly as instructed. The app has still asked PostHog for it on every sign-in since.
 
-The descriptions themselves have the same problem. `keep_light` says "currently 0%, raise to try". It's at 100%. `testers_page` says to retire it when the test round ends. The round ended and it's still on. I wrote those notes to future me, and future me read them as the truth instead of as a to-do. So the registry describing flags without proving them isn't a problem with my registry file. It's a problem with any description of a flag that isn't the flag.
+The descriptions had drifted too. `keep_light` said "currently 0%, raise to try" while sitting at 100%. The `testers_page` round had ended, but the flag remained. I had started reading notes to future me as if they were current state.
 
-So that's one half of the gap: exit conditions that stop at off. The other half is what's actually in the code, and I only saw that because I asked an agent to audit it before I wrote this.
+So I asked an agent to audit the code rather than the registry:
 
 > **Prompt I used:** Pull every feature flag from the code, not from the registry file. The registry describes flags, it doesn't prove them. For each one tell me what it gates and whether there's still a live read anywhere. Then tell me which ones are dead.
 
-It found 4 flags with no reads anywhere, still sitting in the dashboard. 1 that's retired but can't be deleted, because a page still reads it with the fallback set to on and removing the flag would bring the page back from the dead. 2 flags in the code that never made it into the registry at all, and 1 registry entry describing a state the code had moved on from three commits earlier. That was 8 of 63 on the day, or one flag in eight where the registry and the code disagreed, in an app one person maintains.
+It found four dashboard flags with no reads in the current code; one retired page whose fallback was set to on, meaning deleting the flag would bring the page back; two flags in the code that had never reached the registry; and one registry entry describing a state the code had left three commits earlier.
 
-It's 6 of 62 now, and only 2 of those are dead flags. Two of the four got deleted outright after the audit.
+That was 8 of 63 flags where the registry and code disagreed. After deleting two, it is now 6 of 62.
 
-PostHog has its own opinion on the pile, which I also hadn't looked at. The flag list has a stale filter, and on my project it picks out four: two partner workshop pages, the lantern grounds chooser, and the old waitlist page. All four are web pages almost nobody has opened in a month. That's a different question from the one the audit asked, and I think you need both. The dashboard can tell you nobody has asked for a flag lately. Only the code can tell you nothing is able to ask. Until this week I'd looked at neither.
+PostHog's stale filter found four more: two partner workshop pages, the lantern grounds chooser, and an old waitlist page. All were web pages that almost nobody had opened in a month. That's a different test. The dashboard can show that nobody has requested a flag lately. Only the code can show that nothing is able to request it.
 
-The two dead flags still in the dashboard are worth looking at, because they're wrong in opposite directions. `photo-glimmers` is the oldest flag in the project, created on 5 July, and it has spent ten weeks sitting at 100%. The read came out of the code weeks ago. Nothing on main asks for it. And yet PostHog logged eleven calls to it in the last fortnight, the most recent on 15 September, which took me a minute. The likeliest answer is a phone still running a bundle from before the read was removed, because an over-the-air update only lands when someone opens the app, and some people don't. So the flag is dead on main and alive on somebody's phone, and the dashboard is faithfully reporting the phone. It's also the only flag I ever named with a hyphen instead of an underscore, which is very likely why my eye has slid off it every time.
+Two other flags show why you need both views.
 
-Then the mirror image, which turned up in the code rather than the dashboard. `mobile_journal_theme` was read by the app for nine days in July and never existed in PostHog at all. For nine days the app asked for a flag that had never been created and quietly took the fallback every single time. Nobody noticed, because there was nothing to notice, which is precisely how `photo_compression` failed. PostHog's VS Code extension has a category for exactly this, flag keys in your code that don't exist in the project, which I found out about after the fact. A flag nothing reads is untidy. Code reading a flag that was never there is the same bug as a kill switch you can't reach.
+`photo-glimmers` had spent ten weeks at 100%, although its read had already left main. PostHog still logged eleven calls in the previous fortnight. The likeliest explanation is a phone running an older bundle: the read was dead in current code but alive on somebody's device.
 
-Here's the rest of the dashboard as it actually stands, which I'd also never looked at all in one go:
+`mobile_journal_theme` did the opposite. The app read it for nine days, but the flag never existed in PostHog, so it silently used the fallback every time. PostHog's VS Code extension can detect keys in code that don't exist in the project. I found that after the fact.
+
+Here is the dashboard as it stood:
 
 | State | Flags |
 |---|---|
@@ -131,21 +123,31 @@ Here's the rest of the dashboard as it actually stands, which I'd also never loo
 | Partially rolled out | 0 |
 | Targeted at a person or group | 0 |
 
-Sixty-four flags in the dashboard against 62 with a live read in the code, and the gap is the two dead ones. Between 16 and 25 August I flipped four: two ramped from 0 to 100, and two switched off after the store release. Nothing has moved since.
+That is 64 flags in the dashboard against 62 with live reads in the current code. The two extra flags are dead on main.
 
-So here's the rule I'm adopting as of writing this, and I'd take a better one if you've got it.
+## The removal rule
 
-Every flag gets a type on the day it's created, and the type decides how it dies. Hodgson's split does most of the work. A release flag exists to hide unfinished work, so once it has sat at 100% through a store release, the if-statement comes out of the code and then the flag comes out of PostHog, in that order, because deleting the flag first flips every read to its fallback. A kill switch has to answer one question on day one: is it guarding a rollout, or a thing that's going to stay? If it's guarding a rollout, like `photo_compression`, it dies with the release flags. If it's guarding a page people have been emailed a link to, it's permanent, and it gets called that instead of sitting in the pile pretending it might come out one day. A permanent flag says so in its tag and gets looked at once a quarter, to check it still deserves the word. And whatever the type, the exit gets written down on day one, and the exit is the day it's deleted, not the day it's switched off.
+Every new flag now gets a type, and the type decides how it dies.
 
-Flags that fall back to on get reviewed first, because they're the ones that fail open when a phone can't reach PostHog, which is exactly when nobody's looking. That one I hadn't thought about until the audit. A flag that falls back to on is a promise that the feature works without you, and it's worth checking it's still a promise you mean.
+| Type | Removal rule |
+|---|---|
+| Release flag | Once it has sat at 100% through a store release, remove the code read, then delete the flag. |
+| Temporary kill switch | Remove it with the release flag once the rollout is proven. |
+| Permanent control | Mark it permanent and review it quarterly. |
+
+The order matters. Deleting a flag first sends every remaining read to its fallback.
+
+Whatever the type, the exit condition gets written down when the flag is created. The exit date means deletion, not merely switching it off.
+
+Flags that fall back to on get reviewed first because they fail open when a phone can't reach PostHog. A fallback of on is a claim that the feature should work without the flag service, and that claim needs checking.
 
 ## Fifty-eight switches, or fifty-eight settings
 
-58 of 64 at 100%. Nothing targeted at anyone. Nothing flipped since 25 August. My first instinct was to call that configuration rather than release: a mechanism that had stopped releasing anything, each flag with a switch nobody is reaching for.
+Fifty-eight of 64 flags were at 100%. Nothing was targeted, and nothing had changed since 25 August. My first instinct was to call that configuration rather than release: a switchboard nobody was touching.
 
-I'm less sure now, because of the update lag. A flag flip reaches a phone on the next open. An over-the-air fix needs two. So a flag sitting at 100% is still the fastest way I have to turn off anything that lives in JavaScript, and those 58 look a lot like off switches I just haven't needed yet. `photo_compression` is the warning about what that promise is worth when the problem is native. For everything above that line, the switch works.
+But an OTA fix may take two opens to reach a phone, while a flag refresh takes one in my setup. For JavaScript behaviour, those 58 flags are still my fastest off switches. `photo_compression` marks the boundary: a JavaScript flag cannot rescue a build that fails before JavaScript runs.
 
-What I actually have is three piles wearing the same label. Six flags I mean to keep forever. Some number of kill switches I'd reach for on a bad day. And a heap of release flags that finished their job weeks ago and were never told. I put a flag on everything because I had nobody to roll out to. I've still got nearly all of them because I never decided which ones were switches and which ones were just on.
+What I actually have is three piles wearing the same label: six permanent controls, some kill switches I might need on a bad day, and a heap of release flags that finished their job weeks ago.
 
 If you've got a better removal rule, I want it. Reply here, or find me in the PostHog Discord as Sea.
 

@@ -1,31 +1,71 @@
 ---
-title: getting bullied into exercise by claude
-summary: a claude code skill is a markdown file. this one makes claude set you a desk workout while it works, then check up on you.
+title: Getting bullied into exercise by Claude
+summary: A Claude Code skill sets one short desk exercise before a long task, then asks whether you did it.
 category: build
 ---
 
-i sit down to write code and stand up several hours later. [minimum-viable-exercise](https://github.com/ookpassant/minimum-viable-exercise) is a claude code skill that makes the tool i'm sitting in front of do something about that.
+I sit down to write code and stand up several hours later. [Minimum Viable Exercise](https://github.com/ookpassant/minimum-viable-exercise) is a Claude Code skill designed to interrupt that pattern.
 
-## what a skill actually is
+When Claude is about to start a long task, the skill tells it to give me one short exercise first. Claude then does the work and asks whether I exercised when it comes back.
 
-a folder with a markdown file in it. the file has a short header that tells claude when the skill applies, and then plain instructions. no code, no api. you install it and claude reads it whenever the description matches what's about to happen.
+It cannot see me, start a timer or know whether I am lying. Mild disappointment is the entire enforcement mechanism.
 
-the trick in this one is the trigger. it fires before any task claude reckons will take a while, long code, documents, research. the header says so in words. "if there's a delay coming, use it."
+## What the skill contains
 
-## what it does
+A Claude Code skill starts with a folder containing a `SKILL.md` file. The file has YAML frontmatter describing when the skill is relevant, followed by instructions written in Markdown.
 
-before starting the work, claude names one exercise, gives a rep count or a duration, adds a form cue and one dry line. then it gets on with the job without waiting for you. when it comes back with the result, it asks whether you did it. once.
+This particular skill contains no executable code and calls no API. It is a written procedure for Claude to follow.
 
-the tone is the point and the file is blunt about it. dry, deadpan, mildly competitive. not cheerful. not optional-feeling. "the exercise is happening. the only variable is whether the user completes it."
+The description is important because Claude uses it to decide whether to load the skill automatically. Mine describes long-running work such as coding, document production and research. In effect: if I am about to sit still while Claude works, give me something physical to do.
 
-there's a bank of twenty exercises, all doable at a desk in under ninety seconds. seated leg raises. desk push-ups. glute squeezes, which the file describes as "completely invisible. zero excuses." star jumps, if nobody's watching.
+That trigger is guidance, not a deterministic hook. Claude decides whether the skill is relevant, so it may occasionally miss a task or invoke the skill at an odd moment. It can also be run directly with its slash command.
 
-## the check-in
+## What happens when it runs
 
-this is the whole bit, and the file says so. if you did it, one dry acknowledgement. if you didn't, one line of mild judgement and then the work anyway. if you ignore the question altogether: "i'll take the silence as a no."
+Before starting the requested work, Claude provides:
 
-## what i learned writing it
+- One exercise.
+- A number of repetitions or a duration.
+- One form cue.
+- One dry line about completing it.
 
-most of the file is about what not to do. one exercise, not three. one line of judgement, not a lecture. no coach voice. never skip the check. writing a good skill turned out to be writing a good brief, and briefs are the part of my job i've done longest.
+Then it starts the actual task without waiting for an answer. When the work is finished, it asks once whether I did the exercise.
 
-it's on github. your assistant will be slightly disappointed in you.
+The tone is specified as carefully as the behaviour: dry, deadpan and mildly competitive. It should not sound like a cheerful fitness coach, and it should not turn ninety seconds of movement into a motivational speech.
+
+The skill puts it more bluntly:
+
+> The exercise is happening. The only variable is whether the user completes it.
+
+## The exercise bank
+
+There are twenty exercises, all designed to be done beside a desk in less than ninety seconds. They include seated leg raises, desk push-ups and glute squeezes, described in the file as “completely invisible. Zero excuses.”
+
+There are also star jumps for occasions when nobody is watching.
+
+The list keeps the instruction concrete. Without it, Claude would have to invent a suitable exercise every time, and the tone and difficulty would drift. The bank also makes it easier to remove anything that needs equipment or takes too long.
+
+## The check-in is the product
+
+The exercise suggestion is easy. The follow-up is what turns it into a small accountability system.
+
+If I did it, Claude gives one dry acknowledgement. If I did not, it gives one line of mild judgement and then delivers the work anyway. If I ignore the question, the instruction is equally short:
+
+> I'll take the silence as a no.
+
+Nothing is logged and there is no streak. The skill asks once, reacts once and moves on.
+
+## What writing it taught me
+
+Most of the useful work went into defining what Claude should not do:
+
+- One exercise, not a routine.
+- One form cue, not a lesson.
+- One line of judgement, not a lecture.
+- No chirpy coach voice.
+- Do not hold the requested work hostage while waiting for an answer.
+- Do not forget the check-in.
+
+Writing the skill felt less like programming than writing a good brief. The mechanism is simple. The result depends on specifying the moment, behaviour, tone and stopping point clearly enough that Claude can reproduce them.
+
+The skill is [available on GitHub](https://github.com/ookpassant/minimum-viable-exercise). Your assistant will be slightly disappointed in you.

@@ -1,56 +1,77 @@
 ---
-title: a human veto on ai social posts
-summary: how jackdaw drafts in your voice, waits for you, and publishes to ten platforms without a single platform adapter.
+title: A human veto on AI social posts
+summary: How Jackdaw drafts in your voice, gives you a review window, and publishes to ten platforms through one vendor.
 category: build
 ---
 
-[jackdaw](https://heyjackdaw.com) drafts social posts, shows them to you, and does nothing until you say so. nobody's coming to run your socials, so it does the writing and you keep the veto. this is how that's built, including the two places where the neat version of the story isn't quite true.
+[jackdaw](https://heyjackdaw.com) drafts social posts and puts a human decision between the draft and the queue. how firm that gate is depends on the setting: sometimes it waits indefinitely, and sometimes silence becomes approval after a deadline.
+
+this is how that works, how one publishing client reaches ten platforms, and where the neat version of both claims stops being true.
 
 ## the veto is a field
 
-i expected to build a status column. draft, approved, published, the usual. instead the whole approval model is one nullable field on a proposal:
+i expected to build a status column: draft, approved, published, the usual. instead, the approval model starts with one nullable field on a proposal:
 
 ```ts
 /** ISO time after which the proposal auto-queues; null = manual approval only. */
 deadline: string | null;
 ```
 
-null means a human has to act. a timestamp means a human has until then. everything else is just which list the thing sits in.
+`null` means a human must act. a timestamp means a human has until then. the rest is which list the proposal currently sits in.
 
-there's a dial for how much review sits between drafting and the queue, running from hands-on through batch and veto to full. on hands-on the nightly run does nothing at all and every draft waits for a tap. on veto and full, a proposal gets a window, twelve hours by default, and if no objection is heard it queues itself. so at those settings the veto is a window rather than a gate, and the notification becomes the safety mechanism. there's a comment in the code that calls it the most important message the engine sends, and says it must not depend on a channel the tenant might not have. telegram if you've got it. email if you haven't.
+there's a dial for how much review happens between drafting and the queue. in hands-on mode, the nightly run does nothing and every draft waits for a tap. in veto and full modes, a proposal gets a window, twelve hours by default, and queues itself if nobody objects.
 
-## nothing is ever told to publish now
+so the human veto is not always a gate. sometimes it is a deadline.
 
-the publishing api offers four modes. draft, queue, schedule, publish now. the application only ever constructs two of them. every path that creates a post builds a draft or a queue entry, and the queue publishes at a slot time. "publish now" exists in the client's type definitions and nowhere else. that's on purpose. i'd rather the dangerous call be unwritable than trust myself to remember not to write it.
+that makes the notification part of the safety mechanism. a comment in the code calls it the most important message the engine sends and says it must not depend on a channel the tenant might not have: telegram when connected, email otherwise.
 
-approval covers pixels too. for carousels, claude writes the words and picks a layout, and that's all it's allowed to do. you see the copy before anything renders. you can't approve a slide you haven't seen.
+## the application never asks to publish now
 
-## ten platforms, zero adapters
+the vendor api offers four modes: draft, queue, schedule and publish now. jackdaw constructs only drafts and queue entries. the queue publishes them at a slot time.
 
-instagram, tiktok, twitter, threads, bluesky, linkedin, facebook, reddit, youtube, pinterest. i assumed that meant ten adapter files. there are none. publishing goes through one vendor client, and the differences between platforms live in three places, a prose note per platform that the model reads while drafting, a short list of which platforms need media, and a per-target override at post time.
+`publish now` still exists in the vendor client's types, so it is not literally impossible to call. it is absent from every application path. publishing immediately would require someone to add a new path rather than accidentally select the wrong existing option.
 
-the prose is where the real logic is. twitter's note is about 280 characters including hashtags. linkedin's is the longest by a mile, and includes an instruction not to write a stack of one-line paragraphs, which is the most recognisable ai shape on that platform. the only platform that gets an actual branch in code is linkedin, because a swipeable carousel there has to be a pdf document rather than a set of images.
+approval includes rendered carousels. claude writes the words and chooses a layout, but the post cannot queue until the rendered slides have been shown for review. the model does not get to approve its own pixels.
+
+## one publisher, not ten adapters
+
+instagram, tiktok, twitter, threads, bluesky, linkedin, facebook, reddit, youtube and pinterest all go through one vendor client. jackdaw has no separate api adapter for each platform.
+
+that does not mean the platforms are identical. their differences live in four places:
+
+- a drafting note for each platform
+- a list of platforms that require media
+- per-target overrides when the post is created
+- one code branch for linkedin carousels, which the publishing flow sends as pdf documents rather than image sets
+
+the prose notes carry most of the variation. twitter's note covers its standard character limit, including hashtags. linkedin's is the longest and explicitly bans the stack of one-line paragraphs that makes so much ai copy recognisable there.
+
+there are no platform-specific publishing clients. there is still platform-specific product logic.
 
 ## retries, honestly
 
-every create call carries a fresh request id in a header, and the vendor treats a replay of the same id as the same post. the response can come back as a new post or an existing one, and the code handles both the same way. behind that, the vendor also rejects identical content to the same account within a day. so a network retry can't double-post. a person hammering the button twice? caught by the second defence, not the first. i'd rather say that plainly than claim more than the header does.
+each create request carries a fresh request id. replaying the same id returns the same vendor post, and jackdaw handles a new or existing post the same way. the vendor also rejects identical content sent to the same account within a day.
 
-## what "learns what lands" actually means
+that means a network retry should not double-post. a person submitting the same content twice is caught by the separate duplicate-content check, not by the request id. the distinction matters when deciding what the system actually guarantees.
 
-three loops, all ending in the same system prompt.
+## what “learns what lands” means
 
-engagement comes back from published posts. after every ten new posts, or thirty days, a report runs and works out median engagement per platform, with and without media. claude turns that into at most five bullets, and those bullets ride in every subsequent draft. under twenty posts the block labels itself as early hints, weak signals not rules, so the model doesn't over-fit to a fortnight.
+three feedback loops end up in the drafting prompt.
 
-corrections can be pinned. when you refine a draft in telegram, one tap turns that refinement into a standing rule, and standing rules override everything, including the tone profile. one of them is enforced in code as well as in prompt. if you've ever said no hashtags, a regex strips them after generation, because the model drifts.
+engagement comes back from published posts. after ten new posts, or thirty days, a report calculates median engagement by platform and compares posts with and without media. claude turns that into no more than five bullets for later drafts. below twenty published posts, the block labels them as early hints rather than rules.
 
-facts about the business are kept separately from voice and capped at forty, because the whole list rides in every prompt and would otherwise quietly become the largest cost per draft.
+corrections can become standing instructions. when you refine a draft in telegram, one tap can pin the correction, and pinned instructions outrank the tone profile. one preference is enforced after generation too: if you have said no hashtags, a regex removes them because the model drifts.
 
-and the honest gap. rejections teach nothing. skipping a proposal deletes it. the system learns from what the audience did with what you published, not from which drafts you chose over which. that's a later problem.
+facts about the business are stored separately from voice and capped at forty. the whole list travels in every prompt, so leaving it unbounded would quietly increase the cost of every draft.
+
+there is one important gap. rejections teach nothing. skipping a proposal deletes it, so jackdaw learns from how audiences respond to published posts but not from the drafts a person refused. “learns what lands” currently means published performance and corrections, not preference learning from every decision.
 
 ## small things i'm fond of
 
-the base prompt is fifty lines of rules against sounding like a machine, grouped by how they fail. one test: read the draft without its first line and without its last line, and if it reads better, cut them. another: repeat a noun rather than reaching for a synonym, because swapping words to dodge repetition is a machine habit.
+the base prompt contains fifty lines of rules against sounding like a machine, grouped by failure. one test says to read the draft without its first and last lines and cut them if it improves. another says to repeat a noun rather than reach for a synonym, because swapping words merely to avoid repetition is a machine habit.
 
-em dashes are stripped in code after generation, everywhere, including the headlines in the renderer, and when the model answers in prose instead of json, usually to ask for more context, that gets shown as jackdaw talking rather than logged as a failure.
+em dashes are removed after generation, including from carousel headlines. when the model responds in prose instead of json, usually because it needs more context, jackdaw shows that response as a message rather than treating it as a failed draft.
 
-every drafting path claims an idea from your monthly allowance up front and refunds it if nothing was produced, so an outage on my end doesn't cost you one.
+every drafting path claims one idea from the monthly allowance before starting and refunds it if no draft is produced. an outage does not spend the customer's allowance.
+
+the honest version is less tidy than the product line. jackdaw can draft, learn from published performance and send posts to ten platforms through one vendor. in hands-on mode, nothing queues without approval. in veto modes, doing nothing is itself a decision once the window closes.

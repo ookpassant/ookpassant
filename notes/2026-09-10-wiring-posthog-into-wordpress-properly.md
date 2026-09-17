@@ -1,41 +1,116 @@
 ---
-title: wiring posthog into wordpress properly
-summary: consent that really gates, an order event that doesn't double-count, a proxy that can't be turned against you, and analytics inside wp-admin.
+title: Wiring PostHog into WordPress properly
+summary: Consent gating, WooCommerce events, a constrained first-party proxy and PostHog numbers inside WP Admin.
 category: build
 ---
 
-i found posthog this year, building [whimsee](https://whimsee.co.uk), and liked it enough that i wanted it on the wordpress sites i look after too. the existing options amounted to a snippet pasted into a theme. that works right up until someone changes the theme, or asks about cookies, or wants to know what the site did last week without logging into a second dashboard. so i wrote [pressed-hog](https://github.com/ookpassant/pressed-hog).
+I found PostHog while building [Whimsee](https://whimsee.co.uk), then wanted it on the WordPress sites I look after.
 
-it's a hedgehog with a wordpress plugin in it. here's what it turned out to need.
+Pasting the standard snippet into a theme would have collected pageviews. It would also have left the integration tied to that theme, put consent outside the analytics configuration, and sent anyone wanting basic numbers to a separate dashboard.
 
-## a wizard
+So I built [Pressed Hog](https://github.com/ookpassant/pressed-hog), a WordPress plugin that handles the parts around the snippet.
 
-activation opens a four-step setup. pick your region, paste your project key, choose tracking and consent, send a test event. the key gets checked live, from the server, against your posthog host, so you find out it's wrong before you've forgotten which tab you copied it from. everything the wizard sets is editable later on a normal settings page. the wizard exists because nobody reads the normal settings page.
+The snippet was the easy bit.
 
-## consent
+## Set up the connection before exposing every setting
 
-three modes. none, which tracks immediately. a built-in banner, where posthog starts with `opt_out_capturing_by_default` set and captures nothing until someone accepts. and external, where you bring your own consent plugin and tracking starts when a cookie you name takes a value you name, or when your plugin calls `window.pressedHog.grantConsent()`.
+On activation, Pressed Hog opens a four-step wizard:
 
-the important bit is that "opted out" is posthog's own opted-out state, not a wrapper that delays loading the script. the library is present, the identify call is queued, and accepting the banner flips one switch.
+1. Choose PostHog Cloud US, Cloud EU or a self-hosted instance.
+2. Enter the public project API key.
+3. Choose the tracking and consent behaviour.
+4. Send a test event.
 
-## the woocommerce order event
+The key is checked from the server against the selected PostHog host. This does not make the public project key secret. It catches a bad host or copied value while the person configuring the plugin still knows which tab it came from.
 
-three events: product added to cart, checkout started, order completed. the last one carries totals and line items, and it's the one that goes wrong on most installs because people refresh the thank-you page. so it's deduplicated with a flag written to the order, and it only fires when the order key in the url matches the order, which is the same check woocommerce's own thank-you page does. nobody can walk through order ids and read totals out of your analytics.
+Everything remains editable later on a normal settings page. The wizard exists because a working first event is more useful than presenting every switch at once.
 
-## the proxy
+## Consent uses PostHog's own state
 
-ad blockers block posthog's domains. the fix is to serve it from your own. a rewrite rule turns `yoursite.com/phog/…` into a server-side relay to your posthog host, forwarding the visitor's ip so geolocation still works.
+The plugin has three consent modes.
 
-a proxy on a wordpress site is a thing that gets abused, so this one is narrow. it relays only to the host you configured, and it accepts only a fixed list of first path segments, the ones posthog actually uses: `static`, `e`, `i`, `decide`, `capture`, `batch`, `array`, `s`, `flags`, anything else is refused. the request body is capped, the upstream timeout is five seconds, and it can't be pointed at another host or used to fetch things. very busy site? put a cdn in front instead, the readme says so.
+With no gate, PostHog starts capturing immediately. The built-in banner instead initializes it with `opt_out_capturing_by_default`. The JavaScript library still loads, but PostHog drops captures until the visitor accepts. Acceptance calls `opt_in_capturing()` and then identifies a logged-in user if that option is enabled.
 
-## analytics where the client already is
+External mode supports a named cookie and two JavaScript methods:
 
-most people who run a wordpress site will never log into posthog. so there's a posthog page inside wp-admin. pageviews, unique visitors, change against the previous period, a traffic chart, top pages, referrers and devices, over seven, thirty or ninety days. it's queried server-side from posthog's query api and cached for five minutes. the personal api key that makes it work is stored non-autoloaded, so it never rides along in the object cache on public requests, and it never appears in page html.
+```js
+window.pressedHog.grantConsent();
+window.pressedHog.denyConsent();
+```
 
-## and the rest
+There is an implementation detail worth stating accurately. The plugin reads the external cookie when its consent script runs. It does not continuously watch for a later cookie change. If a consent manager grants permission after that point, it should call `grantConsent()` directly or allow tracking to begin on the next page load.
 
-feature flags evaluated server-side, with a shortcode and a php helper, so you can gate content in a template. qr codes with utm tags and a unique id per code, generated in the browser so the url never goes to a third party. role exclusions, so admins and editors don't pollute the numbers.
+That is less magical than saying it works with any consent plugin automatically, but it describes the boundary the code actually provides.
 
-## the review
+## The WooCommerce event is deduplicated, with a trade-off
 
-before publishing i ran an adversarial review, separate agents attacking each surface, each finding re-verified by a sceptical pass. ssrf through the proxy, header injection, xss, and injection into the analytics queries were all looked at specifically. the hardening above is what came out of it.
+Pressed Hog captures three WooCommerce events:
+
+- `product_added_to_cart`
+- `checkout_started`
+- `order_completed`
+
+The order event includes the total, currency and line items. Before placing that payload in the page, the plugin checks that the order key in the URL matches the order. Knowing an order ID is not enough to expose its contents.
+
+It also writes `_pressed_hog_tracked` to the order so refreshing the thank-you page does not create another completion event.
+
+That prevents the obvious duplicate, but it is not exactly-once delivery. The flag is written while WordPress builds the page, before the browser calls `posthog.capture()`. If consent has not been granted, an ad blocker stops the request or the browser closes, the event can be lost while the order remains marked as tracked.
+
+The current implementation therefore provides an at-most-once browser attempt. That may be acceptable for directional analytics, but I would not describe it as reliable order accounting.
+
+## The proxy is deliberately narrow
+
+Domain-based blockers often stop requests to PostHog's ingestion hosts. Pressed Hog can instead point the JavaScript library at a first-party path such as:
+
+```text
+https://example.com/phog/
+```
+
+WordPress relays those requests to the configured PostHog host. This avoids simple domain-based blocking. It does not make tracking unblockable; path-based rules can still recognise or block it.
+
+A public relay needs constraints. The implementation:
+
+- Uses only the PostHog host selected by an administrator.
+- Allows a fixed set of first path segments, including `static`, `e`, `capture`, `batch`, `decide` and `flags`.
+- Accepts only `GET`, `POST`, `HEAD` and `OPTIONS`.
+- Caps POST bodies at 1 MB.
+- Uses a five-second upstream timeout and follows no redirects.
+- Returns only the upstream content type and cache-control headers.
+
+Those controls stop a visitor choosing an arbitrary destination and turning the endpoint into a general fetching proxy. They do not make a public PHP endpoint free of operational risk. Every accepted request still consumes the site's PHP and network capacity, and the current implementation has no rate limit. A high-traffic site should put this work at the CDN or edge rather than sending it through WordPress.
+
+The allow-list also becomes maintenance work. If PostHog changes the paths used by its JavaScript library, the proxy needs to change with it.
+
+## Put the useful numbers where the client already works
+
+Most people running a WordPress site do not want another analytics interface for routine checks. Pressed Hog adds a PostHog page to WP Admin with:
+
+- Pageviews and unique visitors.
+- Change against the previous period.
+- A traffic chart.
+- Top pages, referrers and devices.
+- Seven-, thirty- and ninety-day ranges.
+
+The queries run server-side through PostHog's Query API and are cached for five minutes. The day range is restricted to those three values, and the HogQL is assembled from plugin-owned query text rather than arbitrary administrator input.
+
+The personal API key is not printed into front-end HTML. However, the repository exposed a weaker decision in my original description of its storage.
+
+All plugin settings, including the personal API key, currently live in one WordPress option. That option is marked non-autoloaded, but the front-end tracker still calls `get_option()` to read the rest of the configuration. The whole array is therefore loaded during a public request. Non-autoloading prevents WordPress loading it automatically with every option; it does not keep the key out of a request that explicitly reads the option.
+
+The cleaner design is to store the personal key separately and read it only inside WP Admin. Until then, the accurate claim is that the key stays server-side and is not emitted to the browser.
+
+## The other features are smaller
+
+The plugin also evaluates feature flags server-side, with a shortcode and PHP helpers for gating template content. It generates QR codes in the browser, adding UTM parameters and a unique `phg_qr` value without sending the destination URL to a third-party QR service. Administrators and editors are excluded from tracking by default.
+
+Those features are useful, but they are not the difficult part of the integration. Consent, order delivery, proxy boundaries and secret handling are where confident one-line claims become dangerous.
+
+## What the review was good for
+
+Before publishing the plugin, I used separate agents to examine the proxy, headers, rendered output and analytics queries, then had the findings challenged in a second pass.
+
+That process produced real hardening: an allow-listed proxy, method and body limits, order-key validation, escaped output and restricted admin pages. It was useful.
+
+It was not a security certificate. Re-reading the current repository for this article still exposed two claims I could not defend: that the order event was reliably deduplicated without loss, and that a non-autoloaded settings array kept the personal key out of public requests.
+
+That is what “properly” has to mean here. Not that the first version was perfect, but that each boundary is explicit enough to inspect, test and correct.
