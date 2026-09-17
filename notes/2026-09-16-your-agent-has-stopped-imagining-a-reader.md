@@ -31,7 +31,7 @@ The same thing happened with my analytics notes, which still said no session rep
 
 ## What I think it means
 
-Jina Yoon wrote [a good piece](https://posthog.com/newsletter/fix-your-agents) a couple of weeks ago about subtracting context so agents can think, and the line I keep coming back to is: for each line in your AGENTS.md, if you can't name the failure it prevents, delete it. I'd like to steal it and point it the other way.
+Jina Yoon wrote [a good piece](https://posthog.com/newsletter/fix-your-agents) at the end of August about subtracting context so agents can think, and the line I keep coming back to is: for each line in your AGENTS.md, if you can't name the failure it prevents, delete it. I'd like to steal it and point it the other way.
 
 For each sentence your agent writes, if you can't name the reader it's for, it shouldn't be there. Every sentence up there is defensible and not one of them is for anyone. "Load-bearing" is a word you use when you're not sure the sentence would stand up without it. "Non-trivial" is a number you didn't look up. "This isn't X, it's Y" is a rhythm, not a distinction, and it turns up three times because it feels like thinking. "State-registry drift vector" is four nouns doing the work of none.
 
