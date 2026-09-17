@@ -3,7 +3,7 @@
 <h1 align="center">Chelsea Hopkins</h1>
 
 <p align="center">
-<sub>ILLUSTRATOR · COMMUNICATOR · BUILDER · OFF-ROAD RACER</sub>
+<sub>ILLUSTRATOR · COMMUNICATOR · BUILDER · WRITER</sub>
 </p>
 
 <p align="center">
@@ -12,7 +12,6 @@ I make the things I wish existed, then write down what went wrong.
 
 <p align="center">
   <a href="https://chelseahopkins.co.uk">chelseahopkins.co.uk</a> ·
-  <a href="https://hopkinsaction.com">Hopkins Action</a> ·
   <a href="https://linkedin.com/in/chelsea-hopkins-50822811a">LinkedIn</a> ·
   <a href="https://whimsee.co.uk">Whimsee</a> ·
   <a href="https://heyjackdaw.com">Jackdaw</a>
@@ -20,7 +19,7 @@ I make the things I wish existed, then write down what went wrong.
 
 <br>
 
-I’m Chelsea. I work in communications, have an illustration degree, and race an unreasonable old 4x4 through quarries and forests.
+I’m Chelsea. I work in communications, have an illustration degree, and make things that sit somewhere between technology, storytelling, and a stubborn refusal to leave an interesting problem alone.
 
 I didn’t come to code because I had a tidy plan to become a developer. I kept finding things I wanted that did not exist, so I started making them.
 
@@ -104,7 +103,6 @@ I build WordPress and WooCommerce systems that real businesses depend on. A book
 
 I also work in communications. That matters here more than it may appear. Naming things, finding the audience, deciding what not to say, and explaining a system honestly are part of making the system.
 
-Then there is [Hopkins Action](https://hopkinsaction.com): motorsport, photography, comms, and the part of my life where software has to survive people wearing gloves in a muddy field.
 
 <br>
 
