@@ -28,7 +28,7 @@ comms lead by day. i build the tools i wish existed by night.
       <a href="https://whimsee.co.uk"><img src="assets/photos/wander.jpg" alt="me hopping between mossy rocks beside a river in a wood, arms out for balance" width="100%"></a>
       <p align="center"><sub>doodle i · me, being the user.</sub></p>
       <h3><a href="https://whimsee.co.uk">whimsee</a> <sup>live on ios + android</sup></h3>
-      <p><b>why.</b> i wanted an app that sends you outside instead of keeping you in. you hide a small note where you stand. only someone who walks there can read it. no feed, no algorithms, no infinite anything.</p>
+      <p><b>why.</b> Whimsee started with a question I couldn’t leave alone: could an illustrator make something real with code? I wanted an app that sends you outside instead of keeping you in. You hide a small note where you stand. Only someone who walks there can read it. No feed, no algorithms, no infinite anything.</p>
       <p><b>the clever bit.</b> postgis decides whether you're actually there. row level security keeps every note dark until you are. edge functions do the rest.</p>
       <p><b>built with.</b> expo / react native · next.js on cloudflare workers · supabase · posthog</p>
       <p><b>where it lives.</b> wherever you happen to be standing.</p>
