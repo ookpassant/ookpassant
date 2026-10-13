@@ -17,33 +17,13 @@ I make the things I wish existed, then write down what went wrong.
   <a href="https://heyjackdaw.com">Jackdaw</a>
 </p>
 
-I’m Chelsea. I work in communications, have an illustration degree, and make things somewhere between technology, storytelling, and a stubborn refusal to leave an interesting problem alone.
+I’m Chelsea. I work across communications, creative production and technology, with an illustration degree that keeps finding new uses. I like the moment when an idea stops being hypothetical, especially when it takes a good team to get there.
 
 Whimsee started with a question I couldn’t leave alone: could an illustrator make something real with code? It is now in both app stores.
 
 My main hobby is looking at things. The rest includes drawing, fly-fishing, Brazilian jiu-jitsu, books of wildly inconsistent quality, games, bikes, swimming, travelling when I can, and making little things I want.
 
-## Start with the writing
-
-These five pieces are the quickest route through how I investigate a system, explain it, and leave the awkward parts in.
-
-- [**PostHog on Expo, without the native plugin**](https://chelseahopkins.co.uk/notes/posthog-on-expo-no-native-modules/) — Seventy-two hand-written events, deliberate under-collection, offline gaps, child accounts, and the native dependency that once killed every build before JavaScript ran.
-- [**Wiring PostHog into WordPress properly**](https://chelseahopkins.co.uk/notes/wiring-posthog-into-wordpress-properly/) — Consent gating, WooCommerce events, a constrained first-party proxy, secret handling, and the difference between deduplication and reliable delivery.
-- [**How Whimsee knows you’re there**](https://chelseahopkins.co.uk/notes/how-whimsee-knows-youre-there/) — A PostGIS distance check, row-level security, the route around a different gate, and the limits of trusting coordinates supplied by a phone.
-- [**Merge everything. Ship nothing.**](https://chelseahopkins.co.uk/notes/merge-everything-ship-nothing/) — How one person ended up with 62 feature flags, found trunk-based development by accident, and built a rule for removing them.
-- [**Your agent has stopped imagining a reader**](https://chelseahopkins.co.uk/notes/your-agent-has-stopped-imagining-a-reader/) — What “Claudish” sounds like, why technically defensible prose can still fail, and the editing rule I use to pull it back towards a human.
-
-## Then the ones with more of me in them
-
-The technical pieces are not the whole voice. These are the ones I would use if you want to know what I care about.
-
-- [**I picked 10 metres because of a puddle**](https://chelseahopkins.co.uk/notes/ten-metres-because-of-a-puddle/) — Product judgement, unreliable GPS, field testing, and the logger I switched on before forgetting to go for a walk.
-- [**Taste is the part you can’t vibe**](https://chelseahopkins.co.uk/notes/taste-is-the-part-you-cant-vibe/) — What three years of art-school crits taught me about naming, judgement, and building with an agent.
-- [**I don’t feel at all**](https://chelseahopkins.co.uk/notes/i-dont-feel-at-all/) — Eurobeat fancams of Michèle Mouton, what happens when a start light changes, and the part of me that does not arrive on command.
-- [**I don’t want Whimsee to be my income**](https://chelseahopkins.co.uk/notes/i-dont-want-whimsee-to-be-my-income/) — Why players never pay, why partner and education versions only cover the bills, and why meaningful work and making things are not opposites.
-- [**Fashion thoughts**](https://chelseahopkins.co.uk/notes/confuzzled-conbook-fashion-thoughts/) — Two pieces written for the 2025 Confuzzled Conbook about self-presentation, furry fashion, memory, repair, and making identity by hand.
-
-## The things I’m making
+## Things I’ve made
 
 ### [Whimsee](https://whimsee.co.uk)
 
@@ -56,6 +36,13 @@ It is built with Expo, React Native, Supabase, PostGIS, Cloudflare and PostHog. 
 A social publishing tool that drafts posts in your voice, gives you the veto, publishes across ten platforms, and learns from what happens afterwards.
 
 One TypeScript core sits beneath a Telegram bot and web app. Claude drafts the copy, headless Chromium renders the carousels, and a human remains responsible for what leaves the building.
+
+## Things I’ve made with other people
+
+I’ve managed camera and creative staff, worked with an apprentice on their objectives and development, and collaborated on ideas, budgets and delivery with people who know their craft. Some of the best work has involved much more than a keyboard.
+
+- **Interactive installation for the Qatar World Cup:** helped cost the proposal, source suppliers and logistics, then coded, soldered and assembled interactive stepping stones. Final financial sign-off sat with leadership.
+- **ConFuzzled creative:** help co-lead the convention creative department, directly look after five volunteers and write the theming basis that informs the event. It takes plenty of other people to make it happen.
 
 ## Smaller things
 
@@ -75,9 +62,29 @@ One TypeScript core sits beneath a Telegram bot and web app. Claude drafts the c
 
 </details>
 
+## Notes from figuring things out
+
+I write about the decisions, the experiments and the embarrassing bits. Here are the technical ones:
+
+- [**PostHog on Expo, without the native plugin**](https://chelseahopkins.co.uk/notes/posthog-on-expo-no-native-modules/) — Seventy-two hand-written events, deliberate under-collection, offline gaps, child accounts, and the native dependency that once killed every build before JavaScript ran.
+- [**Wiring PostHog into WordPress properly**](https://chelseahopkins.co.uk/notes/wiring-posthog-into-wordpress-properly/) — Consent gating, WooCommerce events, a constrained first-party proxy, secret handling, and the difference between deduplication and reliable delivery.
+- [**How Whimsee knows you’re there**](https://chelseahopkins.co.uk/notes/how-whimsee-knows-youre-there/) — A PostGIS distance check, row-level security, the route around a different gate, and the limits of trusting coordinates supplied by a phone.
+- [**Merge everything. Ship nothing.**](https://chelseahopkins.co.uk/notes/merge-everything-ship-nothing/) — How one person ended up with 62 feature flags, found trunk-based development by accident, and built a rule for removing them.
+- [**Your agent has stopped imagining a reader**](https://chelseahopkins.co.uk/notes/your-agent-has-stopped-imagining-a-reader/) — What “Claudish” sounds like, why technically defensible prose can still fail, and the editing rule I use to pull it back towards a human.
+
+## Then the ones with more of me in them
+
+The technical pieces are not the whole voice. These are the ones I would use if you want to know what I care about.
+
+- [**I picked 10 metres because of a puddle**](https://chelseahopkins.co.uk/notes/ten-metres-because-of-a-puddle/) — Product judgement, unreliable GPS, field testing, and the logger I switched on before forgetting to go for a walk.
+- [**Taste is the part you can’t vibe**](https://chelseahopkins.co.uk/notes/taste-is-the-part-you-cant-vibe/) — What three years of art-school crits taught me about naming, judgement, and building with an agent.
+- [**I don’t feel at all**](https://chelseahopkins.co.uk/notes/i-dont-feel-at-all/) — Eurobeat fancams of Michèle Mouton, what happens when a start light changes, and the part of me that does not arrive on command.
+- [**I don’t want Whimsee to be my income**](https://chelseahopkins.co.uk/notes/i-dont-want-whimsee-to-be-my-income/) — Why players never pay, why partner and education versions only cover the bills, and why meaningful work and making things are not opposites.
+- [**Fashion thoughts**](https://chelseahopkins.co.uk/notes/confuzzled-conbook-fashion-thoughts/) — Two pieces written for the 2025 Confuzzled Conbook about self-presentation, furry fashion, memory, repair, and making identity by hand.
+
 ## Work
 
-I’m a Chartered PR practitioner and communications lead for a global hosting brand. I have spent the last decade working across public services, live events and technology. I also build private WordPress and WooCommerce systems that real businesses run on.
+I work in brand, PR and communications for a global hosting company, and I’ve managed creative teams, developed people and helped cost and deliver event production. Alongside that, I build apps, WordPress and WooCommerce tools that real people use. I’m a Chartered PR practitioner; it’s part of the toolkit, not the whole toolbox.
 
 The thread through all of it is the same: understand the thing properly, find the people who care about it, and explain it without pretending the difficult parts are simple.
 
