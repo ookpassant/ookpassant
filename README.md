@@ -41,8 +41,8 @@ One TypeScript core sits beneath a Telegram bot and web app. Claude drafts the c
 
 I’ve managed camera and creative staff, worked with an apprentice on their objectives and development, and collaborated on ideas, budgets and delivery with people who know their craft. Some of the best work has involved much more than a keyboard.
 
-- **Interactive installation for the Qatar World Cup:** helped cost the job (roughly £25k proposed), source suppliers and logistics, then coded, soldered and assembled the interactive stepping stones. The client approved the quote; final financial sign-off sat with leadership.
-- **ConFuzzled creative:** help co-lead a 25-person convention creative department, directly look after five volunteers and write the theming basis that informs the event. I work within a theming allocation of roughly £10k, making choices about how it comes to life with the team.
+- **Interactive installation for the Qatar World Cup:** helped cost the proposal, source suppliers and logistics, then coded, soldered and assembled interactive stepping stones. Final financial sign-off sat with leadership.
+- **ConFuzzled creative:** help co-lead the convention creative department, directly look after five volunteers and write the theming basis that informs the event. It takes plenty of other people to make it happen.
 
 ## Smaller things
 
