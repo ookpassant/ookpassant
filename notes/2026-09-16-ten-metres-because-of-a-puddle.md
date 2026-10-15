@@ -55,7 +55,7 @@ Never show a button the server will refuse.
 
 Every "how close" number in the app is really two numbers with some tolerance between them. That's where the GPS uncertainty goes.
 
-[diagram: the ladder. Phone 10 → server 15 → offline 25, and phone 40 → server 60, drawn as steps. Your hand.]
+[photo: hand_drawn_distance_ladder_infographic.png | Two distance ladders: for glimmers, phone 10 metres, server 15 metres, offline 25 metres; for spots, phone 40 metres and server 60 metres | The server uses a more forgiving radius than the phone.]
 
 ## Ten metres, because three felt like a fight
 

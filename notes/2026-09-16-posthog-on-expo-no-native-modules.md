@@ -82,7 +82,7 @@ The rule is that an event marks a decision or physical act, not a screen someone
 
 If you use Expo Router and want screen views, current PostHog guidance is to call `posthog.screen()` from the router integration. The provider can enable touch autocapture, but it does not make Expo Router screen tracking automatic.
 
-[diagram: the hunt event sequence as a path, with the forks drawn off it. Your hand.]
+[photo: hand_drawn_glimmer_hunt_roadmap.png | Whimsee hunt events from app open to starting a hunt, arriving at the dig zone, finding a glimmer and choosing whether to keep it | The hunt event sequence, with its alternative paths.]
 
 ## Send a coarse area, never the coordinate
 

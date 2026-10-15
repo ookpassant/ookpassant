@@ -10,6 +10,8 @@ It doesn't trust the phone's answer. It takes the coordinates the phone supplies
 
 That isn't the same as proving the phone is physically there. Whimsee has no anti-spoofing. But it does mean the app cannot simply announce that a note has been found and expect the server to agree.
 
+[photo: whimsee-distance-check.png | A phone supplies its position for a server-side proximity check before Whimsee reveals a hidden note]
+
 ## What a glimmer is, to the database
 
 In the app the word is glimmer. In the database the table is called `treasures`, because the table came first. It stores latitude and longitude as plain numbers, and Postgres derives a geography point from them:

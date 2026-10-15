@@ -29,7 +29,7 @@ I wanted to test on my own phone, in the real build, standing in an actual wood.
 
 Sixty-odd flags need a list, so there's a registry file in the repo. Each entry explains what the flag gates, which end reads it, and what the code does if PostHog can't be reached. Not every flag has an entry, and only about a third say when they should come out. When I say registry here, I mean that file, not PostHog's flag list.
 
-[diagram: main → OTA → phones, with the flag drawn as the switch between "merged" and "live". Your hand.]
+<!-- Illustration planned: MAIN → OTA → phones, with the flag between merged and live. Restore when the approved main-ota-flags.png image is uploaded. -->
 
 ## A flag lands faster than an update
 
@@ -79,7 +79,7 @@ The compressor did misbehave. In that build, `expo-image-manipulator` referenced
 
 The switch made adding a native module feel reversible when it wasn't. I now launch any build containing a new native module through TestFlight before submitting it.
 
-[diagram: what a flag can reach. JavaScript and behaviour inside the line; native linkage, dyld, and the binary outside it. Keep it rough.]
+[photo: inside_and_outside_the_flag.png | Feature flags can switch application behaviour but cannot protect a broken native module or binary | What a JavaScript feature flag can reach, and what it cannot.]
 
 ## Who shouldn't do this
 

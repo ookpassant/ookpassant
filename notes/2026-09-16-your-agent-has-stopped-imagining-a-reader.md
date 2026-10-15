@@ -7,6 +7,8 @@ order: 20
 
 The next section is 300 words of technically correct prose with no reader in mind. Underneath it is the same incident in 100.
 
+[photo: agent-to-reader.png | A machine pours out pages of text while an editor cuts them into a clear story for a reader]
+
 ---
 
 ## The incident
