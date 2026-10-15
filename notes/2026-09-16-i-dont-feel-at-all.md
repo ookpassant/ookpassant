@@ -13,6 +13,8 @@ There's another one. Interviewer asks if she feels nervous going into a stage bl
 
 "I prefer it."
 
+[photo: rally-start-switch.png | A racing start light switches from waiting to going, with a helmet and racing car | The moment the start line turns thought into action.]
+
 Someone has cut these to eurobeat music. 150-160BPM, high tempo electronic dance music. Synced them with footage of Quattros getting sideways through dusty roads and reaching crowds. This "fancam" format is borrowed from Korean pop-star fan accounts and inspired by Initial D (a Japanese cartoon about drifting) - same energy, same worship, just redirected at a French rally driver born in 1951.
 
 [video: https://www.youtube.com/watch?v=Gt11vqrsA1M | Michèle Mouton (I don't feel at all), by ABKR-II. This is the format.]

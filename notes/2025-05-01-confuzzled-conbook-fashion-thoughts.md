@@ -8,6 +8,8 @@ slug: confuzzled-conbook-fashion-thoughts
 
 These two pieces were written for the 2025 Confuzzled Conbook.
 
+[photo: fashion-mending.png | Hand-customised jacket with patches, stitching and rewearable clothes | Fandom fashion as self-expression, alteration and repair.]
+
 ## Not into fashion
 
 Here’s a myth that shows up in the furry fandom all the time:

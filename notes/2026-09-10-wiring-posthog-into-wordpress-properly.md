@@ -12,6 +12,8 @@ So I built [Pressed Hog](https://github.com/ookpassant/pressed-hog), a WordPress
 
 The snippet was the easy bit.
 
+[photo: pressed-hog-flow.png | WordPress and WooCommerce events pass through consent handling and a proxy towards PostHog analytics]
+
 ## Set up the connection before exposing every setting
 
 On activation, Pressed Hog opens a four-step wizard:
