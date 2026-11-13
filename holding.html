@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>chelsea hopkins · back soon</title>
+<meta name="description" content="chelsea hopkins. this site is being redrawn and will be back soon.">
+<link rel="canonical" href="https://chelseahopkins.co.uk/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="chelsea hopkins · back soon">
+<meta property="og:description" content="this site is being redrawn. back soon.">
+<meta property="og:url" content="https://chelseahopkins.co.uk/">
+<meta property="og:locale" content="en_GB">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-40 -40 80 80'%3E%3Cpath d='M0,-34 C3,-12 12,-3 34,0 C12,3 3,12 0,34 C-3,12 -12,3 -34,0 C-12,-3 -3,-12 0,-34 Z' fill='%23c9962e'/%3E%3C/svg%3E">
+<link rel="preload" href="/fonts/fredoka-normal-400-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* everything is inline and every path is absolute: this file is also served as
+   404.html, so it has to work from any depth of old url. */
+@font-face {
+  font-family: "Fredoka";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(/fonts/fredoka-normal-400-700-latin.woff2) format("woff2");
+}
+@font-face {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(/fonts/nunito-normal-400-700-latin.woff2) format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/fonts/jetbrains-mono-normal-400-latin.woff2) format("woff2");
+}
+
+:root {
+  --paper: #ffffff;
+  --ink: #141414;
+  --ink-2: #363636;
+  --muted: #6c6c6c;
+  --line: #d8d8d8;
+  --blue: #2f4fe6;
+  --yellow: #f7c948;
+  --red: #e8432e;
+  --gold: #c9962e;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #121212;
+    --ink: #f2f2f2;
+    --ink-2: #d6d6d6;
+    --muted: #a0a0a0;
+    --line: #3a3a3a;
+    --blue: #7c93ff;
+    --yellow: #ffd75e;
+    --red: #ff7a63;
+    --gold: #e0b04a;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { height: 100%; }
+body {
+  margin: 0;
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: clamp(1.25rem, 4vw, 3rem);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Nunito", system-ui, sans-serif;
+  font-size: clamp(1.05rem, 0.98rem + 0.3vw, 1.2rem);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--yellow); color: #141414; }
+
+main { width: 100%; max-width: 34rem; }
+
+.star { display: block; width: 2.75rem; height: 2.75rem; margin-bottom: 1.5rem; fill: var(--gold); }
+
+.eyebrow, .links {
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: .72rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.eyebrow { margin: 0 0 .75rem; color: var(--muted); }
+
+h1 {
+  margin: 0;
+  font-family: "Fredoka", ui-rounded, system-ui, sans-serif;
+  font-weight: 600;
+  font-size: clamp(3rem, 14vw, 6rem);
+  line-height: .92;
+  letter-spacing: -.02em;
+}
+
+.lede { margin: 1.5rem 0 0; color: var(--ink-2); max-width: 28ch; }
+
+.links {
+  list-style: none;
+  margin: 2.25rem 0 0;
+  padding: 1.25rem 0 0;
+  border-top: 2px solid var(--ink);
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem 1.75rem;
+}
+
+a { color: var(--blue); text-decoration-thickness: 2px; text-underline-offset: .25em; }
+a:hover { color: var(--red); }
+a:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<main>
+  <svg class="star" viewBox="-40 -40 80 80" aria-hidden="true"><path d="M0,-34 C3,-12 12,-3 34,0 C12,3 3,12 0,34 C-3,12 -12,3 -34,0 C-12,-3 -3,-12 0,-34 Z"/></svg>
+  <p class="eyebrow">a sketchbook · closed for redrawing</p>
+  <h1>chelsea<br>hopkins</h1>
+  <p class="lede">this site is being redrawn. back soon.</p>
+  <ul class="links">
+    <li><a class="mail" data-u="hello" data-d="chelseahopkins.co.uk" href="#">email</a></li>
+    <li><a href="https://www.linkedin.com/in/chelsea-hopkins-50822811a/">linkedin</a></li>
+    <li><a href="https://github.com/ookpassant">github</a></li>
+  </ul>
+</main>
+
+<script>
+// the address is assembled here so it never sits in the markup whole.
+document.querySelectorAll('a.mail').forEach(function (a) {
+  a.href = 'mailto:' + a.getAttribute('data-u') + '@' + a.getAttribute('data-d');
+});
+</script>
+</body>
+</html>

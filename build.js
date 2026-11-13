@@ -33,7 +33,27 @@ const OUT = path.join(ROOT, '_site');
 const SITE = 'https://chelseahopkins.co.uk';
 const README_NOTES = 5;
 
+// holding mode. while this is true the build publishes holding.html and nothing
+// else: it is the homepage and the 404 page, so every old url (notes, feed,
+// sitemap) shows it too. nothing in the repo is deleted and the README is left
+// alone. set it to false to bring the whole site back.
+const HOLDING = true;
+
+if (HOLDING) {
+  fs.rmSync(OUT, { recursive: true, force: true });
+  fs.mkdirSync(path.join(OUT, 'fonts'), { recursive: true });
+  const page = fs.readFileSync(path.join(ROOT, 'holding.html'), 'utf8');
+  fs.writeFileSync(path.join(OUT, 'index.html'), page);
+  fs.writeFileSync(path.join(OUT, '404.html'), page);
+  for (const f of ['CNAME', '.nojekyll']) fs.copyFileSync(path.join(ROOT, f), path.join(OUT, f));
+  for (const f of (page.match(/\/fonts\/[\w.-]+\.woff2/g) || [])) fs.copyFileSync(path.join(ROOT, f), path.join(OUT, f));
+  fs.writeFileSync(path.join(OUT, 'robots.txt'), 'User-agent: *\nAllow: /\n');
+  console.log(`holding mode: built the holding page into ${path.relative(ROOT, OUT)}/ and nothing else`);
+  process.exit(0);
+}
+
 const SKIP = new Set([
+  'holding.html',
   '_site', 'node_modules', '.git', '.github', '.githooks', 'templates', 'lib', 'drafts',
   'build.js', 'lock.js', 'package.json', 'package-lock.json', '.gitignore', 'README.md',
 ]);
