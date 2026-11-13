@@ -33,24 +33,11 @@ const OUT = path.join(ROOT, '_site');
 const SITE = 'https://chelseahopkins.co.uk';
 const README_NOTES = 5;
 
-// holding mode. while this is true the build publishes holding.html and nothing
-// else: it is the homepage and the 404 page, so every old url (notes, feed,
-// sitemap) shows it too. nothing in the repo is deleted and the README is left
-// alone. set it to false to bring the whole site back.
+// holding mode. while this is true the homepage is holding.html instead of
+// index.html. everything else is built as usual: the notes, their index, the
+// feed, the sitemap and the README block all stay live. set it to false to
+// bring the full homepage back.
 const HOLDING = true;
-
-if (HOLDING) {
-  fs.rmSync(OUT, { recursive: true, force: true });
-  fs.mkdirSync(path.join(OUT, 'fonts'), { recursive: true });
-  const page = fs.readFileSync(path.join(ROOT, 'holding.html'), 'utf8');
-  fs.writeFileSync(path.join(OUT, 'index.html'), page);
-  fs.writeFileSync(path.join(OUT, '404.html'), page);
-  for (const f of ['CNAME', '.nojekyll']) fs.copyFileSync(path.join(ROOT, f), path.join(OUT, f));
-  for (const f of (page.match(/\/fonts\/[\w.-]+\.woff2/g) || [])) fs.copyFileSync(path.join(ROOT, f), path.join(OUT, f));
-  fs.writeFileSync(path.join(OUT, 'robots.txt'), 'User-agent: *\nAllow: /\n');
-  console.log(`holding mode: built the holding page into ${path.relative(ROOT, OUT)}/ and nothing else`);
-  process.exit(0);
-}
 
 const SKIP = new Set([
   'holding.html',
@@ -224,7 +211,7 @@ fs.writeFileSync(path.join(OUT, 'notes', 'index.html'), fill(listTpl, {
 // ---------- homepage ----------
 
 const indexPath = path.join(OUT, 'index.html');
-let index = fs.readFileSync(indexPath, 'utf8');
+let index = fs.readFileSync(HOLDING ? path.join(ROOT, 'holding.html') : indexPath, 'utf8');
 index = index.replace(/<!-- notes:start -->[\s\S]*?<!-- notes:end -->/,
   listed.length
     ? `<!-- notes:start --><ol class="entries">${listed.slice(0, 6).map((n) => entry(n, { showCategory: true })).join('\n')}</ol>` +
@@ -292,5 +279,6 @@ const hidden = all.length - listed.length;
 console.log(
   `built ${all.length} note${all.length === 1 ? '' : 's'} into ${path.relative(ROOT, OUT)}/` +
   (lockedCount ? ` · ${lockedCount} locked` : '') +
-  (hidden ? ` · ${hidden} unlisted` : ''),
+  (hidden ? ` · ${hidden} unlisted` : '') +
+  (HOLDING ? ' · homepage is the holding page' : ''),
 );
