@@ -133,11 +133,7 @@ a:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
   </ul>
 </main>
 
-<script>
-// the address is assembled here so it never sits in the markup whole.
-document.querySelectorAll('a.mail').forEach(function (a) {
-  a.href = 'mailto:' + a.getAttribute('data-u') + '@' + a.getAttribute('data-d');
-});
-</script>
+<!-- posthog (cookieless) and the email link, shared with the rest of the site -->
+<script src="/main.js" defer></script>
 </body>
 </html>
