@@ -12,28 +12,20 @@ I make the things I wish existed, then write down what went wrong.
 
 <h3 align="center">What are you here for?</h3>
 
-<table>
-<tr>
-<td width="33%" valign="top">
-<h3><a href="https://chelseahopkins.co.uk/shop/">To buy something</a></h3>
+<p align="center">
+<b><a href="https://chelseahopkins.co.uk/shop/">To buy something →</a></b><br>
 Keyrings, earrings and other small things made from my drawings.
-<br><br>
-<a href="https://chelseahopkins.co.uk/shop/">The shop →</a>
-</td>
-<td width="33%" valign="top">
-<h3><a href="https://chelseahopkins.co.uk/notes/">To read something</a></h3>
+</p>
+
+<p align="center">
+<b><a href="https://chelseahopkins.co.uk/notes/">To read something →</a></b><br>
 Notes on the things I’ve built, and what went wrong.
-<br><br>
-<a href="https://chelseahopkins.co.uk/notes/">Scribblings →</a>
-</td>
-<td width="33%" valign="top">
-<h3><a href="https://chelseahopkins.co.uk/about/">To find out who I am</a></h3>
+</p>
+
+<p align="center">
+<b><a href="https://chelseahopkins.co.uk/about/">To find out who I am →</a></b><br>
 What I do for a living, and how to get hold of me.
-<br><br>
-<a href="https://chelseahopkins.co.uk/about/">Hello →</a>
-</td>
-</tr>
-</table>
+</p>
 
 <p align="center">
 Or try <a href="https://whimsee.co.uk">Whimsee</a>, the app I built that sends you outside.
