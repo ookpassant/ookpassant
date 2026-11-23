@@ -145,6 +145,10 @@ h1 {
 .door-read { --door: var(--blue); }
 .door-meet { --door: var(--red); }
 
+.also { margin: 2.25rem 0 0; text-align: center; color: var(--ink-2); }
+.also a { color: var(--blue); text-decoration-thickness: 2px; text-underline-offset: .2em; }
+.also a:hover { color: var(--red); }
+
 @media (prefers-reduced-motion: reduce) { .doors a { transition: none; } .doors a:hover { transform: none; } }
 @media (max-width: 40rem) { .doors a { min-height: 0; } .ask { margin-top: 2rem; } }
 </style>
@@ -160,6 +164,7 @@ h1 {
     <li><a class="door-read" href="/notes/"><b>to read something</b><span>notes on the things i've built, and what went wrong.</span><i>scribblings →</i></a></li>
     <li><a class="door-meet" href="/about/"><b>to find out who i am</b><span>what i do for a living, and how to get hold of me.</span><i>hello →</i></a></li>
   </ul>
+  <p class="also">or try <a href="https://whimsee.co.uk">whimsee</a>, the app i built that sends you outside.</p>
 </main>
 
 <!-- posthog (cookieless), shared with the rest of the site -->

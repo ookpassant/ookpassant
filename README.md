@@ -35,9 +35,13 @@ What I do for a living, and how to get hold of me.
 </tr>
 </table>
 
+<p align="center">
+Or try <a href="https://whimsee.co.uk">Whimsee</a>, the app I built that sends you outside.
+</p>
+
 I’m Chelsea. I work across communications, creative production and technology, with an illustration degree that keeps finding new uses. I like the moment when an idea stops being hypothetical, especially when it takes a good team to get there.
 
-**I’m available for work.** I’m not looking for a full-time role; I take on projects, contracts and retainers through [Hopkins Action](https://hopkinsaction.com). My [LinkedIn](https://linkedin.com/in/chelsea-hopkins-50822811a) has the outline, and there’s more on my CV than on there, so ask me for it.
+**I’m available for work.** Projects, contracts and retainers through [Hopkins Action](https://hopkinsaction.com) suit me best right now, and I’m open to the right full-time role. My [LinkedIn](https://linkedin.com/in/chelsea-hopkins-50822811a) has the outline, and there’s more on my CV than on there, so ask me for it.
 
 Whimsee started with a question I couldn’t leave alone: could an illustrator make something real with code? It is now in both app stores.
 
