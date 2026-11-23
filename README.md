@@ -1,4 +1,6 @@
-<img src="assets/photos/oki.png" alt="a hand-drawn pack of white ghost-like animals and a grey wolf, layered over green and blue diagonal stripes with red hearts and yellow stars scattered through" width="100%">
+<p align="center">
+<img src="assets/photos/oki.png" alt="a hand-drawn pack of white ghost-like animals and a grey wolf, layered over green and blue diagonal stripes with red hearts and yellow stars scattered through" width="260">
+</p>
 
 <h1 align="center">Chelsea Hopkins</h1>
 
