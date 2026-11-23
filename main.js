@@ -20,7 +20,8 @@
   document.addEventListener('click', function (ev) {
     var a = ev.target.closest && ev.target.closest('a');
     if (!a) return;
-    if (a.matches('.cta a')) posthog.capture('hire_cta_clicked');
+    if (a.classList.contains('item-buy')) posthog.capture('shop_buy_clicked', { item: a.getAttribute('data-item'), how: a.classList.contains('mail') ? 'email' : 'checkout' });
+    else if (a.matches('.cta a')) posthog.capture('hire_cta_clicked');
     else if (a.classList.contains('mail')) posthog.capture('email_clicked', { where: a.closest('section') ? a.closest('section').id : 'page' });
     else if (a.host && a.host !== location.host) posthog.capture('outbound_clicked', { href: a.href, where: a.closest('section') ? a.closest('section').id : 'page' });
   });
@@ -31,7 +32,8 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   document.querySelectorAll('a.mail').forEach(function (a) {
-    a.href = 'mailto:' + a.getAttribute('data-u') + '@' + a.getAttribute('data-d');
+    var subject = a.getAttribute('data-s');
+    a.href = 'mailto:' + a.getAttribute('data-u') + '@' + a.getAttribute('data-d') + (subject ? '?subject=' + encodeURIComponent(subject) : '');
   });
 
   if (!reduce && 'IntersectionObserver' in window) {

@@ -21,6 +21,25 @@
 // sees their plaintext and cannot decrypt them. it only has to be careful not
 // to leak what little it does know: a locked body never reaches the feed, and a
 // hidden note appears in no list, feed, sitemap or llms.txt at all.
+//
+// a shop item is shop/anything.md with front matter:
+//
+//   ---
+//   title: oki keyring
+//   price: 6.50
+//   category: keyrings
+//   image: oki-keyring.jpg      (a file in assets/shop/)
+//   alt: what is in the photo
+//   buy: https://buy.stripe.com/...
+//   ---
+//   a line or two about it.
+//
+// optional: sold: true, order (lower sorts first), draft: true. `buy` is any
+// checkout url (a stripe payment link, an etsy listing); without one the button
+// becomes an email-to-order link. items marked example: true are stand-ins:
+// they show only while there are no real items, on a page that says so and
+// stays out of search engines and the site's own links. shop/_info.md is the
+// small print under the items.
 
 const fs = require('fs');
 const path = require('path');
@@ -135,6 +154,8 @@ function copy(src, dst) {
       // ones would be duplicates; the encrypted ones would be a second copy of
       // the ciphertext sitting at a guessable URL.
       if (path.basename(src) === 'notes' && /\.(md|enc)$/.test(name)) continue;
+      // shop items are rendered into /shop/ below; their sources stay behind too.
+      if (src === path.join(ROOT, 'shop') && /\.md$/.test(name)) continue;
       copy(path.join(src, name), path.join(dst, name));
     }
   } else {
@@ -208,6 +229,85 @@ fs.writeFileSync(path.join(OUT, 'notes', 'index.html'), fill(listTpl, {
   count: String(listed.length),
 }));
 
+// ---------- shop ----------
+
+const shopDir = path.join(ROOT, 'shop');
+const shopFiles = fs.existsSync(shopDir) ? fs.readdirSync(shopDir).filter((f) => f.endsWith('.md')).sort() : [];
+
+const money = (n) => `£${Number.isInteger(n) ? n : n.toFixed(2)}`;
+
+const items = shopFiles.filter((f) => !f.startsWith('_')).map((file) => {
+  const { data, body } = parse(fs.readFileSync(path.join(shopDir, file), 'utf8'));
+  if (bool(data.draft)) return null;
+  const price = Number(String(data.price || '').replace(/^£/, ''));
+  if (!data.title) throw new Error(`shop/${file} needs a title`);
+  if (!(price > 0)) throw new Error(`shop/${file} needs a price, in pounds (price: 6.50)`);
+  if (data.buy && !/^https:\/\//.test(data.buy)) throw new Error(`shop/${file}: buy must be a full https:// link`);
+  if (data.image && !fs.existsSync(path.join(ROOT, 'assets', 'shop', data.image))) {
+    throw new Error(`shop/${file} wants assets/shop/${data.image}, which is not there`);
+  }
+  if (data.image && !data.alt) throw new Error(`shop/${file} has a photo, so it needs alt text (alt: what is in it)`);
+  return {
+    file, price,
+    slug: file.replace(/\.md$/, '').replace(/^\d+-/, ''),
+    title: data.title,
+    category: data.category || 'other things',
+    image: data.image || '',
+    alt: data.alt || '',
+    buy: data.buy || '',
+    sold: bool(data.sold),
+    example: bool(data.example),
+    order: data.order !== undefined ? Number(data.order) : Infinity,
+    html: render(body),
+  };
+}).filter(Boolean).sort((a, b) => (a.order - b.order) || a.file.localeCompare(b.file));
+
+// the stand-ins step aside the moment there is one real thing to sell.
+const realItems = items.filter((i) => !i.example);
+const shopOpen = realItems.length > 0;
+const onSale = shopOpen ? realItems : items;
+
+function buyButton(i) {
+  if (i.sold) return `<span class="item-buy item-buy--off">sold out</span>`;
+  if (!shopOpen) return `<span class="item-buy item-buy--off">not on sale yet</span>`;
+  if (i.buy) return `<a class="item-buy" href="${esc(i.buy)}" data-item="${esc(i.slug)}">buy</a>`;
+  return `<a class="item-buy mail" data-u="hello" data-d="chelseahopkins.co.uk" data-s="${esc(`order: ${i.title}`)}" data-item="${esc(i.slug)}" href="#">email to order</a>`;
+}
+
+const item = (i) =>
+  `<li class="item${i.sold ? ' item--sold' : ''}" id="${esc(i.slug)}">` +
+  (i.image
+    ? `<img class="item-photo" src="/assets/shop/${esc(i.image)}" alt="${esc(i.alt)}" loading="lazy" decoding="async">`
+    : `<div class="item-photo doodle" role="img" aria-label="no photo yet"><span class="doodle-label">photo to come</span></div>`) +
+  `<div class="item-text">` +
+  `<h3 class="item-title">${esc(i.title)}</h3>` +
+  `<p class="item-price">${money(i.price)}</p>` +
+  (i.html.trim() ? `<div class="item-about">${i.html}</div>` : '') +
+  buyButton(i) +
+  `</div></li>`;
+
+const shelves = [];
+for (const i of onSale) {
+  let shelf = shelves.find((s) => s.category === i.category);
+  if (!shelf) shelves.push(shelf = { category: i.category, items: [] });
+  shelf.items.push(i);
+}
+
+const infoPath = path.join(shopDir, '_info.md');
+const shopInfo = fs.existsSync(infoPath) ? render(parse(fs.readFileSync(infoPath, 'utf8')).body) : '';
+
+fs.mkdirSync(path.join(OUT, 'shop'), { recursive: true });
+fs.writeFileSync(path.join(OUT, 'shop', 'index.html'), fill(fs.readFileSync(path.join(ROOT, 'templates', 'shop.html'), 'utf8'), {
+  robots: shopOpen ? 'index,follow' : 'noindex,nofollow',
+  count: shopOpen ? ` · ${onSale.length}` : '',
+  notice: shopOpen || !items.length ? '' : '<p class="shop-notice"><b>not open yet.</b> these are stand-ins to show how the shelves will look. nothing here can be bought.</p>',
+  shelves: onSale.length
+    ? shelves.map((s) => `<section class="group">\n<h2 class="group-head">${esc(s.category)}<span class="group-count">${s.items.length}</span></h2>\n` +
+        `<ul class="items">\n${s.items.map(item).join('\n')}\n</ul>\n</section>`).join('\n')
+    : '<p class="prose">nothing on the shelves yet.</p>',
+  info: shopInfo ? `<section class="shop-info note-body">\n${shopInfo}</section>` : '',
+}));
+
 // ---------- homepage ----------
 
 const indexPath = path.join(OUT, 'index.html');
@@ -218,6 +318,8 @@ index = index.replace(/<!-- notes:start -->[\s\S]*?<!-- notes:end -->/,
       (listed.length > 6 ? `<p class="prose small"><a href="/notes/">all ${listed.length} notes</a></p>` : '') +
       `<!-- notes:end -->`
     : '<!-- notes:start --><p class="prose">nothing written up yet.</p><!-- notes:end -->');
+// the way into the shop appears once there is something real in it.
+index = index.replace(/<!-- shop-link:(.*?) -->/g, (_, link) => (shopOpen ? link : ''));
 fs.writeFileSync(indexPath, index);
 
 // ---------- github profile readme ----------
@@ -241,6 +343,7 @@ const today = new Date().toISOString().slice(0, 10);
 const urls = [
   { loc: `${SITE}/`, lastmod: listed[0] ? listed[0].date : today, freq: 'monthly' },
   ...(listed.length ? [{ loc: `${SITE}/notes/`, lastmod: listed[0].date, freq: 'weekly' }] : []),
+  ...(shopOpen ? [{ loc: `${SITE}/shop/`, lastmod: today, freq: 'weekly' }] : []),
   ...listed.map((n) => ({ loc: SITE + n.url, lastmod: n.date, freq: 'yearly' })),
 ];
 fs.writeFileSync(path.join(OUT, 'sitemap.xml'),
@@ -280,5 +383,6 @@ console.log(
   `built ${all.length} note${all.length === 1 ? '' : 's'} into ${path.relative(ROOT, OUT)}/` +
   (lockedCount ? ` · ${lockedCount} locked` : '') +
   (hidden ? ` · ${hidden} unlisted` : '') +
+  (shopOpen ? ` · ${onSale.length} in the shop` : items.length ? ' · shop shows stand-ins only' : '') +
   (HOLDING ? ' · homepage is the holding page' : ''),
 );

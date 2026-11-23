@@ -833,3 +833,49 @@ dd:last-child { margin-bottom: 0; }
   .note-body pre { padding: .8rem .9rem; font-size: .82em; }
   .note-body code { overflow-wrap: anywhere; }
 }
+
+/* ---------- shop ---------- */
+/* the notes pages are one column of text. the shop is shelves, so it gets the
+   room for three things side by side. */
+
+.shop-main { max-width: calc(68rem + 2 * var(--gutter)); }
+.shop-main > .prose { margin-left: 0; }
+.shop-main .group { margin-top: 3.5rem; }
+
+.shop-notice {
+  max-width: var(--measure); margin: 2rem 0 0; padding: .9rem 1.1rem;
+  border: 2px solid var(--ink); background: var(--yellow); color: #141414;
+  box-shadow: var(--hard);
+}
+
+.items {
+  list-style: none; margin: 1.5rem 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 2.5rem 2rem;
+}
+.item { display: flex; flex-direction: column; min-width: 0; }
+.item-photo {
+  width: 100%; aspect-ratio: 1; object-fit: cover;
+  border: 2px solid var(--ink); background: var(--paper-2); box-shadow: var(--hard);
+}
+.item-text { display: flex; flex-direction: column; flex: 1; align-items: flex-start; padding-top: 1.25rem; }
+.item-title { font-family: var(--display); font-weight: 600; font-size: 1.35rem; line-height: 1.15; letter-spacing: -.01em; margin: 0; }
+.item-price { font-family: var(--mono); font-size: .95rem; margin: .35rem 0 0; }
+.item-about { color: var(--ink-2); margin: .6rem 0 0; text-wrap: pretty; }
+.item-about p { margin: 0; }
+.item-about p + p { margin-top: .5em; }
+.item-buy {
+  display: inline-block; margin-top: auto;
+  font-family: var(--mono); font-size: .74rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--paper); background: var(--ink); border: 2px solid var(--ink);
+  padding: .65rem 1rem; text-decoration: none;
+}
+/* the button sits on the bottom of its card, so a row of buttons lines up
+   whatever the length of the descriptions above them. */
+.item-text > :nth-last-child(2) { margin-bottom: 1.1rem; }
+a.item-buy:hover { background: var(--blue); border-color: var(--blue); color: var(--paper); }
+.item-buy--off { background: none; color: var(--muted); border-style: dashed; border-color: var(--line); }
+.item--sold .item-photo { filter: grayscale(1); opacity: .6; }
+
+.shop-info { max-width: var(--measure); margin-top: 4.5rem; padding-top: 2rem; border-top: 3px solid var(--ink); font-size: 1em; }
+.shop-info > :first-child { margin-top: 0; }
