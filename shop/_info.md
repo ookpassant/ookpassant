@@ -1,6 +1,6 @@
 ## the small print
 
-everything here is drawn, made and packed by me, in small batches. when something's gone, it's gone until i make more.
+everything here is drawn, made and packed by me. most things are one-offs, so what's in the photo is what you get, and when it's gone it's gone.
 
 uk postage is £2, added at checkout.
 

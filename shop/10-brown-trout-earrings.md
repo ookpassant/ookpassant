@@ -10,4 +10,4 @@ a pair of brown trout, drawn by me, on silver-coloured hoops with amber-coloured
 
 the hoops are plated iron and lead-free. i can't promise they're nickel-free, so they may not suit very sensitive ears.
 
-made to order, so give me a few days before they're in the post.
+there's only this pair, and the ones in the photo are the ones you'll get.
