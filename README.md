@@ -10,14 +10,34 @@
 I make the things I wish existed, then write down what went wrong.
 </p>
 
-<p align="center">
-  <a href="https://chelseahopkins.co.uk">chelseahopkins.co.uk</a> ·
-  <a href="https://linkedin.com/in/chelsea-hopkins-50822811a">LinkedIn</a> ·
-  <a href="https://whimsee.co.uk">Whimsee</a> ·
-  <a href="https://heyjackdaw.com">Jackdaw</a>
-</p>
+<h3 align="center">What are you here for?</h3>
+
+<table>
+<tr>
+<td width="33%" valign="top">
+<h3><a href="https://chelseahopkins.co.uk/shop/">To buy something</a></h3>
+Keyrings, earrings and other small things made from my drawings.
+<br><br>
+<a href="https://chelseahopkins.co.uk/shop/">The shop →</a>
+</td>
+<td width="33%" valign="top">
+<h3><a href="https://chelseahopkins.co.uk/notes/">To read something</a></h3>
+Notes on the things I’ve built, and what went wrong.
+<br><br>
+<a href="https://chelseahopkins.co.uk/notes/">Scribblings →</a>
+</td>
+<td width="33%" valign="top">
+<h3><a href="https://chelseahopkins.co.uk/about/">To find out who I am</a></h3>
+What I do for a living, and how to get hold of me.
+<br><br>
+<a href="https://chelseahopkins.co.uk/about/">Hello →</a>
+</td>
+</tr>
+</table>
 
 I’m Chelsea. I work across communications, creative production and technology, with an illustration degree that keeps finding new uses. I like the moment when an idea stops being hypothetical, especially when it takes a good team to get there.
+
+**I’m available for work.** I’m not looking for a full-time role; I take on projects, contracts and retainers through [Hopkins Action](https://hopkinsaction.com). My [LinkedIn](https://linkedin.com/in/chelsea-hopkins-50822811a) has the outline, and there’s more on my CV than on there, so ask me for it.
 
 Whimsee started with a question I couldn’t leave alone: could an illustrator make something real with code? It is now in both app stores.
 
@@ -84,7 +104,7 @@ The technical pieces are not the whole voice. These are the ones I would use if 
 
 ## Work
 
-I work in brand, PR and communications for a global hosting company, and I’ve managed creative teams, developed people and helped cost and deliver event production. Alongside that, I build apps, WordPress and WooCommerce tools that real people use. I’m a Chartered PR practitioner; it’s part of the toolkit, not the whole toolbox.
+I build apps, WordPress and WooCommerce tools that real people use, through [Hopkins Action](https://hopkinsaction.com). Before that I spent a decade in brand, PR and communications, most recently for a global hosting company, where I managed creative teams, developed people and helped cost and deliver event production. I’m a Chartered PR practitioner; it’s part of the toolkit, not the whole toolbox.
 
 The thread through all of it is the same: understand the thing properly, find the people who care about it, and explain it without pretending the difficult parts are simple.
 
