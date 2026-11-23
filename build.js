@@ -398,6 +398,7 @@ const today = new Date().toISOString().slice(0, 10);
 const urls = [
   { loc: `${SITE}/`, lastmod: listed[0] ? listed[0].date : today, freq: 'monthly' },
   ...(listed.length ? [{ loc: `${SITE}/notes/`, lastmod: listed[0].date, freq: 'weekly' }] : []),
+  { loc: `${SITE}/about/`, lastmod: today, freq: 'monthly' },
   ...(shopOpen ? [{ loc: `${SITE}/shop/`, lastmod: today, freq: 'weekly' }] : []),
   ...(shopOpen ? onSale.map((i) => ({ loc: `${SITE}/shop/${i.slug}/`, lastmod: today, freq: 'weekly' })) : []),
   ...listed.map((n) => ({ loc: SITE + n.url, lastmod: n.date, freq: 'yearly' })),
