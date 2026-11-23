@@ -2,7 +2,7 @@
 title: brown trout earrings
 price: 10
 category: earrings
-image: brown-trout-earrings.jpg
+image: brown-trout-earrings.jpg, brown-trout-earrings-2.jpg
 alt: a pair of hoop earrings resting on a pale rock, each with a hand-drawn brown trout charm, two amber-coloured chips and two small pearly beads
 buy: https://buy.stripe.com/14AcN4h2t706cV21V02cg01
 nopost: https://buy.stripe.com/aFa4gy3bD4RY08g57c2cg0i
