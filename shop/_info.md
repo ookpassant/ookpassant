@@ -8,6 +8,6 @@ uk postage is £2, added at checkout. if i'll be seeing you in person, pick "i d
 
 changed your mind? that's fine. tell me within 14 days of it arriving, then post it back within 14 days of telling me. i'll refund what you paid, including the original £2 postage, within 14 days of getting it back. the cost of posting it back is yours, and it needs to come back in the state it arrived in.
 
-earrings are the exception. they're sent in a sealed bag, and for hygiene i can't take them back once the seal is broken.
+earrings are the exception. i disinfect them and seal them in a bag before they go in the post, and for hygiene i can't take them back once the seal is broken.
 
 if it turns up wrong or broken, <a class="mail" data-u="hello" data-d="chelseahopkins.co.uk" href="#">email me</a> and i'll put it right: a refund or a repair, and i'll cover the postage.
