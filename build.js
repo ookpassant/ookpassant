@@ -34,7 +34,9 @@
 //   ---
 //   a line or two about it.
 //
-// optional: sold: true, order (lower sorts first), draft: true. `buy` is any
+// optional: sold: true, order (lower sorts first), draft: true. `image` can be
+// several files separated by commas; the first is the one on the shelf. each
+// item gets its own page at /shop/<filename without the number>/. `buy` is any
 // checkout url (a stripe payment link, an etsy listing); without one the button
 // becomes an email-to-order link. items marked example: true are stand-ins:
 // they show only while there are no real items, on a page that says so and
@@ -243,24 +245,34 @@ const items = shopFiles.filter((f) => !f.startsWith('_')).map((file) => {
   if (!data.title) throw new Error(`shop/${file} needs a title`);
   if (!(price > 0)) throw new Error(`shop/${file} needs a price, in pounds (price: 6.50)`);
   if (data.buy && !/^https:\/\//.test(data.buy)) throw new Error(`shop/${file}: buy must be a full https:// link`);
-  if (data.image && !fs.existsSync(path.join(ROOT, 'assets', 'shop', data.image))) {
-    throw new Error(`shop/${file} wants assets/shop/${data.image}, which is not there`);
+  const images = String(data.image || '').split(',').map((f) => f.trim()).filter(Boolean);
+  for (const f of images) {
+    if (!fs.existsSync(path.join(ROOT, 'assets', 'shop', f))) throw new Error(`shop/${file} wants assets/shop/${f}, which is not there`);
   }
-  if (data.image && !data.alt) throw new Error(`shop/${file} has a photo, so it needs alt text (alt: what is in it)`);
+  if (images.length && !data.alt) throw new Error(`shop/${file} has a photo, so it needs alt text (alt: what is in it)`);
   return {
     file, price,
     slug: file.replace(/\.md$/, '').replace(/^\d+-/, ''),
     title: data.title,
     category: data.category || 'other things',
-    image: data.image || '',
+    images,
     alt: data.alt || '',
+    summary: body.trim().split(/\n\s*\n/)[0].replace(/\s+/g, ' '),
     buy: data.buy || '',
     sold: bool(data.sold),
     example: bool(data.example),
     order: data.order !== undefined ? Number(data.order) : Infinity,
     html: render(body),
   };
-}).filter(Boolean).sort((a, b) => (a.order - b.order) || a.file.localeCompare(b.file));
+}).filter(Boolean)
+  // sold things sink to the end of their shelf, so what can be bought leads.
+  .sort((a, b) => (a.sold - b.sold) || (a.order - b.order) || a.file.localeCompare(b.file));
+
+const itemSlugs = new Set();
+for (const i of items) {
+  if (itemSlugs.has(i.slug)) throw new Error(`two shop items both want /shop/${i.slug}/ — rename one of the files`);
+  itemSlugs.add(i.slug);
+}
 
 // the stand-ins step aside the moment there is one real thing to sell.
 const realItems = items.filter((i) => !i.example);
@@ -268,23 +280,24 @@ const shopOpen = realItems.length > 0;
 const onSale = shopOpen ? realItems : items;
 
 function buyButton(i) {
-  if (i.sold) return `<span class="item-buy item-buy--off">sold out</span>`;
+  if (i.sold) return `<span class="item-buy item-buy--off">sold</span>`;
   if (!shopOpen) return `<span class="item-buy item-buy--off">not on sale yet</span>`;
-  if (i.buy) return `<a class="item-buy" href="${esc(i.buy)}" data-item="${esc(i.slug)}">buy</a>`;
+  if (i.buy) return `<a class="item-buy" href="${esc(i.buy)}" data-item="${esc(i.slug)}">buy · ${money(i.price)}</a>`;
   return `<a class="item-buy mail" data-u="hello" data-d="chelseahopkins.co.uk" data-s="${esc(`order: ${i.title}`)}" data-item="${esc(i.slug)}" href="#">email to order</a>`;
 }
 
+const photo = (i, file, lazy) => (file
+  ? `<img class="item-photo" src="/assets/shop/${esc(file)}" alt="${esc(i.alt)}" width="800" height="800"${lazy ? ' loading="lazy"' : ''} decoding="async">`
+  : `<div class="item-photo doodle" role="img" aria-label="no photo yet"><span class="doodle-label">photo to come</span></div>`);
+
+// the shelf shows a photo, a name and a price, two to a row on a phone. the
+// words and the button live on the item's own page.
 const item = (i) =>
-  `<li class="item${i.sold ? ' item--sold' : ''}" id="${esc(i.slug)}">` +
-  (i.image
-    ? `<img class="item-photo" src="/assets/shop/${esc(i.image)}" alt="${esc(i.alt)}" loading="lazy" decoding="async">`
-    : `<div class="item-photo doodle" role="img" aria-label="no photo yet"><span class="doodle-label">photo to come</span></div>`) +
-  `<div class="item-text">` +
-  `<h3 class="item-title">${esc(i.title)}</h3>` +
-  `<p class="item-price">${money(i.price)}</p>` +
-  (i.html.trim() ? `<div class="item-about">${i.html}</div>` : '') +
-  buyButton(i) +
-  `</div></li>`;
+  `<li class="item${i.sold ? ' item--sold' : ''}"><a href="/shop/${esc(i.slug)}/">` +
+  `<span class="item-frame">${photo(i, i.images[0], true)}${i.sold ? '<span class="item-flag">sold</span>' : ''}</span>` +
+  `<span class="item-title">${esc(i.title)}</span>` +
+  `<span class="item-price">${money(i.price)}</span>` +
+  `</a></li>`;
 
 const shelves = [];
 for (const i of onSale) {
@@ -293,20 +306,62 @@ for (const i of onSale) {
   shelf.items.push(i);
 }
 
+// the catch-all shelf goes last, whatever was listed first.
+shelves.sort((a, b) => (a.category === 'other things') - (b.category === 'other things'));
+
 const infoPath = path.join(shopDir, '_info.md');
 const shopInfo = fs.existsSync(infoPath) ? render(parse(fs.readFileSync(infoPath, 'utf8')).body) : '';
 
+const shelfId = (category) => category.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const shopRobots = shopOpen ? 'index,follow' : 'noindex,nofollow';
+const shopNotice = shopOpen || !items.length ? '' : '<p class="shop-notice"><b>not open yet.</b> these are stand-ins to show how the shelves will look. nothing here can be bought.</p>';
+
 fs.mkdirSync(path.join(OUT, 'shop'), { recursive: true });
 fs.writeFileSync(path.join(OUT, 'shop', 'index.html'), fill(fs.readFileSync(path.join(ROOT, 'templates', 'shop.html'), 'utf8'), {
-  robots: shopOpen ? 'index,follow' : 'noindex,nofollow',
+  robots: shopRobots,
   count: shopOpen ? ` · ${onSale.length}` : '',
-  notice: shopOpen || !items.length ? '' : '<p class="shop-notice"><b>not open yet.</b> these are stand-ins to show how the shelves will look. nothing here can be bought.</p>',
+  notice: shopNotice,
+  // with one shelf there is nowhere to jump to.
+  nav: shelves.length > 1
+    ? `<nav class="shelf-nav" aria-label="shelves">${shelves.map((s) => `<a href="#${shelfId(s.category)}">${esc(s.category)}</a>`).join('')}</nav>`
+    : '',
   shelves: onSale.length
-    ? shelves.map((s) => `<section class="group">\n<h2 class="group-head">${esc(s.category)}<span class="group-count">${s.items.length}</span></h2>\n` +
+    ? shelves.map((s) => `<section class="group" id="${shelfId(s.category)}">\n<h2 class="group-head">${esc(s.category)}<span class="group-count">${s.items.length}</span></h2>\n` +
         `<ul class="items">\n${s.items.map(item).join('\n')}\n</ul>\n</section>`).join('\n')
     : '<p class="prose">nothing on the shelves yet.</p>',
   info: shopInfo ? `<section class="shop-info note-body">\n${shopInfo}</section>` : '',
 }));
+
+const itemTpl = fs.readFileSync(path.join(ROOT, 'templates', 'shop-item.html'), 'utf8');
+for (const i of onSale) {
+  const url = `${SITE}/shop/${i.slug}/`;
+  const image = i.images[0] ? `${SITE}/assets/shop/${i.images[0]}` : '';
+  const dir = path.join(OUT, 'shop', i.slug);
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(path.join(dir, 'index.html'), fill(itemTpl, {
+    title: esc(i.title),
+    summary: esc(i.summary),
+    robots: shopRobots,
+    url,
+    ogimage: image ? `<meta property="og:image" content="${esc(image)}">\n<meta name="twitter:card" content="summary_large_image">` : '',
+    jsonld: JSON.stringify({
+      '@context': 'https://schema.org', '@type': 'Product', name: i.title, description: i.summary, url,
+      ...(image ? { image } : {}),
+      offers: {
+        '@type': 'Offer', price: i.price.toFixed(2), priceCurrency: 'GBP', url,
+        availability: `https://schema.org/${i.sold ? 'SoldOut' : 'InStock'}`,
+      },
+    }).replace(/</g, '\\u003c'),
+    category: esc(i.category),
+    shelf: shelves.length > 1 ? `#${shelfId(i.category)}` : '',
+    notice: shopNotice,
+    photos: i.images.length ? i.images.map((f, n) => photo(i, f, n > 0)).join('\n') : photo(i, '', false),
+    price: money(i.price),
+    about: i.html,
+    buy: buyButton(i),
+    sold: i.sold ? ' item-page--sold' : '',
+  }));
+}
 
 // ---------- homepage ----------
 
@@ -344,6 +399,7 @@ const urls = [
   { loc: `${SITE}/`, lastmod: listed[0] ? listed[0].date : today, freq: 'monthly' },
   ...(listed.length ? [{ loc: `${SITE}/notes/`, lastmod: listed[0].date, freq: 'weekly' }] : []),
   ...(shopOpen ? [{ loc: `${SITE}/shop/`, lastmod: today, freq: 'weekly' }] : []),
+  ...(shopOpen ? onSale.map((i) => ({ loc: `${SITE}/shop/${i.slug}/`, lastmod: today, freq: 'weekly' })) : []),
   ...listed.map((n) => ({ loc: SITE + n.url, lastmod: n.date, freq: 'yearly' })),
 ];
 fs.writeFileSync(path.join(OUT, 'sitemap.xml'),

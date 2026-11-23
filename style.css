@@ -836,11 +836,12 @@ dd:last-child { margin-bottom: 0; }
 
 /* ---------- shop ---------- */
 /* the notes pages are one column of text. the shop is shelves, so it gets the
-   room for three things side by side. */
+   room for four things side by side, and never fewer than two: on a phone one
+   item to a row is a very long scroll past very large photos. */
 
 .shop-main { max-width: calc(68rem + 2 * var(--gutter)); }
 .shop-main > .prose { margin-left: 0; }
-.shop-main .group { margin-top: 3.5rem; }
+.shop-main .group { margin-top: 3rem; scroll-margin-top: 4.5rem; }
 
 .shop-notice {
   max-width: var(--measure); margin: 2rem 0 0; padding: .9rem 1.1rem;
@@ -848,34 +849,95 @@ dd:last-child { margin-bottom: 0; }
   box-shadow: var(--hard);
 }
 
+/* the shelf names ride along at the top of the screen, so the earrings are one
+   tap away from the bottom of the keyrings. */
+.shelf-nav {
+  position: sticky; top: 0; z-index: 3;
+  display: flex; gap: .5rem; overflow-x: auto; scrollbar-width: none;
+  margin: 2rem calc(var(--gutter) * -1) 0; padding: .7rem var(--gutter);
+  background: var(--paper); border-bottom: 2px solid var(--ink);
+}
+.shelf-nav::-webkit-scrollbar { display: none; }
+.shelf-nav a {
+  flex: none; font-family: var(--mono); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink); text-decoration: none; border: 2px solid var(--ink);
+  padding: .7rem .9rem; border-radius: 30px 10px 24px 8px / 10px 24px 8px 22px;
+}
+.shelf-nav a:hover { background: var(--ink); color: var(--paper); }
+
 .items {
   list-style: none; margin: 1.5rem 0 0; padding: 0;
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-  gap: 2.5rem 2rem;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(13.5rem, 1fr));
+  gap: 2.25rem 1.75rem;
 }
-.item { display: flex; flex-direction: column; min-width: 0; }
+.item { min-width: 0; }
+.item > a { display: block; text-decoration: none; color: var(--ink); }
+.item-frame { display: block; position: relative; }
 .item-photo {
-  width: 100%; aspect-ratio: 1; object-fit: cover;
+  display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover;
   border: 2px solid var(--ink); background: var(--paper-2); box-shadow: var(--hard);
 }
-.item-text { display: flex; flex-direction: column; flex: 1; align-items: flex-start; padding-top: 1.25rem; }
-.item-title { font-family: var(--display); font-weight: 600; font-size: 1.35rem; line-height: 1.15; letter-spacing: -.01em; margin: 0; }
-.item-price { font-family: var(--mono); font-size: .95rem; margin: .35rem 0 0; }
-.item-about { color: var(--ink-2); margin: .6rem 0 0; text-wrap: pretty; }
-.item-about p { margin: 0; }
-.item-about p + p { margin-top: .5em; }
-.item-buy {
-  display: inline-block; margin-top: auto;
-  font-family: var(--mono); font-size: .74rem; letter-spacing: .12em; text-transform: uppercase;
-  color: var(--paper); background: var(--ink); border: 2px solid var(--ink);
-  padding: .65rem 1rem; text-decoration: none;
+.item > a .item-photo { transition: transform .2s var(--ease), box-shadow .2s var(--ease); }
+.item > a:hover .item-photo { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--ink); }
+.item-photo.doodle { display: grid; }
+.item-photo .doodle-label { font-size: .8rem; }
+.item-title {
+  display: block; margin-top: 1rem;
+  font-family: var(--display); font-weight: 600; font-size: 1.15rem; line-height: 1.15; letter-spacing: -.01em;
 }
-/* the button sits on the bottom of its card, so a row of buttons lines up
-   whatever the length of the descriptions above them. */
-.item-text > :nth-last-child(2) { margin-bottom: 1.1rem; }
+.item > a:hover .item-title { color: var(--blue); }
+.item-price { display: block; font-family: var(--mono); font-size: .9rem; margin-top: .3rem; color: var(--ink-2); }
+.item-flag {
+  position: absolute; left: .6rem; top: .6rem;
+  font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase;
+  background: var(--ink); color: var(--paper); padding: .25rem .5rem;
+}
+.item--sold .item-photo { filter: grayscale(1); opacity: .55; }
+.item--sold .item-price { text-decoration: line-through; }
+
+.item-buy {
+  display: inline-block;
+  font-family: var(--mono); font-size: .8rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--paper); background: var(--ink); border: 2px solid var(--ink);
+  padding: .9rem 1.4rem; text-decoration: none; text-align: center;
+}
 a.item-buy:hover { background: var(--blue); border-color: var(--blue); color: var(--paper); }
 .item-buy--off { background: none; color: var(--muted); border-style: dashed; border-color: var(--line); }
-.item--sold .item-photo { filter: grayscale(1); opacity: .6; }
 
 .shop-info { max-width: var(--measure); margin-top: 4.5rem; padding-top: 2rem; border-top: 3px solid var(--ink); font-size: 1em; }
 .shop-info > :first-child { margin-top: 0; }
+
+/* one item, on its own page: photos on the left, the words and the button on
+   the right, and the right-hand side stays put while the photos scroll. */
+.item-page { display: grid; gap: 2rem 3.5rem; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: start; }
+.item-page-photos { display: grid; gap: 1.5rem; padding-right: 5px; }
+.item-page-text { position: sticky; top: 2rem; }
+.item-page-text h1 { font-size: clamp(2rem, 4.5vw, 3.2rem); margin-bottom: .75rem; }
+.item-page-price { font-family: var(--mono); font-size: 1.3rem; margin: 0 0 1.5rem; }
+.item-page-price small { display: block; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-top: .35rem; }
+.item-page--sold .item-page-price span { text-decoration: line-through; }
+.item-page-text .note-body { font-size: 1em; margin-bottom: 2rem; }
+.item-page-more { margin: 2rem 0 0; }
+
+@media (max-width: 48rem) {
+  .item-page { grid-template-columns: 1fr; }
+  .item-page-text { position: static; }
+  /* several photos become a row to swipe through, so the price and the button
+     are not a long scroll below them. */
+  .item-page-photos { display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px; }
+  .item-page-photos .item-photo { flex: none; width: 100%; scroll-snap-align: start; }
+  .item-page-photos .item-photo:not(:only-child) { width: 86%; }
+  /* a thumb-sized button the width of the screen. */
+  .item-page-text .item-buy { display: block; padding: 1.1rem; font-size: .85rem; }
+}
+
+@media (max-width: 40rem) {
+  .shop-main { padding-top: 2.5rem; }
+  .items { grid-template-columns: 1fr 1fr; gap: 1.75rem 1rem; }
+  .item-photo { box-shadow: 3px 3px 0 var(--ink); }
+  .item > a:hover .item-photo { transform: none; box-shadow: 3px 3px 0 var(--ink); }
+  .item-title { font-size: 1rem; margin-top: .75rem; }
+  .item-price { font-size: .82rem; }
+  .item-photo .doodle-label { font-size: .62rem; padding: .5em .7em; box-shadow: 3px 3px 0 var(--yellow); }
+  .item-page-photos { padding-right: 3px; }
+}
