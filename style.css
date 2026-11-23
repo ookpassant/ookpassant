@@ -875,6 +875,9 @@ dd:last-child { margin-bottom: 0; }
 .item-frame { display: block; position: relative; }
 .item-photo {
   display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover;
+  /* the photos are portrait with the thing hanging below the middle, so the
+     square is taken from a little lower than centre. */
+  object-position: 50% 65%;
   border: 2px solid var(--ink); background: var(--paper-2); box-shadow: var(--hard);
 }
 .item > a .item-photo { transition: transform .2s var(--ease), box-shadow .2s var(--ease); }
