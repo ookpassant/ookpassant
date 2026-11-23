@@ -20,7 +20,7 @@
   document.addEventListener('click', function (ev) {
     var a = ev.target.closest && ev.target.closest('a');
     if (!a) return;
-    if (a.classList.contains('item-buy')) posthog.capture('shop_buy_clicked', { item: a.getAttribute('data-item'), how: a.classList.contains('mail') ? 'email' : 'checkout' });
+    if (a.classList.contains('item-buy')) posthog.capture('shop_buy_clicked', { item: a.getAttribute('data-item'), how: a.classList.contains('mail') ? 'email' : (a.getAttribute('data-how') || 'checkout') });
     else if (a.closest('.doors')) posthog.capture('door_clicked', { door: a.getAttribute('href') });
     else if (a.matches('.cta a')) posthog.capture('hire_cta_clicked');
     else if (a.classList.contains('mail')) posthog.capture('email_clicked', { where: a.closest('section') ? a.closest('section').id : 'page' });

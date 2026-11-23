@@ -5,6 +5,7 @@ category: charms
 image: jumping-fox-charm.jpg
 alt: a hand-drawn charm of a fox mid-jump, hanging from a piece of antler on a gold cord
 buy: https://buy.stripe.com/3cIdR89A1ckq8EMdDI2cg04
+nopost: https://buy.stripe.com/bJe6oG27z7069IQdDI2cg0l
 ---
 a fox mid-jump, drawn by me. it hangs on a gold cord.
 

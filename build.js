@@ -36,7 +36,9 @@
 //
 // optional: sold: true, order (lower sorts first), draft: true. `image` can be
 // several files separated by commas; the first is the one on the shelf. each
-// item gets its own page at /shop/<filename without the number>/. `buy` is any
+// item gets its own page at /shop/<filename without the number>/. `nopost` is
+// a second checkout url for the same item without postage, for someone who
+// will be handed it in person; it shows as a second button. `buy` is any
 // checkout url (a stripe payment link, an etsy listing); without one the button
 // becomes an email-to-order link. items marked example: true are stand-ins:
 // they show only while there are no real items, on a page that says so and
@@ -244,7 +246,9 @@ const items = shopFiles.filter((f) => !f.startsWith('_')).map((file) => {
   const price = Number(String(data.price || '').replace(/^£/, ''));
   if (!data.title) throw new Error(`shop/${file} needs a title`);
   if (!(price > 0)) throw new Error(`shop/${file} needs a price, in pounds (price: 6.50)`);
-  if (data.buy && !/^https:\/\//.test(data.buy)) throw new Error(`shop/${file}: buy must be a full https:// link`);
+  for (const key of ['buy', 'nopost']) {
+    if (data[key] && !/^https:\/\//.test(data[key])) throw new Error(`shop/${file}: ${key} must be a full https:// link`);
+  }
   const images = String(data.image || '').split(',').map((f) => f.trim()).filter(Boolean);
   for (const f of images) {
     if (!fs.existsSync(path.join(ROOT, 'assets', 'shop', f))) throw new Error(`shop/${file} wants assets/shop/${f}, which is not there`);
@@ -259,6 +263,7 @@ const items = shopFiles.filter((f) => !f.startsWith('_')).map((file) => {
     alt: data.alt || '',
     summary: body.trim().split(/\n\s*\n/)[0].replace(/\s+/g, ' '),
     buy: data.buy || '',
+    nopost: data.nopost || '',
     sold: bool(data.sold),
     example: bool(data.example),
     order: data.order !== undefined ? Number(data.order) : Infinity,
@@ -282,7 +287,13 @@ const onSale = shopOpen ? realItems : items;
 function buyButton(i) {
   if (i.sold) return `<span class="item-buy item-buy--off">sold</span>`;
   if (!shopOpen) return `<span class="item-buy item-buy--off">not on sale yet</span>`;
-  if (i.buy) return `<a class="item-buy" href="${esc(i.buy)}" data-item="${esc(i.slug)}">buy · ${money(i.price)}</a>`;
+  if (i.buy) {
+    return `<a class="item-buy" href="${esc(i.buy)}" data-item="${esc(i.slug)}">buy · ${money(i.price)} + £2 postage</a>` +
+      (i.nopost
+        ? `<a class="item-buy item-buy--second" href="${esc(i.nopost)}" data-item="${esc(i.slug)}" data-how="no-postage">i don't need postage · ${money(i.price)}</a>` +
+          `<p class="item-buy-note">no postage is for when i'll be handing it to you. i'll email you to sort it out.</p>`
+        : '');
+  }
   return `<a class="item-buy mail" data-u="hello" data-d="chelseahopkins.co.uk" data-s="${esc(`order: ${i.title}`)}" data-item="${esc(i.slug)}" href="#">email to order</a>`;
 }
 

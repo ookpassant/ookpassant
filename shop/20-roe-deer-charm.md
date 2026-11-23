@@ -5,6 +5,7 @@ category: charms
 image: roe-deer-charm.jpg
 alt: a hand-drawn charm of a leaping roe deer among green leaves, hanging from a piece of antler on an orange cord, with a strand of yellow and clear beads ending in a white bell flower
 buy: https://buy.stripe.com/3cI5kC8vX2JQf3a57c2cg02
+nopost: https://buy.stripe.com/00w7sK3bDdoudZ62Z42cg0j
 ---
 a leaping roe deer among falling leaves, drawn by me. it hangs on an orange cord with a strand of yellow and clear beads that ends in a white bell flower.
 

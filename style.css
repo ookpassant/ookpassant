@@ -905,6 +905,9 @@ dd:last-child { margin-bottom: 0; }
   padding: .9rem 1.4rem; text-decoration: none; text-align: center;
 }
 a.item-buy:hover { background: var(--blue); border-color: var(--blue); color: var(--paper); }
+.item-buy--second { background: none; color: var(--ink); margin-top: .75rem; }
+.item-page-text .item-buy { display: block; max-width: 24rem; }
+.item-buy-note { font-size: .9em; color: var(--muted); margin: .75rem 0 0; max-width: 24rem; }
 .item-buy--off { background: none; color: var(--muted); border-style: dashed; border-color: var(--line); }
 
 .shop-info { max-width: var(--measure); margin-top: 4.5rem; padding-top: 2rem; border-top: 3px solid var(--ink); font-size: 1em; }

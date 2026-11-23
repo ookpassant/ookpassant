@@ -5,6 +5,7 @@ category: charms
 image: grayling-charm.jpg
 alt: a hand-drawn charm of a grey fish with a tall pink-red dorsal fin, hanging from a piece of antler on a blue cord
 buy: https://buy.stripe.com/28EbJ027z0BI7AI9ns2cg06
+nopost: https://buy.stripe.com/28E4gycMd3NU5sA1V02cg0n
 ---
 a grayling with its big red dorsal fin, drawn by me. it hangs on a blue cord.
 
